@@ -6,28 +6,28 @@ using System.Web;
 
 namespace SignalRChat.Model
 {
-    public class Room
+  public class Room
+  {
+    public int Id;
+    public string Name { get; }
+    public bool isActive;
+    private List<UserDto> Users { get; }
+
+    public Room(int id, string name)
     {
-        public int Id;
-        public string Name { get; }
-        public bool isActive;
-        private List<UserDto> Users { get; }
-
-        public Room(int id, string name)
-        {
-            Id = id;
-            Name = name;
-            isActive = false;
-            Users = new List<UserDto>();
-        }
-
-        public List<UserDto> GetAllUsers()
-        {
-            return Users;
-        }
-        public void AddUser(UserDto user)
-        {
-            Users.Add(user);
-        }
+      Id = id;
+      Name = name;
+      isActive = false;
+      Users = new List<UserDto>();
     }
+
+    public List<UserDto> GetAllUsers()
+    {
+      return Users;
+    }
+    public void AddUser(UserDto user)
+    {
+      Users.Add(user);
+    }
+  }
 }
