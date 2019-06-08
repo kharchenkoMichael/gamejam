@@ -1,32 +1,26 @@
-﻿namespace SignalRChat.Model
+﻿using System.Collections.Generic;
+
+namespace SignalRChat.Model
 {
-  public class User
-  {
-    public string Name { get;}
-
-    public float PositionX { get; set; }
-    public float PositionY { get; set; }
-    public float PositionZ { get; set; }
-    
-    
-    public float RotationX { get; set; }
-    public float RotationY { get; set; }
-    public float RotationZ { get; set; }
-
-    public User(string name)
+    public class User
     {
-      Name = name;
-    }
+        public string Name { get; }
+        public int Hp { get; set; }
+        public Position Position { get; set; }
+        public List<Magic> Magic { get; set; }
+        public int RoomName { get; }
+        //public bool isDead { get; set; }
 
-    public void Clone(User user)
-    {
-      PositionX = user.PositionX;
-      PositionY = user.PositionY;
-      PositionZ = user.PositionZ;
+        public User(string name, Position position, int roomNumber)
+        {
+            Name = name;
+            Position = position;
+            RoomName = roomNumber;
+        }
 
-      RotationX = user.RotationX;
-      RotationY = user.PositionY;
-      RotationZ = user.RotationZ;
+        public void Clone(User user)
+        {
+            this.Position = user.Position;
+        }
     }
-  }
 }
