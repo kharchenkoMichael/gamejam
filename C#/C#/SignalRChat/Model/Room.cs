@@ -8,12 +8,14 @@ namespace SignalRChat.Model
 {
     public class Room
     {
+        public int Id;
         public string Name { get; }
         public bool isActive;
         private List<UserDto> Users { get; }
 
-        public Room(string name)
+        public Room(int id, string name)
         {
+            Id = id;
             Name = name;
             isActive = false;
             Users = new List<UserDto>();

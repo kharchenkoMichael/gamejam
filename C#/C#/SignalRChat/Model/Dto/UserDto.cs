@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SignalRChat.Model.MagicFolders;
 
 namespace SignalRChat.Model.Dto
 {
@@ -6,6 +7,8 @@ namespace SignalRChat.Model.Dto
     {
         public string Name { get; }
         public int Hp { get; set; }
+        public int Mana { get; set; }
+        public int Speed { get; set; }
         public Position Position { get; set; }
         public List<Magic> Magic { get; set; }
         public int RoomName { get; }
@@ -16,6 +19,7 @@ namespace SignalRChat.Model.Dto
             Name = name;
             Position = position;
             RoomName = roomNumber;
+            //set default hp and mana and speed
         }
 
         public void Clone(UserDto user)
