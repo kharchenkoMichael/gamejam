@@ -41,6 +41,14 @@ namespace SignalRChat
       {
         AvatarId = avatarId
       };
+
+      if (GameContext.Instance.Rooms.ContainsKey(roomId))
+      {
+        var room = GameContext.Instance.Rooms[roomId];
+        room.Users.Add(user.Name);
+      }
+      //todo: if key was not found
+      
       GameContext.Instance.Users.Add(user);
 
       GameBroadcast.Instance.UpdateUser();
