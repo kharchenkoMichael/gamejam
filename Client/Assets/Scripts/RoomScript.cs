@@ -26,6 +26,6 @@ public class RoomScript : MonoBehaviour
 		if (string.IsNullOrEmpty(_startForm.Name.text))
 			return;
 		
-		_signalR.ConnectToRoom(_roomId, _startForm.Name.text);
+		_signalR.JoinToRoom(_roomId, _startForm.Name.text, _startForm.CurAvatar);
 	}
 }

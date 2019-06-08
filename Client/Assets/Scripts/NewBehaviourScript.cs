@@ -147,11 +147,11 @@ public class NewBehaviourScript : MonoBehaviour
 		Debug.Log("CreateRoom;\n");
 	}
 	
-	public void ConnectToRoom(int roomId, string myName)
+	public void JoinToRoom(int roomId, string myName, int avatarId)
 	{
 		_name = myName;
-		_hubProxy.Invoke("create", myName, roomId);
-		
+		_hubProxy.Invoke("joinToRoom", myName, avatarId, roomId);
+		OpenForm(Form.RoomForm);
 		Debug.Log("ConnectToRoom;\n");
 	}
 	

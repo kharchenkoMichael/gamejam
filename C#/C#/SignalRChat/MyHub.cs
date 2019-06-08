@@ -15,12 +15,16 @@ namespace SignalRChat
     public void CreateRoom(string name, int avatarId)
     {
       var firstFreeRoom = GameContext.Instance.Rooms.Where(r => !r.Value.isActive).FirstOrDefault().Value;
-      firstFreeRoom.isActive = true;
+     
       var userId = Context.ConnectionId;
       var user = new UserDto(userId, name, new Position(0, 0, 0), firstFreeRoom.Id)
       {
         AvatarId = avatarId        
       };
+      
+      firstFreeRoom.isActive = true;
+      firstFreeRoom.Users.Add(user);
+      
       GameContext.Instance.Users.Add(user);
       // Call the broadcastMessage method to update clients.
       GameBroadcast.Instance.UpdateUser();

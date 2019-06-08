@@ -6,7 +6,7 @@ public class StartFormScript : MonoBehaviour
 	public NewBehaviourScript SignalR;
 	public Text Name;
 	public Image Avatar;
-	private int _curAvatar;
+	public int CurAvatar;
 
 	// Use this for initialization
 	void Start()
@@ -25,6 +25,6 @@ public class StartFormScript : MonoBehaviour
 		if (string.IsNullOrEmpty(Name.text))
 			return;
 		
-		SignalR.CreateRoom(_curAvatar, Name.text);
+		SignalR.CreateRoom(CurAvatar, Name.text);
 	}
 }

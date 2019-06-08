@@ -1,6 +1,6 @@
-Android
+WindowsStandalone
 PlayerPath?
-C:/Users/m.kharchenko/Desktop/Client/fifth.apk
+C:/Users/m.kharchenko/Desktop/second.exe
 SceneListBegin?
 Assets/main.unity
 SceneListEnd?
@@ -115,7 +115,7 @@ bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.Audi
 463516d5b5fe8e67a0a24c48f2095b04 UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInputModule
 c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingCollider
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
-b74d7d7e72c6d1603799661abc69d8d3 Assembly-CSharp.dll:.NewBehaviourScript
+6665da1e342c19efa5573425d8df43b8 Assembly-CSharp.dll:.NewBehaviourScript
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Advertisements.dll:UnityEngine.Advertisements.CallbackExecutor
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Advertisements.dll:UnityEngine.Advertisements.Editor.Placeholder
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
@@ -149,3 +149,9 @@ bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.Audi
 c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingCollider
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
+8061887705c25d3e277028b328e2fbc2 Assembly-CSharp.dll:.MoveSliderScript
+2b2407f1249e36f7bc0e6ffef0d875d2 Assembly-CSharp.dll:.StartFormScript
+781c47024cd8d7634ff44d02458630e1 Assembly-CSharp.dll:.RoomScript
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.RoomFormScript
+21ab65b8d1d726ec0ed3cef58ab55900 Assembly-CSharp.dll:Assets.Scripts.MagicScript
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.MagicContainerScript
