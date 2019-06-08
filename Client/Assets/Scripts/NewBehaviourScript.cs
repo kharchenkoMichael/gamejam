@@ -61,11 +61,13 @@ public class NewBehaviourScript : MonoBehaviour
 		Debug.Log("Start() 1 second.");
 		StartSignalR();
 		OpenForm(Form.StartForm);
-    //InitializeMagic();
+    InitializeMagic();
   }
   private void InitializeMagic()
   {
-    var elements = MagicContainer.GetComponent<MagicContainerScript>().Elements;
+    var magic =  MagicContainer.GetComponent<MagicContainerScript>();
+	  magic.InitializeMagic();
+	  var elements = magic.Elements;
     foreach (var element in elements)
     {
       element.Value.GetComponent<MagicScript>().ActionDelegate += ChooseMagic;
@@ -201,7 +203,8 @@ public class NewBehaviourScript : MonoBehaviour
 			var prefab = _users.FirstOrDefault(item => item.GetComponent<CapsulScript>().Name == user.Name);
 			if (prefab == null)
 			{
-				var obj = Instantiate(Capsule, new Vector3(user.Position.PositionX, user.Position.PositionY, user.Position.PositionZ),Quaternion.identity);
+				var obj = Instantiate(Capsule,
+					new Vector3(user.Position.PositionX, user.Position.PositionY, user.Position.PositionZ), Quaternion.identity);
 				var script = obj.GetComponent<CapsulScript>();
 				script.SignalR = this;
 				script.SetName(user.Name);
@@ -209,21 +212,19 @@ public class NewBehaviourScript : MonoBehaviour
 				continue;
 			}
 
-      if (_magicUpdated)
-      {
-        var elements = MagicContainer.GetComponent<MagicContainerScript>().Elements;
-        foreach (var magicId in user.Magic)
-        {
-          elements[magicId].SetActive(false);
-        }
-      }
+			var elements = MagicContainer.GetComponent<MagicContainerScript>().Elements;
+			foreach (var magicId in user.Magic)
+			{
+				elements[magicId].SetActive(false);
+			}
+
 
 			if (user.Name == _name)
 				continue;
 
 			prefab.transform.position = new Vector3(user.Position.PositionX, user.Position.PositionY, user.Position.PositionZ);
 		}
-		
+
 		_refreshUser = false;
     _magicUpdated = false;
 	}
@@ -248,12 +249,23 @@ public class NewBehaviourScript : MonoBehaviour
 		_refreshRoom = false;
 	}
 
-  private void ChooseMagic(int Id)
-  {
-    var user = GameContext.Instance.Users.Find(item => item.Name == _name);
-    user.Magic.Add(Id);
-    _magicUpdated = true;
-    _hubProxy.Invoke("update", user);
-    Debug.Log("ChooseMagic;\n");
-  }
+	private void ChooseMagic(int Id)
+	{
+		var user = GameContext.Instance.Users.Find(item => item.Name == _name);
+		if (GameContext.Instance.Rooms[user.RoomId].Users[0].Id == user.Id
+		    && (!user.Magic.Any()
+		        || GameContext.Instance.Rooms[user.RoomId].Users[1].Magic.Count == 2)) 
+		{
+			user.Magic.Add(Id);
+			_hubProxy.Invoke("update", user);
+			Debug.Log("ChooseMagic Creator;\n");
+		}
+		else if (GameContext.Instance.Rooms[user.RoomId].Users[0].Id != user.Id
+		         && (GameContext.Instance.Rooms[user.RoomId].Users[0].Magic.Any()))
+		{
+			user.Magic.Add(Id);
+			_hubProxy.Invoke("update", user);
+			Debug.Log("ChooseMagic Not creator;\n");
+		}
+	}
 }

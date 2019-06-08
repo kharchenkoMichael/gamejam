@@ -7,6 +7,7 @@ namespace Model.Dto
 
   public class UserDto
   {
+    public string Id { get; }
     public string Name { get; }
     public int AvatarId { get; }
     public int Hp { get; set; }
@@ -15,14 +16,15 @@ namespace Model.Dto
     public Position Position { get; set; }
     public List<int> Magic { get; set; }
 
-    public int RoomName { get; }
+    public int RoomId { get; }
     //public bool isDead { get; set; }
 
-    public UserDto(string name, Position position, int roomNumber)
+    public UserDto(string id, string name, Position position, int roomNumber)
     {
+      Id = id;
       Name = name;
       Position = position;
-      RoomName = roomNumber;
+      RoomId = roomNumber;
       Magic = new List<int>();
       //set default hp and mana and speed
     }

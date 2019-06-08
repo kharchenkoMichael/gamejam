@@ -27,8 +27,5 @@ public class CapsulScript : MonoBehaviour
 		vector.z += Spead * Input.GetAxis("Vertical");
 		vector.x += Spead * Input.GetAxis("Horizontal");
 		transform.position = vector;
-		
-		if (SignalR != null)
-			SignalR.UpdateCapsul(transform);
 	}
 }
