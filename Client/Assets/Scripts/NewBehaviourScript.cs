@@ -147,7 +147,8 @@ public class NewBehaviourScript : MonoBehaviour
 	
 	public void CreateRoom(int avatarId, string myName)
 	{
-		_name = myName;
+    StartButton.SetActive(true);
+    _name = myName;
 		_hubProxy.Invoke("createRoom", myName, avatarId );
 		OpenForm(Form.RoomForm);
 		Debug.Log("CreateRoom;\n");
@@ -155,7 +156,8 @@ public class NewBehaviourScript : MonoBehaviour
 	
 	public void JoinToRoom(int roomId, string myName, int avatarId)
 	{
-		_name = myName;
+    StartButton.SetActive(false);
+    _name = myName;
 		_hubProxy.Invoke("joinToRoom", myName, avatarId, roomId);
 		OpenForm(Form.RoomForm);
 		Debug.Log("ConnectToRoom;\n");
@@ -247,10 +249,6 @@ public class NewBehaviourScript : MonoBehaviour
 			}
 			
 			Rooms[i].GetComponent<RoomScript>().SetRoom(room.Key, this, StartForm.GetComponent<StartFormScript>(), room.Value.Name, userCreator);
-      if (!userCreator.Equals(_name))
-      {
-        StartButton.SetActive(false);
-      }
 			i++;
 		}
 
