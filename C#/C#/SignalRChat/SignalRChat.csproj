@@ -20,6 +20,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -111,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Dto\RoomUpdateDto.cs" />
+    <Compile Include="Model\Dto\SpellDto.cs" />
     <Compile Include="Model\GameBroadcast.cs" />
     <Compile Include="Model\GameContext.cs" />
     <Compile Include="Model\MagicFolders\Magic.cs" />
