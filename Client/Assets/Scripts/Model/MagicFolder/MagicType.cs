@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Model.MagicFolder
 {
-    public enum MagicType
-    {
-        Fire,
-        Ice,
-        Lightning,
-    }
+  public enum MagicType
+  {
+    Attack,
+    Defence,
+    Effect,
+  }
 }

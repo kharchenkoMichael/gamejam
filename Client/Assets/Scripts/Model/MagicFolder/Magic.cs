@@ -6,16 +6,28 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Model.MagicFolder
 {
-    public class Magic
-    {
-        public MagicType Type;
-        public string Name;
-        public int Damage;
+  public class Magic
+  {
+    public int Id { get; }
+    public MagicType Type { get; }
+    public string Name { get; }
+    public string Description { get; }
+    public int Damage;
+    public bool isChoosen;
 
-        public Magic(string name, MagicType type)
-        {
-            Name = name;
-            Type = type;
-        }
+    public Magic(int id, string name, MagicType type, string description)
+    {
+      Id = id;
+      Name = name;
+      Type = type;
+      Description = description;
+      isChoosen = false;
+      //damage
     }
+
+    public void Choose()
+    {
+      isChoosen = true;
+    }
+  }
 }
