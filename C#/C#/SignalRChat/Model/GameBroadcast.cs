@@ -43,6 +43,11 @@ namespace SignalRChat.Model
     {
       _userUpdeted = true;
     }
+    
+    public void UpdateRooms()
+    {
+      _roomIdsUpdated = true;
+    }
 
     public static GameBroadcast Instance => _instance.Value;
   }
