@@ -12,6 +12,7 @@ namespace Assets.Scripts.BehaviorScripts
   class GameBehaviorScript : MonoBehaviour
   {
     public GameObject Enemy;
+    public UserDto User;
 
     void Start()
     {

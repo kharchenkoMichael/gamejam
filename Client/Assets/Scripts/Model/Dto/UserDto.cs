@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Model.Entities;
 using Assets.Scripts.Model.MagicFolder;
+using Assets.Scripts.Model.Spells;
 
 namespace Model.Dto
 { 
@@ -15,6 +16,7 @@ namespace Model.Dto
     public int Speed { get; set; }
     public Position Position { get; set; }
     public List<int> Magic;
+    public List<ISpellPosteffect> Posteffects;
 
     public int RoomId;
     //public bool isDead { get; set; }
