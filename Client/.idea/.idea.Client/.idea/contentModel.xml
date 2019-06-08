@@ -18,11 +18,15 @@
           <e p="GameContext.cs" t="Include" />
           <e p="MagicFolder" t="Include">
             <e p="Magic.cs" t="Include" />
+            <e p="MagicManager.cs" t="Include" />
             <e p="MagicType.cs" t="Include" />
           </e>
         </e>
         <e p="MoveSliderScript.cs" t="Include" />
         <e p="NewBehaviourScript.cs" t="Include" />
+        <e p="RoomFormScript.cs" t="Include" />
+        <e p="RoomScript.cs" t="Include" />
+        <e p="StartFormScript.cs" t="Include" />
       </e>
       <e p="Client.sln" t="IncludeFlat" />
       <e p="Library" t="ExcludeRecursive" />

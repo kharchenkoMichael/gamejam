@@ -53,15 +53,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CapsulScript.cs" />
+    <Compile Include="Assets\Scripts\MagicContainer.cs" />
+    <Compile Include="Assets\Scripts\MagicScript.cs" />
     <Compile Include="Assets\Scripts\Model\Dto\RoomUpdateDto.cs" />
     <Compile Include="Assets\Scripts\Model\Dto\UserDto.cs" />
     <Compile Include="Assets\Scripts\Model\Entities\Position.cs" />
     <Compile Include="Assets\Scripts\Model\Entities\Room.cs" />
     <Compile Include="Assets\Scripts\Model\GameContext.cs" />
     <Compile Include="Assets\Scripts\Model\MagicFolder\Magic.cs" />
+    <Compile Include="Assets\Scripts\Model\MagicFolder\MagicManager.cs" />
     <Compile Include="Assets\Scripts\Model\MagicFolder\MagicType.cs" />
     <Compile Include="Assets\Scripts\MoveSliderScript.cs" />
     <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
+    <Compile Include="Assets\Scripts\RoomFormScript.cs" />
+    <Compile Include="Assets\Scripts\RoomScript.cs" />
     <Compile Include="Assets\Scripts\StartFormScript.cs" />
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

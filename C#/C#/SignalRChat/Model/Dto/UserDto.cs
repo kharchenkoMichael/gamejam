@@ -18,6 +18,7 @@ namespace SignalRChat.Model.Dto
 
     public UserDto(string id, string name, Position position, int roomNumber)
     {
+      Id = id;
       Name = name;
       Position = position;
       RoomName = roomNumber;

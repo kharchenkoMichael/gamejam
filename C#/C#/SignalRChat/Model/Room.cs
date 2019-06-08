@@ -11,7 +11,7 @@ namespace SignalRChat.Model
     public int Id;
     public string Name { get; }
     public bool isActive;
-    private List<UserDto> Users { get; }
+    public List<UserDto> Users { get; }
 
     public Room(int id, string name)
     {

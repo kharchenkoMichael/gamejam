@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\m.kharchenko\.Rider2018.1\system\resharper-host\local\Transient\ReSharperHost\v12\SolutionCaches\_SignalRChat.-611720300.00" t="ExcludeRecursive" />
-    <e p="C:\Users\m.kharchenko\Desktop\C#\C#" t="IncludeFlat">
+    <e p="C:\Users\m.kharchenko\.Rider2018.1\system\resharper-host\local\Transient\ReSharperHost\v12\SolutionCaches\_SignalRChat.397567825.00" t="ExcludeRecursive" />
+    <e p="C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#" t="IncludeFlat">
       <e p="packages" t="ExcludeRecursive" />
       <e p="SignalRChat" t="IncludeRecursive">
         <e p="Bin" t="ExcludeRecursive" />
         <e p="Default.html" t="Include" />
         <e p="Model" t="Include">
+          <e p="Dto" t="Include">
+            <e p="RoomUpdateDto.cs" t="Include" />
+            <e p="UserDto.cs" t="Include" />
+          </e>
           <e p="GameBroadcast.cs" t="Include" />
           <e p="GameContext.cs" t="Include" />
-          <e p="User.cs" t="Include" />
+          <e p="MagicFolders" t="Include">
+            <e p="Magic.cs" t="Include" />
+            <e p="MagicType.cs" t="Include" />
+          </e>
+          <e p="Position.cs" t="Include" />
+          <e p="Room.cs" t="Include" />
         </e>
         <e p="MyHub.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive" />
