@@ -1,8 +1,4 @@
-﻿using SignalRChat.Model.MagicFolders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Assets.Scripts.Model.MagicFolder;
 
 namespace SignalRChat.Model.Dto
 {
