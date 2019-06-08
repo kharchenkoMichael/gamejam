@@ -6,6 +6,7 @@ namespace SignalRChat.Model.Dto
   public class UserDto
   {
     public string Name { get; }
+    public int AvatarId { get; set; }
     public int Hp { get; set; }
     public int Mana { get; set; }
     public int Speed { get; set; }

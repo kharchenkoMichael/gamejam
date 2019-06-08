@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Model.Entities;
 using Assets.Scripts.Model.MagicFolder;
-using UnityEngine;
 
 namespace Model.Dto
 {

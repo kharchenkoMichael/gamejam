@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Model.Dto;
 using Microsoft.AspNet.SignalR.Client;
 using Model;
 using Model.Dto;
@@ -29,8 +30,8 @@ public class NewBehaviourScript : MonoBehaviour
 	private List<GameObject> _users = new List<GameObject>();
 	public string _name = string.Empty;
 
-	private bool _refresh = false;
-	private bool _create = false;
+	private bool _refreshUser = false;
+	private bool _refreshRoom = false;
 
 	public string signalUrl;
 
@@ -67,21 +68,8 @@ public class NewBehaviourScript : MonoBehaviour
 			_hubConnection.Error += HubConnection_Error;
 
 			_hubProxy = _hubConnection.CreateHubProxy("MyHub");
-			_hubProxy.On<List<UserDto>>("refresh",
-				(users) =>
-				{
-					var myUsers = GameContext.Instance.Users;
-					foreach (var user in users)
-					{
-						var curUser = myUsers.FirstOrDefault(item => item.Name == user.Name);
-						if (curUser == null)
-							myUsers.Add(user);
-						else
-							curUser.Clone(user);
-					}
-
-					_refresh = true;
-				});
+			_hubProxy.On<List<UserDto>>("refreshUser", RefreshUsers);
+			_hubProxy.On<List<RoomUpdateDto>>("refreshUser", RefreshRoom);
 			
 			_hubConnection.Start().Wait();
 			_hubConnection.StateChanged += change =>
@@ -96,7 +84,28 @@ public class NewBehaviourScript : MonoBehaviour
 			Debug.Log("Signalr  already connected...");
 		}
 	}
+
+	private void RefreshUsers(List<UserDto> users)
+	{
+		var myUsers = GameContext.Instance.Users;
+		foreach (var user in users)
+		{
+			var curUser = myUsers.FirstOrDefault(item => item.Name == user.Name);
+			if (curUser == null)
+				myUsers.Add(user);
+			else
+				curUser.Clone(user);
+		}
+
+		_refreshUser = true;
+	}
 	
+	private void RefreshRoom(List<RoomUpdateDto> users)
+	{
+
+		_refreshRoom = true;
+	}
+
 	#region Callbacks
 
 	public void OpenForm(Form form)
@@ -108,13 +117,20 @@ public class NewBehaviourScript : MonoBehaviour
 		Forms[(int) form].SetActive(true);
 	}
 	
-	public void Create()
+	public void CreateRoom(int avatarId, string myName)
 	{
-		_hubProxy.Invoke("create", Text.text);
-		_name = Text.text;
-		_create = true;
+		_name = myName;
+		_hubProxy.Invoke("create", avatarId, myName );
 		
-		Debug.Log("Create;\n");
+		Debug.Log("CreateRoom;\n");
+	}
+	
+	public void ConnectToRoom(int roomId, string myName)
+	{
+		_name = myName;
+		_hubProxy.Invoke("create", roomId, myName);
+		
+		Debug.Log("ConnectToRoom;\n");
 	}
 	
 	public void UpdateCapsul(Transform myTransform)
@@ -150,11 +166,13 @@ public class NewBehaviourScript : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (_refresh)
-			RefreshUpdate();
+		if (_refreshUser)
+			RefreshUserUpdate();
+		if (_refreshRoom)
+			RefreshRoomUpdate();
 	}
 
-	private void RefreshUpdate()
+	private void RefreshUserUpdate()
 	{
 		foreach (var user in GameContext.Instance.Users)
 		{
@@ -175,6 +193,12 @@ public class NewBehaviourScript : MonoBehaviour
 			prefab.transform.position = new Vector3(user.Position.PositionX, user.Position.PositionY, user.Position.PositionZ);
 		}
 		
-		_refresh = false;
+		_refreshUser = false;
+	}
+	
+	private void RefreshRoomUpdate()
+	{
+		
+		_refreshRoom = false;
 	}
 }

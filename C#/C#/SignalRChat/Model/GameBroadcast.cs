@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using Microsoft.AspNet.SignalR;
+using SignalRChat.Model.Dto;
 
 namespace SignalRChat.Model
 {
@@ -11,27 +13,35 @@ namespace SignalRChat.Model
     private readonly IHubContext _hubContext;
     private Timer _loop;
 
-    private bool _modelUpdated;
+    private bool _userUpdeted;
+    private bool _roomIdsUpdated;
 
     public GameBroadcast()
     {
       _hubContext = GlobalHost.ConnectionManager.GetHubContext<MyHub>();
-      _modelUpdated = false;
-      _loop = new Timer(Broadcast, null,Interval,Interval);
+      _userUpdeted = false;
+      _loop = new Timer(Broadcast, null, Interval, Interval);
     }
 
     public void Broadcast(object state)
     {
-      //if (!_modelUpdated) 
-      //  return;
-      
-      _hubContext.Clients.All.refresh(GameContext.Instance.Users);
-      _modelUpdated = false;
+      if (_userUpdeted)
+      {
+        _hubContext.Clients.All.refreshUsers(GameContext.Instance.Users);
+        _userUpdeted = false;
+      }
+
+      if (_roomIdsUpdated)
+      {
+        var allRooms = new RoomUpdateDto() { Rooms = GameContext.Instance.Rooms.Select(r => r.Value).ToList() };
+        _hubContext.Clients.All.refreshRoomIds(allRooms);
+        _roomIdsUpdated = false;
+      }
     }
 
     public void Update()
     {
-      _modelUpdated = true;
+      _userUpdeted = true;
     }
 
     public static GameBroadcast Instance => _instance.Value;
