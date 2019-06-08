@@ -374,6 +374,9 @@ public class NewBehaviourScript : MonoBehaviour
     _userCreator.GetComponent<CapsulScript>().SetName(creator.Name, this);
     _opponent.GetComponent<CapsulScript>().SetName(opponent.Name, this);
 
+    _userCreator.name = creator.Name;
+    _opponent.name = opponent.Name;
+
     CastMagicSpellA.GetComponent<MagicCastScript>().ActionDelegate += CastFirst;
     CastMagicSpellB.GetComponent<MagicCastScript>().ActionDelegate += CastSecond;
 
