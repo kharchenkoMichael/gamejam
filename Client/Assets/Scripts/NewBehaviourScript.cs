@@ -8,13 +8,23 @@ using Model.Dto;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum Form
+{
+	LoadingForm,
+	StartForm,
+	RoomForm
+}
+
 public class NewBehaviourScript : MonoBehaviour
 {
 	public Text Text;
 	public GameObject Capsule;
 
-	public GameObject StartForm;
+	public Dictionary<int, GameObject> Forms = new Dictionary<int, GameObject>();
 
+	public GameObject LoadingForm;
+	public GameObject StartForm;
+	public GameObject RoomForm;
 	
 	private List<GameObject> _users = new List<GameObject>();
 	public string _name = string.Empty;
@@ -27,15 +37,24 @@ public class NewBehaviourScript : MonoBehaviour
 	private HubConnection _hubConnection = null;
 
 	private IHubProxy _hubProxy;
-	
+
+	private void InitializeDictionary()
+	{
+		Forms[(int) Form.LoadingForm] = LoadingForm;
+		Forms[(int) Form.StartForm] = StartForm;
+		Forms[(int) Form.RoomForm] = RoomForm;
+	}
 	// Use this for initialization
 	IEnumerator Start()
 	{
+		InitializeDictionary();
+		OpenForm(Form.LoadingForm);
 		Debug.Log("Start()");
 		yield return new WaitForSeconds(1);
 		
 		Debug.Log("Start() 1 second.");
 		StartSignalR();
+		OpenForm(Form.StartForm);
 	}
 
 	private void StartSignalR()
@@ -80,6 +99,14 @@ public class NewBehaviourScript : MonoBehaviour
 	
 	#region Callbacks
 
+	public void OpenForm(Form form)
+	{
+		foreach (var formsValue in Forms.Values)
+		{
+			formsValue.SetActive(false);
+		}
+		Forms[(int) form].SetActive(true);
+	}
 	
 	public void Create()
 	{
