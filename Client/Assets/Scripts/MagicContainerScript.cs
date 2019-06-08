@@ -11,9 +11,9 @@ public class MagicContainerScript : MonoBehaviour
   private MagicManager _magicManager;
   public Dictionary<int, GameObject> Elements;
   
-  public void InitializeMagic ()
+  public void InitializeMagic (MagicManager manager)
   {
-    _magicManager = new MagicManager();
+    _magicManager = manager;
     Elements = new Dictionary<int, GameObject>();
     foreach (var item in gameObject.GetComponentsInChildren<Button>())
     {
