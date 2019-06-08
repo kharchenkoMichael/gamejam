@@ -9,6 +9,8 @@ using Model;
 using Model.Dto;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Scripts.Model.MagicFolder;
+using Assets.Scripts;
 
 public enum Form
 {
@@ -24,13 +26,15 @@ public class NewBehaviourScript : MonoBehaviour
 	public Dictionary<int, GameObject> Forms = new Dictionary<int, GameObject>();
 
 	public GameObject LoadingForm;
-	public GameObject StartForm;
+  public GameObject StartForm;
 	public GameObject RoomForm;
 
 	public GameObject RoomParent;
 	public GameObject Room;
-	
-	private List<GameObject> _users = new List<GameObject>();
+
+  public GameObject MagicContainer;
+
+  private List<GameObject> _users = new List<GameObject>();
 	public string _name = string.Empty;
 
 	private bool _refreshUser = false;
@@ -41,8 +45,8 @@ public class NewBehaviourScript : MonoBehaviour
 	private HubConnection _hubConnection = null;
 
 	private IHubProxy _hubProxy;
-
-	private void InitializeDictionary()
+  private MagicManager _magicManager;
+  private void InitializeDictionary()
 	{
 		Forms[(int) Form.LoadingForm] = LoadingForm;
 		Forms[(int) Form.StartForm] = StartForm;
@@ -59,9 +63,19 @@ public class NewBehaviourScript : MonoBehaviour
 		Debug.Log("Start() 1 second.");
 		StartSignalR();
 		OpenForm(Form.StartForm);
-	}
+    InitializeMagic();
+  }
+  private void InitializeMagic()
+  {
+    _magicManager = new MagicManager();
+    var elements = MagicContainer.GetComponent<MagicContainerScript>().Elements;
+    foreach (var element in elements)
+    {
+      element.Value.GetComponent<MagicScript>().ActionDelegate += ChooseMagic;
+    }
+  }
 
-	private void StartSignalR()
+  private void StartSignalR()
 	{
 		Debug.Log("StartSignalR");
 		if (_hubConnection == null)
@@ -226,4 +240,16 @@ public class NewBehaviourScript : MonoBehaviour
 
 		_refreshRoom = false;
 	}
+
+  private void ChooseMagic(int Id)
+  {
+    //update User
+  }
+
+  private void SetUpdateUserMagic()
+  {
+    var elements = MagicContainer.GetComponent<MagicContainerScript>().Elements;
+    elements[0].SetActive(false);
+  }
+
 }
