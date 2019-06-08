@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Assets.Scripts.Model.MagicFolder;
+using Model.Dto;
 
 namespace Assets.Scripts.BehaviorScripts
 {
