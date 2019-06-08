@@ -9,6 +9,6 @@ namespace Assets.Scripts.Model.Dto
 {
     public class RoomUpdateDto
     {
-        public Dictionary<int, Room> Rooms;
+        public List<Room> Rooms;
     }
 }

@@ -69,3 +69,27 @@ D:\Visual Studio (доп)\Game Jam 3\C#\C#\SignalRChat\obj\Debug\SignalRChat.csp
 D:\Visual Studio (доп)\Game Jam 3\C#\C#\SignalRChat\obj\Debug\SignalRChat.csproj.CopyComplete
 D:\Visual Studio (доп)\Game Jam 3\C#\C#\SignalRChat\obj\Debug\SignalRChat.dll
 D:\Visual Studio (доп)\Game Jam 3\C#\C#\SignalRChat\obj\Debug\SignalRChat.pdb
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\bin\SignalRChat.dll.config
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\bin\SignalRChat.dll
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\bin\SignalRChat.pdb
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\bin\Microsoft.Owin.dll
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\bin\Microsoft.Owin.Security.dll
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\bin\Newtonsoft.Json.dll
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\bin\Owin.dll
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\bin\Microsoft.AspNet.SignalR.Core.pdb
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\bin\Microsoft.Owin.xml
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\bin\Microsoft.Owin.Security.xml
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\bin\Newtonsoft.Json.xml
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\obj\Debug\SignalRChat.csprojAssemblyReference.cache
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\obj\Debug\SignalRChat.csproj.CoreCompileInputs.cache
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\obj\Debug\SignalRChat.csproj.CopyComplete
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\obj\Debug\SignalRChat.dll
+C:\Users\m.kharchenko\Documents\GitHub\gamejam\C#\C#\SignalRChat\obj\Debug\SignalRChat.pdb

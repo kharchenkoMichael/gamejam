@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.Model.Entities;
 using Model.Dto;
 
 namespace Model
@@ -7,6 +8,7 @@ namespace Model
   {
     public List<UserDto> Users { get; set; }
     private static GameContext _instance;
+    public Dictionary<int, Room> Rooms = new Dictionary<int, Room> { { 1, new Room(1,"MagicForest")},{ 2, new Room(2,"NightBall")} };
 
     public static GameContext Instance
     {

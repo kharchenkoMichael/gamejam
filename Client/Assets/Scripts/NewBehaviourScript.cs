@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Model.Dto;
+using Assets.Scripts.Model.Entities;
 using Microsoft.AspNet.SignalR.Client;
 using Model;
 using Model.Dto;
 using UnityEngine;
 using UnityEngine.UI;
-using Assets.Scripts.Model.MagicFolder;
 
 public enum Form
 {
@@ -27,6 +27,9 @@ public class NewBehaviourScript : MonoBehaviour
 	public GameObject LoadingForm;
 	public GameObject StartForm;
 	public GameObject RoomForm;
+
+	public GameObject RoomParent;
+	public GameObject Room;
 	
 	private List<GameObject> _users = new List<GameObject>();
 	public string _name = string.Empty;
@@ -39,8 +42,6 @@ public class NewBehaviourScript : MonoBehaviour
 	private HubConnection _hubConnection = null;
 
 	private IHubProxy _hubProxy;
-
-  private MagicManager _magicManager;
 
 	private void InitializeDictionary()
 	{
@@ -59,7 +60,6 @@ public class NewBehaviourScript : MonoBehaviour
 		Debug.Log("Start() 1 second.");
 		StartSignalR();
 		OpenForm(Form.StartForm);
-    _magicManager = new MagicManager();
 	}
 
 	private void StartSignalR()
@@ -68,20 +68,20 @@ public class NewBehaviourScript : MonoBehaviour
 		if (_hubConnection == null)
 		{
 			_hubConnection = new HubConnection(signalUrl);
-			Debug.Log("signalUrl");
+			Debug.Log(signalUrl);
 			_hubConnection.Error += HubConnection_Error;
 
 			_hubProxy = _hubConnection.CreateHubProxy("MyHub");
-			_hubProxy.On<List<UserDto>>("refreshUser", RefreshUsers);
-			_hubProxy.On<List<RoomUpdateDto>>("refreshUser", RefreshRoom);
+			_hubProxy.On<List<UserDto>>("refreshUsers", RefreshUsers);
+			_hubProxy.On<RoomUpdateDto>("refreshRoomIds", RefreshRoom);
 			
 			_hubConnection.Start().Wait();
 			_hubConnection.StateChanged += change =>
 			{
 				Debug.Log($"{change.NewState} {change.OldState}");
 			}; 
-			
 			Debug.Log("_hubConnection.Start();");
+			GetRoomIds();
 		}
 		else
 		{
@@ -104,9 +104,10 @@ public class NewBehaviourScript : MonoBehaviour
 		_refreshUser = true;
 	}
 	
-	private void RefreshRoom(List<RoomUpdateDto> users)
+	private void RefreshRoom(RoomUpdateDto dto)
 	{
-
+		GameContext.Instance.Rooms = dto.Rooms.ToDictionary(item => item.Id, item => item);
+		
 		_refreshRoom = true;
 	}
 
@@ -121,10 +122,17 @@ public class NewBehaviourScript : MonoBehaviour
 		Forms[(int) form].SetActive(true);
 	}
 	
+	public void GetRoomIds()
+	{
+		_hubProxy.Invoke("getRoomIds");
+		
+		Debug.Log("GetRoomIds;\n");
+	}
+	
 	public void CreateRoom(int avatarId, string myName)
 	{
 		_name = myName;
-		_hubProxy.Invoke("create", avatarId, myName );
+		_hubProxy.Invoke("createRoom", avatarId, myName );
 		
 		Debug.Log("CreateRoom;\n");
 	}
@@ -132,7 +140,7 @@ public class NewBehaviourScript : MonoBehaviour
 	public void ConnectToRoom(int roomId, string myName)
 	{
 		_name = myName;
-		_hubProxy.Invoke("create", roomId, myName);
+		_hubProxy.Invoke("create", myName, roomId);
 		
 		Debug.Log("ConnectToRoom;\n");
 	}
@@ -202,6 +210,21 @@ public class NewBehaviourScript : MonoBehaviour
 	
 	private void RefreshRoomUpdate()
 	{
+		foreach (Transform child in RoomParent.transform) {
+			DestroyImmediate(child.gameObject);
+		}
+
+		foreach (var room in GameContext.Instance.Rooms)
+		{
+			var userCreator = room.Value.Users.FirstOrDefault();
+			if (userCreator == null)
+				continue;
+			
+			var obj = Instantiate(Room);
+			obj.transform.parent = RoomParent.transform;
+			obj.GetComponent<RoomScript>().SetRoom(room.Key, this, StartForm.GetComponent<StartFormScript>(), room.Value.Name, userCreator.Name);
+		}
+
 		_refreshRoom = false;
 	}
 }
