@@ -14,9 +14,9 @@ namespace Model.Dto
     public int Mana { get; set; }
     public int Speed { get; set; }
     public Position Position { get; set; }
-    public List<int> Magic { get; set; }
+    public List<int> Magic;
 
-    public int RoomId { get; }
+    public int RoomId;
     //public bool isDead { get; set; }
 
     public UserDto(string id, string name, Position position, int roomNumber)

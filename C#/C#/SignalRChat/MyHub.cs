@@ -71,7 +71,7 @@ namespace SignalRChat
       if (user is null)
         return;
 
-      var room = GameContext.Instance.Rooms[user.RoomName];
+      var room = GameContext.Instance.Rooms[user.RoomId];
       room.Users.Remove(user);
       if (room.Users.Count <= 0)
         room.isActive = false;

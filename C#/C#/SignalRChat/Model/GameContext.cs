@@ -6,7 +6,7 @@ namespace SignalRChat.Model
 {
   public class GameContext
   {
-    public List<UserDto> Users { get; set; }
+    public List<UserDto> Users;
     private static GameContext _instance;
     public Dictionary<int, Room> Rooms = new Dictionary<int, Room>
     {

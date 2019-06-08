@@ -103,16 +103,8 @@ public class NewBehaviourScript : MonoBehaviour
 
 	private void RefreshUsers(List<UserDto> users)
 	{
-		var myUsers = GameContext.Instance.Users;
-		foreach (var user in users)
-		{
-			var curUser = myUsers.FirstOrDefault(item => item.Name == user.Name);
-			if (curUser == null)
-				myUsers.Add(user);
-			else
-				curUser.Clone(user);
-		}
-
+		GameContext.Instance.Users = users;
+		
 		_refreshUser = true;
 	}
 	
