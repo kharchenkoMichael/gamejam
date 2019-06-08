@@ -55,3 +55,7 @@ Client/Library/metadata/e3/e3f79a83b7505cd4d84388e5a5e62bad
 Client/Library/ScriptAssemblies/Assembly-CSharp.dll
 Client/Library/ScriptAssemblies/Assembly-CSharp.dll.mdb
 Client/Library/ScriptAssemblies/BuiltinAssemblies.stamp
+Client/.vs/Client/v15/
+Client/obj/Debug/Assembly-CSharp.csproj.CoreCompileInputs.cache
+Client/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+Client/obj/Debug/

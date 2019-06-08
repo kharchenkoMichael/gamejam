@@ -15,9 +15,11 @@ namespace SignalRChat
     {
       var firstFreeRoom = GameContext.Instance.Rooms.Where(r => !r.Value.isActive).FirstOrDefault().Value;
       firstFreeRoom.isActive = true;
-      var user = new UserDto(name, new Position(0, 0, 0), firstFreeRoom.Id)
+      var userId = Context.ConnectionId;
+      var user = new UserDto(userId, name, new Position(0, 0, 0), firstFreeRoom.Id)
       {
-        AvatarId = avatarId
+        AvatarId = avatarId,
+        
       };
       GameContext.Instance.Users.Add(user);
       // Call the broadcastMessage method to update clients.
@@ -39,7 +41,7 @@ namespace SignalRChat
 
     public void Test()
     {
-      var UserId = Context.User.Identity.Name;
+      Clients.Client(Context.ConnectionId).message("hello from server");
     }
   }
 }
