@@ -10,7 +10,7 @@ namespace SignalRChat.Model.Dto
     public int Mana { get; set; }
     public int Speed { get; set; }
     public Position Position { get; set; }
-    public List<Magic> Magic { get; set; }
+    public List<int> Magic { get; set; }
     public int RoomName { get; }
     //public bool isDead { get; set; }
 
