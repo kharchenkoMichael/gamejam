@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.SignalR;
 using SignalRChat.Model;
 using SignalRChat.Model.Dto;
+using SignalRChat.Model.MagicFolders;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,7 +23,7 @@ namespace SignalRChat
       };
       GameContext.Instance.Users.Add(user);
       // Call the broadcastMessage method to update clients.
-      GameBroadcast.Instance.Update();
+      GameBroadcast.Instance.UpdateUser();
       GameBroadcast.Instance.UpdateRooms();
     }
 
@@ -38,7 +39,7 @@ namespace SignalRChat
       };
       GameContext.Instance.Users.Add(user);
 
-      GameBroadcast.Instance.Update();
+      GameBroadcast.Instance.UpdateUser();
       GameBroadcast.Instance.UpdateRooms();
     }
 
@@ -46,12 +47,18 @@ namespace SignalRChat
     {
       var curUser = GameContext.Instance.Users.Find(item => item.Name == user.Name);
       curUser.Clone(user);
-      GameBroadcast.Instance.Update();
+      GameBroadcast.Instance.UpdateUser();
     }
     
     public void GetRoomIds()
     {
       GameBroadcast.Instance.UpdateRooms();
+    }
+
+    public void CastMagic(Magic spell)
+    {
+      GameContext.Instance.AddSpell(spell);
+      GameBroadcast.Instance.UpdateSpells();
     }
 
     public void Test()
