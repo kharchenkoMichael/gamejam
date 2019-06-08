@@ -10,6 +10,8 @@ namespace Assets.Scripts.BehaviorScripts
   class SimpleSpellBehaviorScript : MonoBehaviour
   {
     public GameObject Target;
+    public int Damage;
+    //public int _LIfeTime = -1; // -1 : до паражения цели; больше 0 : время жизни в секундах (для молнии)  
 
     private int _speed = 1;
 
@@ -17,6 +19,12 @@ namespace Assets.Scripts.BehaviorScripts
     {
       transform.LookAt(Target.transform);
       transform.position += transform.forward * _speed;
+
+      if(Vector3.Distance(transform.position, Target.transform.position) < 5)
+      {
+        Target.GetComponent<GameBehaviorScript>().User.Hp -= Damage;
+        GameObject.Destroy(gameObject);
+      }
     }
   }
 }
