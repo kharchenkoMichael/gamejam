@@ -16,7 +16,8 @@ public enum Form
 {
 	LoadingForm,
 	StartForm,
-	RoomForm
+	RoomForm,
+  Game
 }
 
 public class NewBehaviourScript : MonoBehaviour
@@ -28,8 +29,11 @@ public class NewBehaviourScript : MonoBehaviour
 	public GameObject LoadingForm;
   public GameObject StartForm;
 	public GameObject RoomForm;
+  public GameObject GameForm;
   public GameObject MagicContainer;
 	public GameObject[] Rooms;
+
+  public GameObject StartButton;
 	
 	private List<GameObject> _users = new List<GameObject>();
 	public string _name = string.Empty;
@@ -51,7 +55,8 @@ public class NewBehaviourScript : MonoBehaviour
 		Forms[(int) Form.LoadingForm] = LoadingForm;
 		Forms[(int) Form.StartForm] = StartForm;
 		Forms[(int) Form.RoomForm] = RoomForm;
-	}
+    Forms[(int)Form.Game] = GameForm;
+  }
 	// Use this for initialization
 	IEnumerator Start()
 	{
@@ -74,6 +79,8 @@ public class NewBehaviourScript : MonoBehaviour
     {
       element.Value.GetComponent<MagicScript>().ActionDelegate += ChooseMagic;
     }
+
+    StartButton.GetComponent<StartGameScript>().ActionDelegate += StartGame;
   }
 
   private void StartSignalR()
@@ -88,6 +95,7 @@ public class NewBehaviourScript : MonoBehaviour
 			_hubProxy = _hubConnection.CreateHubProxy("MyHub");
 			_hubProxy.On<List<UserDto>>("refreshUsers", RefreshUsers);
 			_hubProxy.On<RoomUpdateDto>("refreshRoomIds", RefreshRoom);
+      _hubProxy.On<List<UserDto>>("startGameFrom", StartGameFrom);
 			
 			_hubConnection.Start().Wait();
 			_hubConnection.StateChanged += change =>
@@ -239,13 +247,26 @@ public class NewBehaviourScript : MonoBehaviour
 			}
 			
 			Rooms[i].GetComponent<RoomScript>().SetRoom(room.Key, this, StartForm.GetComponent<StartFormScript>(), room.Value.Name, userCreator);
+      if (!userCreator.Equals(_name))
+      {
+        StartButton.SetActive(false);
+      }
 			i++;
 		}
 
 		_refreshRoom = false;
 	}
 
-	private void ChooseMagic(int Id)
+  private void StartGameFrom(List<UserDto> users)
+  {
+    OpenForm(Form.Game);
+    GameContext.Instance.Users = users;
+    RoomId = users.Find(item => item.Name == _name).RoomId;
+    _refreshUser = true;
+  }
+
+
+  private void ChooseMagic(int Id)
 	{
 		var user = GameContext.Instance.Users.Find(item => item.Name == _name);
 		if (GameContext.Instance.Rooms[user.RoomId].Users[0] == user.Name
@@ -264,4 +285,15 @@ public class NewBehaviourScript : MonoBehaviour
 			Debug.Log("ChooseMagic Not creator;\n");
 		}
 	}
+  private void StartGame()
+  {
+    foreach (var user in GameContext.Instance.Users)
+    {
+      if (user.Magic.Count < 2)
+        return;
+    }
+    
+    _hubProxy.Invoke("startGame", 1);
+    Debug.Log("Start Game;\n");
+  }
 }

@@ -67,7 +67,7 @@ namespace SignalRChat
       GameBroadcast.Instance.UpdateRooms();
     }
 
-    public void CastMagic(Magic spell)
+    public void CastMagic(SpellDto spell)
     {
       GameContext.Instance.AddSpell(spell);
       GameBroadcast.Instance.UpdateSpells();
