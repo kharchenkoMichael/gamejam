@@ -6,6 +6,8 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets\Scripts" t="Include">
         <e p="CapsulScript.cs" t="Include" />
+        <e p="MagicContainerScript.cs" t="Include" />
+        <e p="MagicScript.cs" t="Include" />
         <e p="Model" t="Include">
           <e p="Dto" t="Include">
             <e p="RoomUpdateDto.cs" t="Include" />
