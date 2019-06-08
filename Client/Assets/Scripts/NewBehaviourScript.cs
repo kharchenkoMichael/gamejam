@@ -3,13 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Model.Dto;
-using Assets.Scripts.Model.Entities;
 using Microsoft.AspNet.SignalR.Client;
 using Model;
 using Model.Dto;
 using UnityEngine;
-using UnityEngine.UI;
-using Assets.Scripts.Model.MagicFolder;
 using Assets.Scripts;
 using Assets.Scripts.BehaviorScripts;
 
@@ -39,8 +36,14 @@ public class NewBehaviourScript : MonoBehaviour
   private List<GameObject> _users = new List<GameObject>();
   public string _name = string.Empty;
 
+  private bool _startGame = false;
   private bool _refreshUser = false;
   private bool _refreshRoom = false;
+  private bool _createRoom = false;
+
+
+  private GameObject _userCreator;
+  private GameObject _opponent;
 
   public int RoomId;
 
@@ -135,6 +138,15 @@ public class NewBehaviourScript : MonoBehaviour
     spellOwner.GetComponent<GameBehaviorScript>().Spell(dto);
   }
 
+  private void StartGameFrom(List<UserDto> users)
+  {
+    GameContext.Instance.Users = users;
+    RoomId = users.Find(item => item.Name == _name).RoomId;
+
+    _startGame = true;
+    _refreshUser = true;
+  }
+
   #region Callbacks
 
   public void OpenForm(Form form)
@@ -177,6 +189,40 @@ public class NewBehaviourScript : MonoBehaviour
     user.Position.Update(myTransform.position);
     _hubProxy.Invoke("update", user);
   }
+  
+  private void ChooseMagic(int Id)
+  {
+    var user = GameContext.Instance.Users.Find(item => item.Name == _name);
+    if (GameContext.Instance.Rooms[user.RoomId].Users[0] == user.Name
+        && (!user.Magic.Any()
+            || GameContext.Instance.Users.Find(item => item.Name == GameContext.Instance.Rooms[user.RoomId].Users[1])
+              .Magic.Count == 2))
+    {
+      user.Magic.Add(Id);
+      _hubProxy.Invoke("update", user);
+      Debug.Log("ChooseMagic Creator;\n");
+    }
+    else if (GameContext.Instance.Rooms[user.RoomId].Users[0] != user.Name
+             && (GameContext.Instance.Users.Find(item => item.Name == GameContext.Instance.Rooms[user.RoomId].Users[0])
+               .Magic.Any()))
+    {
+      user.Magic.Add(Id);
+      _hubProxy.Invoke("update", user);
+      Debug.Log("ChooseMagic Not creator;\n");
+    }
+  }
+
+  private void StartGame()
+  {
+    foreach (var user in GameContext.Instance.Users.Where(x => x.RoomId == RoomId))
+    {
+      if (user.Magic.Count < 2)
+        return;
+    }
+
+    _hubProxy.Invoke("startGame");
+    Debug.Log("Start Game;\n");
+  }
 
   #endregion
 
@@ -204,40 +250,49 @@ public class NewBehaviourScript : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
+    if (_startGame)
+      StartGameUpdate();
     if (_refreshUser)
       RefreshUserUpdate();
     if (_refreshRoom)
       RefreshRoomUpdate();
+    if (_createRoom)
+    {
+      StartButton.SetActive(true);
+      OpenForm(Form.RoomForm);
+      _createRoom = false;
+    }
   }
 
   private void RefreshUserUpdate()
   {
     foreach (var user in GameContext.Instance.Users)
     {
-      var prefab = _users.FirstOrDefault(item => item.GetComponent<CapsulScript>().Name == user.Name);
-      if (prefab == null)
-      {
-        var obj = Instantiate(Capsule,
-          new Vector3(user.Position.PositionX, user.Position.PositionY, user.Position.PositionZ), Quaternion.identity);
-        var script = obj.GetComponent<CapsulScript>();
-        script.SignalR = this;
-        script.SetName(user.Name);
-        _users.Add(obj);
-        continue;
-      }
-
       var elements = MagicContainer.GetComponent<MagicContainerScript>().Elements;
       foreach (var magicId in user.Magic)
       {
         elements[magicId].SetActive(false);
       }
-
-
-      if (user.Name == _name)
-        continue;
-
-      prefab.transform.position = new Vector3(user.Position.PositionX, user.Position.PositionY, user.Position.PositionZ);
     }
+
+    if (_userCreator == null || _opponent == null)
+    {
+      _refreshUser = false;
+      _magicUpdated = false;
+      return;
+    }
+
+    var creatorCapsul = _userCreator.GetComponent<CapsulScript>();
+    var oponentCapsul = _opponent.GetComponent<CapsulScript>();
+
+    var creator = GameContext.Instance.Users.Find(item => item.Name == creatorCapsul.Name);
+    var oponent = GameContext.Instance.Users.Find(item => item.Name == oponentCapsul.Name);
+
+    creatorCapsul.SetByUser(creator);
+    oponentCapsul.SetByUser(oponent);
+
+    _userCreator.transform.LookAt(_opponent.transform);
+    _opponent.transform.LookAt(_userCreator.transform);
 
     _refreshUser = false;
     _magicUpdated = false;
@@ -263,43 +318,27 @@ public class NewBehaviourScript : MonoBehaviour
     _refreshRoom = false;
   }
 
-  private void StartGameFrom(List<UserDto> users)
+  private void StartGameUpdate()
   {
     OpenForm(Form.Game);
-    GameContext.Instance.Users = users;
-    RoomId = users.Find(item => item.Name == _name).RoomId;
-    _refreshUser = true;
-  }
 
+    var creator = GameContext.Instance.Users.Find(item => item.Name == GameContext.Instance.Rooms[RoomId].Users[0]);
+    var opponent = GameContext.Instance.Users.Find(item => item.Name == GameContext.Instance.Rooms[RoomId].Users[1]);
 
-  private void ChooseMagic(int Id)
-  {
-    var user = GameContext.Instance.Users.Find(item => item.Name == _name);
-    if (GameContext.Instance.Rooms[user.RoomId].Users[0] == user.Name
-        && (!user.Magic.Any()
-            || GameContext.Instance.Users.Find(item => item.Name == GameContext.Instance.Rooms[user.RoomId].Users[1]).Magic.Count == 2))
-    {
-      user.Magic.Add(Id);
-      _hubProxy.Invoke("update", user);
-      Debug.Log("ChooseMagic Creator;\n");
-    }
-    else if (GameContext.Instance.Rooms[user.RoomId].Users[0] != user.Name
-             && (GameContext.Instance.Users.Find(item => item.Name == GameContext.Instance.Rooms[user.RoomId].Users[0]).Magic.Any()))
-    {
-      user.Magic.Add(Id);
-      _hubProxy.Invoke("update", user);
-      Debug.Log("ChooseMagic Not creator;\n");
-    }
-  }
-  private void StartGame()
-  {
-    foreach (var user in GameContext.Instance.Users.Where(x => x.RoomId == RoomId))
-    {
-      if (user.Magic.Count < 2)
-        return;
-    }
+    _userCreator = Instantiate(Capsule,
+      new Vector3(creator.Position.PositionX, creator.Position.PositionY, creator.Position.PositionZ),
+      Quaternion.identity);
 
-    _hubProxy.Invoke("startGame");
-    Debug.Log("Start Game;\n");
+    _opponent = Instantiate(Capsule,
+      new Vector3(opponent.Position.PositionX, opponent.Position.PositionY, opponent.Position.PositionZ),
+      Quaternion.identity);
+
+    _userCreator.transform.LookAt(_opponent.transform);
+    _opponent.transform.LookAt(_userCreator.transform);
+
+    _userCreator.GetComponent<CapsulScript>().SetName(creator.Name, this);
+    _opponent.GetComponent<CapsulScript>().SetName(opponent.Name, this);
+
+    _startGame = false;
   }
 }

@@ -10,7 +10,7 @@ namespace SignalRChat
   public class MyHub : Hub
   {
     private Dictionary<int, Position> _startPositions =
-        new Dictionary<int, Position> { { 1, new Position(1, 1, 1) }, { 2, new Position(2, 2, 2) } };
+        new Dictionary<int, Position> { { 1, new Position(-70, 32, 0) }, { 2, new Position(70, 32, 0) } };
 
     public void CreateRoom(string name, int avatarId)
     {
@@ -92,8 +92,22 @@ namespace SignalRChat
       Clients.Client(Context.ConnectionId).message("hello from server");
     }
 
-    public void StartGame()
+    public void StartGame(List<UserDto> users)
     {
+      foreach (var user in users)
+      {
+        var room = GameContext.Instance.Rooms[user.RoomId];
+        if (room.Users[0] == user.Name)
+        {
+          user.Position = _startPositions[1];
+        }
+        else
+        {
+          user.Position = _startPositions[2];
+        }
+        var curUser = GameContext.Instance.Users.Find(item => item.Name == user.Name);
+        curUser.Clone(user);
+      }
       GameBroadcast.Instance.StartGame();
     }
   }
