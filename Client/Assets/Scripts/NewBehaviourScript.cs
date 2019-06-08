@@ -9,6 +9,7 @@ using Model.Dto;
 using UnityEngine;
 using Assets.Scripts;
 using Assets.Scripts.BehaviorScripts;
+using Assets.Scripts.Model.MagicFolder;
 
 public enum Form
 {
@@ -32,6 +33,8 @@ public class NewBehaviourScript : MonoBehaviour
   public GameObject[] Rooms;
 
   public GameObject StartButton;
+  public GameObject CastMagicSpellA;
+  public GameObject CastMagicSpellB;
 
   private List<GameObject> _users = new List<GameObject>();
   public string _name = string.Empty;
@@ -54,6 +57,7 @@ public class NewBehaviourScript : MonoBehaviour
   private IHubProxy _hubProxy;
 
   private bool _magicUpdated;
+  private MagicManager _magicManager;
   private void InitializeDictionary()
   {
     Forms[(int)Form.LoadingForm] = LoadingForm;
@@ -77,7 +81,8 @@ public class NewBehaviourScript : MonoBehaviour
   private void InitializeMagic()
   {
     var magic = MagicContainer.GetComponent<MagicContainerScript>();
-    magic.InitializeMagic();
+    _magicManager = new MagicManager();
+    magic.InitializeMagic(_magicManager);
     var elements = magic.Elements;
     foreach (var element in elements)
     {
@@ -142,9 +147,32 @@ public class NewBehaviourScript : MonoBehaviour
   {
     GameContext.Instance.Users = users;
     RoomId = users.Find(item => item.Name == _name).RoomId;
-
     _startGame = true;
     _refreshUser = true;
+  }
+
+  private void CastFirst()
+  {
+    var currentUser = GameContext.Instance.Users.Find(x => x.Name == _name);
+    if (!currentUser.Magic.Any())
+      return;
+    var magicType = _magicManager.GetAllMagic()[currentUser.Magic[0]].Type;
+    var spell = new SpellDto();
+    spell.SpellType = magicType;
+    spell.OwnerName = _name;
+    CastMagic(spell);
+  }
+
+  private void CastSecond()
+  {
+    var currentUser = GameContext.Instance.Users.Find(x => x.Name == _name);
+    if (!currentUser.Magic.Any())
+      return;
+    var magicType = _magicManager.GetAllMagic()[currentUser.Magic[1]].Type;
+    var spell = new SpellDto();
+    spell.SpellType = magicType;
+    spell.OwnerName = _name;
+    CastMagic(spell);
   }
 
   #region Callbacks
@@ -214,14 +242,21 @@ public class NewBehaviourScript : MonoBehaviour
 
   private void StartGame()
   {
-    foreach (var user in GameContext.Instance.Users.Where(x => x.RoomId == RoomId))
+    var currentRoomUsers = GameContext.Instance.Users.Where(x => x.RoomId == RoomId);
+    foreach (var user in currentRoomUsers)
     {
       if (user.Magic.Count < 2)
         return;
     }
 
-    _hubProxy.Invoke("startGame");
+    _hubProxy.Invoke("startGame", currentRoomUsers);
     Debug.Log("Start Game;\n");
+  }
+
+  private void CastMagic(SpellDto spell)
+  {
+    _hubProxy.Invoke("castMagic", spell);
+    Debug.Log("Cast Spell;\n");
   }
 
   #endregion
@@ -338,6 +373,9 @@ public class NewBehaviourScript : MonoBehaviour
 
     _userCreator.GetComponent<CapsulScript>().SetName(creator.Name, this);
     _opponent.GetComponent<CapsulScript>().SetName(opponent.Name, this);
+
+    CastMagicSpellA.GetComponent<MagicCastScript>().ActionDelegate += CastFirst;
+    CastMagicSpellB.GetComponent<MagicCastScript>().ActionDelegate += CastSecond;
 
     _startGame = false;
   }
