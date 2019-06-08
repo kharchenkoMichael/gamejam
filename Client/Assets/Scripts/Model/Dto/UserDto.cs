@@ -1,16 +1,19 @@
-﻿using Assets.Scripts.Model.Entities;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Model.Entities;
+using Assets.Scripts.Model.MagicFolder;
 using UnityEngine;
 
 namespace Model.Dto
 {
-  public class UserDto
-  {
+    public class UserDto
+    {
         public string Name { get; }
         public int Hp { get; set; }
         public int Mana { get; set; }
         public int Speed { get; set; }
         public Position Position { get; set; }
         public List<Magic> Magic { get; set; }
+
         public int RoomName { get; }
         //public bool isDead { get; set; }
 
@@ -26,5 +29,6 @@ namespace Model.Dto
         {
             this.Position = user.Position;
         }
+
     }
 }

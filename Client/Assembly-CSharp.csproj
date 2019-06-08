@@ -53,8 +53,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CapsulScript.cs" />
+    <Compile Include="Assets\Scripts\Model\Dto\RoomUpdateDto.cs" />
+    <Compile Include="Assets\Scripts\Model\Dto\UserDto.cs" />
+    <Compile Include="Assets\Scripts\Model\Entities\Position.cs" />
+    <Compile Include="Assets\Scripts\Model\Entities\Room.cs" />
     <Compile Include="Assets\Scripts\Model\GameContext.cs" />
-    <Compile Include="Assets\Scripts\Model\User.cs" />
+    <Compile Include="Assets\Scripts\Model\MagicFolder\Magic.cs" />
+    <Compile Include="Assets\Scripts\Model\MagicFolder\MagicType.cs" />
     <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
@@ -110,6 +115,16 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>C:\Program Files\Unity\Editor\Data/PlaybackEngines/iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>C:\Program Files\Unity\Editor\Data/PlaybackEngines/iOSSupport\UnityEditor.iOS.Extensions.Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>C:\Program Files\Unity\Editor\Data/PlaybackEngines/iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using Model.Dto;
 
 namespace Model
 {
   public class GameContext
   {
-    public List<User> Users { get; set; }
+    public List<UserDto> Users { get; set; }
     private static GameContext _instance;
 
     public static GameContext Instance
@@ -18,7 +19,7 @@ namespace Model
 
     private GameContext()
     {
-      Users = new List<User>();
+      Users = new List<UserDto>();
     }
   }
 }

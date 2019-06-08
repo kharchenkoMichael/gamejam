@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\m.kharchenko\.Rider2018.1\system\resharper-host\local\Transient\ReSharperHost\v12\SolutionCaches\_Client.-1639119250.00" t="ExcludeRecursive" />
-    <e p="C:\Users\m.kharchenko\Desktop\Client" t="IncludeRecursive">
+    <e p="C:\Users\m.kharchenko\.Rider2018.1\system\resharper-host\local\Transient\ReSharperHost\v12\SolutionCaches\_Client.1176432811.00" t="ExcludeRecursive" />
+    <e p="C:\Users\m.kharchenko\Documents\GitHub\gamejam\Client" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets\Scripts" t="Include">
         <e p="CapsulScript.cs" t="Include" />
         <e p="Model" t="Include">
+          <e p="Dto" t="Include">
+            <e p="RoomUpdateDto.cs" t="Include" />
+            <e p="UserDto.cs" t="Include" />
+          </e>
+          <e p="Entities" t="Include">
+            <e p="Position.cs" t="Include" />
+            <e p="Room.cs" t="Include" />
+          </e>
           <e p="GameContext.cs" t="Include" />
-          <e p="User.cs" t="Include" />
+          <e p="MagicFolder" t="Include">
+            <e p="Magic.cs" t="Include" />
+            <e p="MagicType.cs" t="Include" />
+          </e>
         </e>
         <e p="NewBehaviourScript.cs" t="Include" />
       </e>
