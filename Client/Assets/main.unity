@@ -867,6 +867,21 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224009488233681388, guid: f169da517200bb646a6d90f3746f551e,
     type: 2}
   m_PrefabInternal: {fileID: 1172387392}
+--- !u!1 &1108624240 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1208683150549890, guid: cb624cb16757cbf45a9dd65e0f7afdb6,
+    type: 2}
+  m_PrefabInternal: {fileID: 192339868}
+--- !u!1 &1109960271 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1977949347128900, guid: cb624cb16757cbf45a9dd65e0f7afdb6,
+    type: 2}
+  m_PrefabInternal: {fileID: 192339868}
+--- !u!1 &1115214400 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1004640092066450, guid: cb624cb16757cbf45a9dd65e0f7afdb6,
+    type: 2}
+  m_PrefabInternal: {fileID: 192339868}
 --- !u!1001 &1172387392
 Prefab:
   m_ObjectHideFlags: 0
@@ -1388,6 +1403,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1337934813 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1070969527421230, guid: cb624cb16757cbf45a9dd65e0f7afdb6,
+    type: 2}
+  m_PrefabInternal: {fileID: 192339868}
+--- !u!114 &1337934814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1337934813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e02e45deb36e1c74dbeb50996fa2ae18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SignalR: {fileID: 1856036895}
+  CreatorMagic: 0000000000000000
+  OpponentMagic: 0000000000000000
+  MyAbility:
+  - {fileID: 1108624240}
+  - {fileID: 1115214400}
+  OpponentAbility:
+  - {fileID: 1371019214}
+  - {fileID: 1109960271}
+--- !u!1 &1371019214 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1975103464081186, guid: cb624cb16757cbf45a9dd65e0f7afdb6,
+    type: 2}
+  m_PrefabInternal: {fileID: 192339868}
 --- !u!1 &1460509987
 GameObject:
   m_ObjectHideFlags: 0
@@ -1518,6 +1563,7 @@ MonoBehaviour:
   - {fileID: 490868419}
   - {fileID: 938331121}
   _name: 
+  RoomId: 0
   signalUrl: http://192.168.88.223:52527
 --- !u!1 &1938117373 stripped
 GameObject:

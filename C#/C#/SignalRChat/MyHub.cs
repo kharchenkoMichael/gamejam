@@ -23,7 +23,7 @@ namespace SignalRChat
       };
       
       firstFreeRoom.isActive = true;
-      firstFreeRoom.Users.Add(user);
+      firstFreeRoom.Users.Add(user.Name);
       
       GameContext.Instance.Users.Add(user);
       // Call the broadcastMessage method to update clients.
@@ -41,6 +41,14 @@ namespace SignalRChat
       {
         AvatarId = avatarId
       };
+
+      if (GameContext.Instance.Rooms.ContainsKey(roomId))
+      {
+        var room = GameContext.Instance.Rooms[roomId];
+        room.Users.Add(user.Name);
+      }
+      //todo: if key was not found
+      
       GameContext.Instance.Users.Add(user);
 
       GameBroadcast.Instance.UpdateUser();
@@ -72,7 +80,7 @@ namespace SignalRChat
         return;
 
       var room = GameContext.Instance.Rooms[user.RoomId];
-      room.Users.Remove(user);
+      room.Users.Remove(user.Name);
       if (room.Users.Count <= 0)
         room.isActive = false;
 

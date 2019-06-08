@@ -37,6 +37,8 @@ public class NewBehaviourScript : MonoBehaviour
 	private bool _refreshUser = false;
 	private bool _refreshRoom = false;
 
+	public int RoomId;
+
 	public string signalUrl;
 
 	private HubConnection _hubConnection = null;
@@ -104,6 +106,8 @@ public class NewBehaviourScript : MonoBehaviour
 	private void RefreshUsers(List<UserDto> users)
 	{
 		GameContext.Instance.Users = users;
+
+		RoomId = users.Find(item => item.Name == _name).RoomId;
 		
 		_refreshUser = true;
 	}
@@ -234,7 +238,7 @@ public class NewBehaviourScript : MonoBehaviour
 				continue;
 			}
 			
-			Rooms[i].GetComponent<RoomScript>().SetRoom(room.Key, this, StartForm.GetComponent<StartFormScript>(), room.Value.Name, userCreator.Name);
+			Rooms[i].GetComponent<RoomScript>().SetRoom(room.Key, this, StartForm.GetComponent<StartFormScript>(), room.Value.Name, userCreator);
 			i++;
 		}
 
@@ -244,16 +248,16 @@ public class NewBehaviourScript : MonoBehaviour
 	private void ChooseMagic(int Id)
 	{
 		var user = GameContext.Instance.Users.Find(item => item.Name == _name);
-		if (GameContext.Instance.Rooms[user.RoomId].Users[0].Id == user.Id
+		if (GameContext.Instance.Rooms[user.RoomId].Users[0] == user.Name
 		    && (!user.Magic.Any()
-		        || GameContext.Instance.Rooms[user.RoomId].Users[1].Magic.Count == 2)) 
+		        || GameContext.Instance.Users.Find(item => item.Name == GameContext.Instance.Rooms[user.RoomId].Users[1]).Magic.Count == 2)) 
 		{
 			user.Magic.Add(Id);
 			_hubProxy.Invoke("update", user);
 			Debug.Log("ChooseMagic Creator;\n");
 		}
-		else if (GameContext.Instance.Rooms[user.RoomId].Users[0].Id != user.Id
-		         && (GameContext.Instance.Rooms[user.RoomId].Users[0].Magic.Any()))
+		else if (GameContext.Instance.Rooms[user.RoomId].Users[0] != user.Name
+		         && (GameContext.Instance.Users.Find(item => item.Name == GameContext.Instance.Rooms[user.RoomId].Users[0]).Magic.Any()))
 		{
 			user.Magic.Add(Id);
 			_hubProxy.Invoke("update", user);

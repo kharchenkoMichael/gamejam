@@ -12,21 +12,21 @@ namespace Assets.Scripts.Model.Entities
         public int Id;
         public string Name { get; }
         public bool isActive;
-        public List<UserDto> Users { get; }
+        public List<string> Users { get; }
 
         public Room(int id, string name)
         {
             Id = id;
             Name = name;
             isActive = false;
-            Users = new List<UserDto>();
+            Users = new List<string>();
         }
 
-        public List<UserDto> GetAllUsers()
+        public List<string> GetAllUsers()
         {
             return Users;
         }
-        public void AddUser(UserDto user)
+        public void AddUser(string user)
         {
             Users.Add(user);
         }
