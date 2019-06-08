@@ -835,6 +835,11 @@ Prefab:
       propertyPath: m_SizeDelta.y
       value: 700
       objectReference: {fileID: 0}
+    - target: {fileID: 224244322786041682, guid: cb624cb16757cbf45a9dd65e0f7afdb6,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 31
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb624cb16757cbf45a9dd65e0f7afdb6, type: 2}
   m_IsPrefabParent: 0
@@ -978,7 +983,13 @@ GameObject:
   m_PrefabParentObject: {fileID: 1786596965140146, guid: 45c3ea78cabfad2438628a9def8c4901,
     type: 2}
   m_PrefabInternal: {fileID: 1015030850}
---- !u!114 &847179575
+--- !u!114 &847179577 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114105904397566936, guid: 45c3ea78cabfad2438628a9def8c4901,
+    type: 2}
+  m_PrefabInternal: {fileID: 1015030850}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &847179579
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1030,12 +1041,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &847179577 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114105904397566936, guid: 45c3ea78cabfad2438628a9def8c4901,
-    type: 2}
-  m_PrefabInternal: {fileID: 1015030850}
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!114 &915075117 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114250409475590860, guid: f169da517200bb646a6d90f3746f551e,
@@ -2127,6 +2132,7 @@ MonoBehaviour:
   LoadingForm: {fileID: 2134810012}
   StartForm: {fileID: 1938117373}
   RoomForm: {fileID: 128314318}
+  MagicContainer: {fileID: 0}
   Rooms:
   - {fileID: 490868419}
   - {fileID: 938331121}
@@ -2151,6 +2157,7 @@ MonoBehaviour:
   SignalR: {fileID: 1856036895}
   Name: {fileID: 25151118}
   Avatar: {fileID: 915075117}
+  CurAvatar: 0
 --- !u!1 &2042869917
 GameObject:
   m_ObjectHideFlags: 0
