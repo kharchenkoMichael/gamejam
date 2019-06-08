@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.Model.MagicFolder;
 
-namespace SignalRChat.Model.Dto
+namespace Model.Dto
 {
   public class SpellDto
   {

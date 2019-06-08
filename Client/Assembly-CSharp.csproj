@@ -9,7 +9,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{12F44184-A422-5F27-22E6-507969043F15}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -52,10 +53,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\BehaviorScripts\GameBehaviorScript.cs" />
+    <Compile Include="Assets\Scripts\BehaviorScripts\SimpleSpellBehavior.cs" />
     <Compile Include="Assets\Scripts\CapsulScript.cs" />
     <Compile Include="Assets\Scripts\MagicContainerScript.cs" />
     <Compile Include="Assets\Scripts\MagicScript.cs" />
     <Compile Include="Assets\Scripts\Model\Dto\RoomUpdateDto.cs" />
+    <Compile Include="Assets\Scripts\Model\Dto\SpellDto.cs" />
     <Compile Include="Assets\Scripts\Model\Dto\UserDto.cs" />
     <Compile Include="Assets\Scripts\Model\Entities\Position.cs" />
     <Compile Include="Assets\Scripts\Model\Entities\Room.cs" />
@@ -142,4 +146,5 @@
       <HintPath>C:\Program Files\Unity\Editor\Data/PlaybackEngines/iOSSupport\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
 </Project>
