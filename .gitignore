@@ -8,6 +8,9 @@ Client/obj/Debug/Assembly-CSharp.csprojAssemblyReference.cache
 Client/Temp/ProcessJobs/e9a6970f79cd12d8b075e7d72f1b07cb.bakert
 Client/Temp/UnityLockfile
 Client/Temp/UnityTempFile-cecc25329dd122940a22eedac762d42e
-C#/C#/.vs/config/applicationhost.config
 C#/C#/.vs/SignalRChat/v14/.suo
 C#/C#/SignalRChat/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+C#/C#/.vs/SignalRChat/v15/Server/sqlite3/storage.ide-wal
+C#/C#/.vs/SignalRChat/v15/Server/sqlite3/storage.ide-shm
+C#/C#/.vs/SignalRChat/v15/Server/sqlite3/storage.ide
+C#/C#/.vs/SignalRChat/v15/Server/sqlite3/db.lock
