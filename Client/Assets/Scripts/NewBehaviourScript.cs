@@ -28,13 +28,10 @@ public class NewBehaviourScript : MonoBehaviour
 	public GameObject LoadingForm;
   public GameObject StartForm;
 	public GameObject RoomForm;
-
-	public GameObject RoomParent;
-	public GameObject Room;
-
   public GameObject MagicContainer;
-
-  private List<GameObject> _users = new List<GameObject>();
+	public GameObject[] Rooms;
+	
+	private List<GameObject> _users = new List<GameObject>();
 	public string _name = string.Empty;
 
 	private bool _refreshUser = false;
@@ -223,19 +220,14 @@ public class NewBehaviourScript : MonoBehaviour
 	
 	private void RefreshRoomUpdate()
 	{
-		foreach (Transform child in RoomParent.transform) {
-			DestroyImmediate(child.gameObject);
-		}
-
+		var i = 0;
 		foreach (var room in GameContext.Instance.Rooms)
 		{
 			var userCreator = room.Value.Users.FirstOrDefault();
 			if (userCreator == null)
-				continue;
+				Rooms[i].SetActive(false);
 			
-			var obj = Instantiate(Room);
-			obj.transform.parent = RoomParent.transform;
-			obj.GetComponent<RoomScript>().SetRoom(room.Key, this, StartForm.GetComponent<StartFormScript>(), room.Value.Name, userCreator.Name);
+			Rooms[i].GetComponent<RoomScript>().SetRoom(room.Key, this, StartForm.GetComponent<StartFormScript>(), room.Value.Name, String.Empty);
 		}
 
 		_refreshRoom = false;
