@@ -18,11 +18,26 @@ namespace SignalRChat
       var userId = Context.ConnectionId;
       var user = new UserDto(userId, name, new Position(0, 0, 0), firstFreeRoom.Id)
       {
-        AvatarId = avatarId,
-        
+        AvatarId = avatarId        
       };
       GameContext.Instance.Users.Add(user);
       // Call the broadcastMessage method to update clients.
+      GameBroadcast.Instance.Update();
+      GameBroadcast.Instance.UpdateRooms();
+    }
+
+    public void JoinToRoom(string name, int avatarId, int roomId)
+    {
+      var userId = Context.ConnectionId;
+      if (!GameContext.Instance.Rooms.ContainsKey(roomId))
+        return;
+
+      var user = new UserDto(userId, name, new Position(0, 0, 0), roomId)
+      {
+        AvatarId = avatarId
+      };
+      GameContext.Instance.Users.Add(user);
+
       GameBroadcast.Instance.Update();
       GameBroadcast.Instance.UpdateRooms();
     }
