@@ -4,6 +4,7 @@ namespace SignalRChat.Model.MagicFolders
 {
   public class Magic
   {
+    public string TargetName;
     public MagicType Type;
     public string Name;
     public string Description;
@@ -16,7 +17,7 @@ namespace SignalRChat.Model.MagicFolders
       Type = type;
       Description = description;
       isChoosen = false;
-      //Damage = (int)type;
+      //damage
     }
 
     public void Choose()

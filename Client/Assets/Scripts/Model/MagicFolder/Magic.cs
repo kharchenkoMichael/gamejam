@@ -8,16 +8,15 @@ namespace Assets.Scripts.Model.MagicFolder
 {
   public class Magic
   {
-    public int Id { get; }
-    public MagicType Type { get; }
-    public string Name { get; }
-    public string Description { get; }
+    public string TargetName;
+    public MagicType Type;
+    public string Name;
+    public string Description;
     public int Damage;
     public bool isChoosen;
 
-    public Magic(int id, string name, MagicType type, string description)
+    public Magic(string name, MagicType type, string description)
     {
-      Id = id;
       Name = name;
       Type = type;
       Description = description;
