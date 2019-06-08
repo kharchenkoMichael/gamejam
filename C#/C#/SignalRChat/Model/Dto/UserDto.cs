@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace SignalRChat.Model
+namespace SignalRChat.Model.Dto
 {
-    public class User
+    public class UserDto
     {
         public string Name { get; }
         public int Hp { get; set; }
@@ -11,14 +11,14 @@ namespace SignalRChat.Model
         public int RoomName { get; }
         //public bool isDead { get; set; }
 
-        public User(string name, Position position, int roomNumber)
+        public UserDto(string name, Position position, int roomNumber)
         {
             Name = name;
             Position = position;
             RoomName = roomNumber;
         }
 
-        public void Clone(User user)
+        public void Clone(UserDto user)
         {
             this.Position = user.Position;
         }
