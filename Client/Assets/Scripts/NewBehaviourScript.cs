@@ -8,6 +8,7 @@ using Model;
 using Model.Dto;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Scripts.Model.MagicFolder;
 
 public enum Form
 {
@@ -39,6 +40,8 @@ public class NewBehaviourScript : MonoBehaviour
 
 	private IHubProxy _hubProxy;
 
+  private MagicManager _magicManager;
+
 	private void InitializeDictionary()
 	{
 		Forms[(int) Form.LoadingForm] = LoadingForm;
@@ -56,6 +59,7 @@ public class NewBehaviourScript : MonoBehaviour
 		Debug.Log("Start() 1 second.");
 		StartSignalR();
 		OpenForm(Form.StartForm);
+    _magicManager = new MagicManager();
 	}
 
 	private void StartSignalR()
@@ -198,7 +202,6 @@ public class NewBehaviourScript : MonoBehaviour
 	
 	private void RefreshRoomUpdate()
 	{
-		
 		_refreshRoom = false;
 	}
 }
