@@ -42,7 +42,6 @@ public class NewBehaviourScript : MonoBehaviour
 	private HubConnection _hubConnection = null;
 
 	private IHubProxy _hubProxy;
-  private MagicManager _magicManager;
 
   private bool _magicUpdated;
   private void InitializeDictionary()
@@ -66,7 +65,6 @@ public class NewBehaviourScript : MonoBehaviour
   }
   private void InitializeMagic()
   {
-    _magicManager = new MagicManager();
     var elements = MagicContainer.GetComponent<MagicContainerScript>().Elements;
     foreach (var element in elements)
     {
