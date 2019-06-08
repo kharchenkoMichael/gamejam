@@ -5,6 +5,7 @@ namespace SignalRChat.Model.Dto
 {
   public class UserDto
   {
+    public string Id { get; }
     public string Name { get; }
     public int AvatarId { get; set; }
     public int Hp { get; set; }
@@ -15,8 +16,9 @@ namespace SignalRChat.Model.Dto
     public int RoomName { get; }
     //public bool isDead { get; set; }
 
-    public UserDto(string name, Position position, int roomNumber)
+    public UserDto(string id, string name, Position position, int roomNumber)
     {
+      Id = id;
       Name = name;
       Position = position;
       RoomName = roomNumber;

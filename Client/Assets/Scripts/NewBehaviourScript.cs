@@ -19,7 +19,6 @@ public enum Form
 
 public class NewBehaviourScript : MonoBehaviour
 {
-	public Text Text;
 	public GameObject Capsule;
 
 	public Dictionary<int, GameObject> Forms = new Dictionary<int, GameObject>();
