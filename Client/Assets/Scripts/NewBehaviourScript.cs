@@ -60,7 +60,7 @@ public class NewBehaviourScript : MonoBehaviour
 		Debug.Log("Start() 1 second.");
 		StartSignalR();
 		OpenForm(Form.StartForm);
-    InitializeMagic();
+    //InitializeMagic();
   }
   private void InitializeMagic()
   {
@@ -142,8 +142,8 @@ public class NewBehaviourScript : MonoBehaviour
 	public void CreateRoom(int avatarId, string myName)
 	{
 		_name = myName;
-		_hubProxy.Invoke("createRoom", avatarId, myName );
-		
+		_hubProxy.Invoke("createRoom", myName, avatarId );
+		OpenForm(Form.RoomForm);
 		Debug.Log("CreateRoom;\n");
 	}
 	
@@ -225,9 +225,14 @@ public class NewBehaviourScript : MonoBehaviour
 		{
 			var userCreator = room.Value.Users.FirstOrDefault();
 			if (userCreator == null)
+			{
 				Rooms[i].SetActive(false);
+				i++;
+				continue;
+			}
 			
-			Rooms[i].GetComponent<RoomScript>().SetRoom(room.Key, this, StartForm.GetComponent<StartFormScript>(), room.Value.Name, String.Empty);
+			Rooms[i].GetComponent<RoomScript>().SetRoom(room.Key, this, StartForm.GetComponent<StartFormScript>(), room.Value.Name, userCreator.Name);
+			i++;
 		}
 
 		_refreshRoom = false;
