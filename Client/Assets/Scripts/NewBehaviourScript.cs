@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNet.SignalR.Client;
 using Model;
+using Model.Dto;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,11 +12,9 @@ public class NewBehaviourScript : MonoBehaviour
 {
 	public Text Text;
 	public GameObject Capsule;
-	public GameObject UI;
 
-	public Text Debug;
-	private string _debug;
-	private bool _debugChanged = false;
+	public GameObject StartForm;
+
 	
 	private List<GameObject> _users = new List<GameObject>();
 	public string _name = string.Empty;
@@ -32,25 +31,24 @@ public class NewBehaviourScript : MonoBehaviour
 	// Use this for initialization
 	IEnumerator Start()
 	{
-		_debug += "Start()\n";
+		Debug.Log("Start()");
 		yield return new WaitForSeconds(1);
-		_debug += "Start() 1 second.\n";
-
+		
+		Debug.Log("Start() 1 second.");
 		StartSignalR();
-		_debugChanged = true;
 	}
 
 	private void StartSignalR()
 	{
-		_debug += "StartSignalR\n";
+		Debug.Log("StartSignalR");
 		if (_hubConnection == null)
 		{
 			_hubConnection = new HubConnection(signalUrl);
-			_debug += signalUrl + "\n";
+			Debug.Log("signalUrl");
 			_hubConnection.Error += HubConnection_Error;
 
 			_hubProxy = _hubConnection.CreateHubProxy("MyHub");
-			_hubProxy.On<List<User>>("refresh",
+			_hubProxy.On<List<UserDto>>("refresh",
 				(users) =>
 				{
 					var myUsers = GameContext.Instance.Users;
@@ -69,15 +67,14 @@ public class NewBehaviourScript : MonoBehaviour
 			_hubConnection.Start().Wait();
 			_hubConnection.StateChanged += change =>
 			{
-				_debug += $"{change.NewState} {change.OldState}\n";
-				_debugChanged = true;
+				Debug.Log($"{change.NewState} {change.OldState}");
 			}; 
 			
-			_debug += "_hubConnection.Start();\n";
+			Debug.Log("_hubConnection.Start();");
 		}
 		else
 		{
-			_debug += "Signalr  already connected...\n";
+			Debug.Log("Signalr  already connected...");
 		}
 	}
 	
@@ -90,47 +87,36 @@ public class NewBehaviourScript : MonoBehaviour
 		_name = Text.text;
 		_create = true;
 		
-		_debug += "Create;\n";
-		_debugChanged = true;
+		Debug.Log("Create;\n");
 	}
 	
 	public void UpdateCapsul(Transform myTransform)
 	{
 		var user = GameContext.Instance.Users.Find(item => item.Name == _name);
-		user.Update(myTransform);
+		user.Position.Update(myTransform.position);
 		_hubProxy.Invoke("update", user);
-	}
-
-	public void ResetDebug()
-	{
-		Debug.text = string.Empty;
 	}
 
 	#endregion
 
 	void OnAppliacationQuit()
 	{
-		
-		_debug += $"OnAppliacationQuit() {Time.time} seconds\n";
-		_debugChanged = true;
+		Debug.Log($"OnAppliacationQuit() {Time.time} seconds");
 		_hubConnection.Error -= HubConnection_Error;
 		_hubConnection.Stop();
 	}
 	
 	private void HubConnection_Error(Exception obj)
 	{
-		
-		_debug += "Hub Error - " + obj.Message + Environment.NewLine+
+		Debug.Log("Hub Error - " + obj.Message + Environment.NewLine+
 		          obj.Data+Environment.NewLine+
 		          obj.StackTrace +Environment.NewLine+
-		          obj.TargetSite +"\n";
-		_debugChanged = true;
+		          obj.TargetSite);
 	}
 
 	private void hubConnection_Closed()
 	{
-		_debug += "_hubConnection.Start();\n";
-		_debugChanged = true;
+		Debug.Log("Closed");
 	}
 	
 
@@ -139,17 +125,6 @@ public class NewBehaviourScript : MonoBehaviour
 	{
 		if (_refresh)
 			RefreshUpdate();
-		if (_create)
-		{
-			UI.SetActive(false);
-			_create = false;
-		}
-
-		if (_debugChanged)
-		{
-			Debug.text += _debug;
-			_debugChanged = false;
-		}
 	}
 
 	private void RefreshUpdate()
@@ -159,8 +134,7 @@ public class NewBehaviourScript : MonoBehaviour
 			var prefab = _users.FirstOrDefault(item => item.GetComponent<CapsulScript>().Name == user.Name);
 			if (prefab == null)
 			{
-				var obj = Instantiate(Capsule, new Vector3(user.PositionX, user.PositionY, user.PositionZ),
-					new Quaternion(user.RotationX, user.RotationY, user.RotationZ, 0));
+				var obj = Instantiate(Capsule, new Vector3(user.Position.PositionX, user.Position.PositionY, user.Position.PositionZ),Quaternion.identity);
 				var script = obj.GetComponent<CapsulScript>();
 				script.SignalR = this;
 				script.SetName(user.Name);
@@ -171,8 +145,7 @@ public class NewBehaviourScript : MonoBehaviour
 			if (user.Name == _name)
 				continue;
 
-			prefab.transform.position = new Vector3(user.PositionX, user.PositionY, user.PositionZ);
-			prefab.transform.rotation = new Quaternion(user.RotationX, user.RotationY, user.RotationZ, 0);
+			prefab.transform.position = new Vector3(user.Position.PositionX, user.Position.PositionY, user.Position.PositionZ);
 		}
 		
 		_refresh = false;
