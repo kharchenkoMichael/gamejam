@@ -293,13 +293,13 @@ public class NewBehaviourScript : MonoBehaviour
   }
   private void StartGame()
   {
-    foreach (var user in GameContext.Instance.Users.Where(x => x.RoomId == RoomId))
+    var currentRoomUser = GameContext.Instance.Users.Where(x => x.RoomId == RoomId);
+    foreach (var user in currentRoomUser)
     {
       if (user.Magic.Count < 2)
         return;
     }
-
-    _hubProxy.Invoke("startGame");
+    _hubProxy.Invoke("startGame", currentRoomUser);
     Debug.Log("Start Game;\n");
   }
 }
