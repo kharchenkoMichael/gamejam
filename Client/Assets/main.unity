@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -161,7 +161,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -186.90039, y: 51.450012}
+  m_AnchoredPosition: {x: -186.90039, y: 51.450195}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &37832012
@@ -1369,6 +1369,7 @@ RectTransform:
   - {fileID: 2134810013}
   - {fileID: 1172387393}
   - {fileID: 58422572}
+  - {fileID: 1435106794}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1948,6 +1949,39 @@ GameObject:
   m_PrefabParentObject: {fileID: 1975103464081186, guid: cb624cb16757cbf45a9dd65e0f7afdb6,
     type: 2}
   m_PrefabInternal: {fileID: 192339868}
+--- !u!1 &1435106793
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1435106794}
+  m_Layer: 5
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1435106794
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1435106793}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1051599015}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1460509987
 GameObject:
   m_ObjectHideFlags: 0
@@ -2120,7 +2154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 131.80078, y: 121.9}
+  m_AnchoredPosition: {x: 131.80078, y: 121.90039}
   m_SizeDelta: {x: 240.9, y: 240.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1811557992
@@ -2158,7 +2192,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 130.59961, y: 121.8}
+  m_AnchoredPosition: {x: 130.59961, y: 121.799805}
   m_SizeDelta: {x: 83, y: 83}
   m_Pivot: {x: 0.5, y: 0.607}
 --- !u!114 &1811557994
@@ -2290,12 +2324,12 @@ MonoBehaviour:
   LoadingForm: {fileID: 2134810012}
   StartForm: {fileID: 1938117373}
   RoomForm: {fileID: 128314318}
-  GameForm: {fileID: 0}
+  GameForm: {fileID: 1435106793}
   MagicContainer: {fileID: 18635420}
   Rooms:
   - {fileID: 490868419}
   - {fileID: 938331121}
-  StartButton: {fileID: 0}
+  StartButton: {fileID: 1828814072}
   _name: 
   RoomId: 0
   signalUrl: http://192.168.88.223:52527

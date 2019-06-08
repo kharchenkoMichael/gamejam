@@ -8,8 +8,22 @@ namespace Assets.Scripts.Model.MagicFolder
 {
   public enum MagicType
   {
-    Attack,
-    Defence,
-    Effect,
+    //Attack
+    Lightning,
+    Stonefall,
+    Fireball,
+    IceBolt,
+
+    //Deffence
+    TurnIntoWater,
+    Invisible,
+    MagicUmbrella,
+    MagicMirror,
+
+    //Effect
+    Trap,
+    Tornado,
+    Quicksand,
+    CloudCover,
   }
 }

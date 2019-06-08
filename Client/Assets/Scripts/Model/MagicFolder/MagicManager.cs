@@ -12,7 +12,7 @@ namespace Assets.Scripts.Model.MagicFolder
     public MagicManager()
     {
       _magic = new Dictionary<MagicType, Magic>();
-      _magic.Add(MagicType.Attack, new Magic("Молния", MagicType.Attack, "Повреждает противника ударом сверху (укрытия не защищают) управления игрока меняется случайным образом"));
+      /*_magic.Add(MagicType.Attack, new Magic("Молния", MagicType.Attack, "Повреждает противника ударом сверху (укрытия не защищают) управления игрока меняется случайным образом"));
       _magic.Add(MagicType.Attack, new Magic("Камнепад", MagicType.Attack, "Повреждает противника ударом сверху (укрытия не защищают), игрок оглушается на некоторое время."));
       _magic.Add(MagicType.Attack, new Magic("Фаербол", MagicType.Attack, "Повреждает противника, но поджигает игрока, нанося ему периодический урон. Летит по прямой, можно спрятаться за укрытия."));
       _magic.Add(MagicType.Attack, new Magic("Ледяной болт", MagicType.Attack, "Наносит противнику урон, но руки игрока замерзают и он некоторое время не может кастовать никакие заклинания. Летит по прямой, можно спрятаться за укрытия."));
@@ -25,7 +25,7 @@ namespace Assets.Scripts.Model.MagicFolder
       _magic.Add(MagicType.Effect, new Magic("Ловушка с шипами", MagicType.Effect, "Рандомно срабатывающая ловушка."));
       _magic.Add(MagicType.Effect, new Magic("Торнадо", MagicType.Effect, "Вихрь, который блуждает по локации и наносит повреждения всему, к чему дотронется."));
       _magic.Add(MagicType.Effect, new Magic("Зыбучие пески", MagicType.Effect, "Скорость всех в области уменьшена в два раза."));
-      _magic.Add(MagicType.Effect, new Magic("Облачность", MagicType.Effect, "Локацию закрывают тучи и игроки не видят происходящего за ними."));
+      _magic.Add(MagicType.Effect, new Magic("Облачность", MagicType.Effect, "Локацию закрывают тучи и игроки не видят происходящего за ними."));*/
     }
 
     public List<Magic> GetAllMagic()
