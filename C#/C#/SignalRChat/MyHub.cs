@@ -76,7 +76,7 @@ namespace SignalRChat
     public void UserExit(string userName)
     {
       var user = GameContext.Instance.Users.Where(u => u.Name == userName).FirstOrDefault();
-      if (user is null)
+      if (user == null)
         return;
 
       var room = GameContext.Instance.Rooms[user.RoomId];
@@ -90,6 +90,11 @@ namespace SignalRChat
     public void Test()
     {
       Clients.Client(Context.ConnectionId).message("hello from server");
+    }
+
+    public void StartGame()
+    {
+      GameBroadcast.Instance.StartGame();
     }
   }
 }
