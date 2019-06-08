@@ -22,8 +22,8 @@ namespace SignalRChat.Model
 
     public void Broadcast(object state)
     {
-      if (!_modelUpdated) 
-        return;
+      //if (!_modelUpdated) 
+      //  return;
       
       _hubContext.Clients.All.refresh(GameContext.Instance.Users);
       _modelUpdated = false;
