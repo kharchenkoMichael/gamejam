@@ -14,7 +14,7 @@ namespace SignalRChat.Model
       { 2, new Room(2,"NightBall")}
     };
 
-    private List<Magic> _unresolvedSpellsCasts = new List<Magic>();
+    private List<SpellDto> _unresolvedSpellsCasts = new List<SpellDto>();
 
     public static GameContext Instance => _instance ?? (_instance = new GameContext());
 
@@ -23,12 +23,12 @@ namespace SignalRChat.Model
       Users = new List<UserDto>();
     }
 
-    public void AddSpell(Magic spell)
+    public void AddSpell(SpellDto spell)
     {
       _unresolvedSpellsCasts.Add(spell);
     }
 
-    public List<Magic> GetAllSpells()
+    public List<SpellDto> GetAllSpells()
     {
       return _unresolvedSpellsCasts;
     }
