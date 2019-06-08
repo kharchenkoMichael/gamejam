@@ -65,6 +65,20 @@ namespace SignalRChat
       GameBroadcast.Instance.UpdateSpells();
     }
 
+    public void UserExit(string userName)
+    {
+      var user = GameContext.Instance.Users.Where(u => u.Name == userName).FirstOrDefault();
+      if (user is null)
+        return;
+
+      var room = GameContext.Instance.Rooms[user.RoomName];
+      room.Users.Remove(user);
+      if (room.Users.Count <= 0)
+        room.isActive = false;
+
+      GameContext.Instance.Users.Remove(user);
+    }
+
     public void Test()
     {
       Clients.Client(Context.ConnectionId).message("hello from server");

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿
 
 namespace SignalRChat.Model.MagicFolders
 {
@@ -19,7 +16,7 @@ namespace SignalRChat.Model.MagicFolders
       Type = type;
       Description = description;
       isChoosen = false;
-      //damage
+      //Damage = (int)type;
     }
 
     public void Choose()
