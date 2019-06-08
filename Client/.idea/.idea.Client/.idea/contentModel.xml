@@ -21,6 +21,7 @@
             <e p="MagicType.cs" t="Include" />
           </e>
         </e>
+        <e p="MoveSliderScript.cs" t="Include" />
         <e p="NewBehaviourScript.cs" t="Include" />
       </e>
       <e p="Client.sln" t="IncludeFlat" />
