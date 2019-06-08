@@ -43,6 +43,8 @@ public class NewBehaviourScript : MonoBehaviour
 
 	private IHubProxy _hubProxy;
   private MagicManager _magicManager;
+
+  private bool _magicUpdated;
   private void InitializeDictionary()
 	{
 		Forms[(int) Form.LoadingForm] = LoadingForm;
@@ -209,6 +211,15 @@ public class NewBehaviourScript : MonoBehaviour
 				continue;
 			}
 
+      if (_magicUpdated)
+      {
+        var elements = MagicContainer.GetComponent<MagicContainerScript>().Elements;
+        foreach (var magicId in user.Magic)
+        {
+          elements[magicId].SetActive(false);
+        }
+      }
+
 			if (user.Name == _name)
 				continue;
 
@@ -216,6 +227,7 @@ public class NewBehaviourScript : MonoBehaviour
 		}
 		
 		_refreshUser = false;
+    _magicUpdated = false;
 	}
 	
 	private void RefreshRoomUpdate()
@@ -235,13 +247,10 @@ public class NewBehaviourScript : MonoBehaviour
 
   private void ChooseMagic(int Id)
   {
-    //update User
+    var user = GameContext.Instance.Users.Find(item => item.Name == _name);
+    user.Magic.Add(Id);
+    _magicUpdated = true;
+    _hubProxy.Invoke("update", user);
+    Debug.Log("ChooseMagic;\n");
   }
-
-  private void SetUpdateUserMagic()
-  {
-    var elements = MagicContainer.GetComponent<MagicContainerScript>().Elements;
-    elements[0].SetActive(false);
-  }
-
 }
