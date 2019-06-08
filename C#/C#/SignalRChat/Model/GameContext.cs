@@ -32,5 +32,10 @@ namespace SignalRChat.Model
     {
       return _unresolvedSpellsCasts;
     }
+
+    public void ClearSpells()
+    {
+      _unresolvedSpellsCasts.Clear();
+    }
   }
 }
