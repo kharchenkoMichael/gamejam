@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Runtime.InteropServices;
+using Model;
 using Model.Dto;
 using UnityEngine;
 
@@ -50,8 +50,10 @@ public class CapsulScript : MonoBehaviour
 		vector.x -= Spead * yMove;
 
 	  Controller.Move(vector);
-      
-    SignalR.UpdateCapsul(transform);
+
+		var user = GameContext.Instance.Users.Find(item => item.Name == Name);
+		user.Position.Update(transform.position);
+    SignalR.UpdateCapsul(Name);
 	}
 
   public void SetByUser(UserDto user)

@@ -245,10 +245,9 @@ public class NewBehaviourScript : MonoBehaviour
     Debug.Log("ConnectToRoom;\n");
   }
 
-  public void UpdateCapsul(Transform myTransform)
+  public void UpdateCapsul(string capsulaName)
   {
-    var user = GameContext.Instance.Users.Find(item => item.Name == _name);
-    user.Position.Update(myTransform.position);
+    var user = GameContext.Instance.Users.Find(item => item.Name == capsulaName);
     _hubProxy.Invoke("update", user);
   }
   
@@ -449,10 +448,12 @@ public class NewBehaviourScript : MonoBehaviour
     var creatorBehavior = _userCreator.AddComponent<GameBehaviorScript>();
     creatorBehavior.Enemy = _opponent;
     creatorBehavior.User = GameContext.Instance.Users.Find(item => item.Name == GameContext.Instance.Rooms[RoomId].Users[0]);
+    creatorBehavior.SignalR = this;
     
     var opponentBehavior = _opponent.AddComponent<GameBehaviorScript>();
     opponentBehavior.Enemy = _userCreator;
     opponentBehavior.User = GameContext.Instance.Users.Find(item => item.Name == GameContext.Instance.Rooms[RoomId].Users[1]);
+    opponentBehavior.SignalR = this;
 
     _userCreator.transform.LookAt(_opponent.transform);
     _opponent.transform.LookAt(_userCreator.transform);

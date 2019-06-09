@@ -15,17 +15,18 @@ namespace Assets.Scripts.BehaviorScripts
     public int Damage;
     //public int _LIfeTime = -1; // -1 : до паражения цели; больше 0 : время жизни в секундах (для молнии)  
 
-    private int _speed = 1;
+    private float _speed = 0.2f;
 
     void Update()
     {
       transform.LookAt(Target.transform);
       transform.position += transform.forward * _speed;
 
-      if(Vector3.Distance(transform.position, Target.transform.position) < 5)
+      if(Vector3.Distance(transform.position, Target.transform.position) < 0.2)
       {
-        Target.GetComponent<GameBehaviorScript>().Attack(Type, Damage);
-        GameObject.Destroy(gameObject);
+        var behaviorScript = Target.GetComponent<GameBehaviorScript>();
+        behaviorScript.Attack(Type, Damage);
+        Destroy(gameObject);
       }
     }
   }

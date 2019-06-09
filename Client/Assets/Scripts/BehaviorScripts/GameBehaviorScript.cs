@@ -64,7 +64,7 @@ namespace Assets.Scripts.BehaviorScripts
       }
 
       User.Hp -= damage;
-      SignalR.UpdateCapsul(transform);
+      SignalR.UpdateCapsul(name);
     }
 
     private bool HasEffect(List<ISpellPosteffect> effects, MagicType type)
@@ -75,13 +75,14 @@ namespace Assets.Scripts.BehaviorScripts
 
     private void CreateSpellInstance(SpellDto dto)
     {
-      var spellObject = new GameObject();
+      var spellObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
       switch (dto.SpellType)
       {
         case MagicType.Fireball:
           {
             var behavior = spellObject.AddComponent<SimpleSpellBehaviorScript>();
             behavior.Target = Enemy;
+            spellObject.transform.position = transform.position;
             break;
           }
       }
