@@ -33,6 +33,13 @@ namespace Assets.Scripts.BehaviorScripts
      
     public void Spell(SpellDto dto)
     {
+      if(HasEffect(User.Posteffects, MagicType.Invisible))
+      {
+        gameObject.GetComponent<MeshRenderer>().enabled = true;
+        var effect = User.Posteffects.Where(p => p.Type == MagicType.Invisible).FirstOrDefault();
+        User.Posteffects.Remove(effect);
+      }
+
       CreateSpellInstance(dto);
       var posteffect = PosteffectBuilder.GetPosteffect(dto.SpellType);
       User.Posteffects.Add(posteffect);
@@ -162,6 +169,11 @@ namespace Assets.Scripts.BehaviorScripts
         case MagicType.TurnIntoWater:
           {
             //turn into water
+            break;
+          }
+        case MagicType.Invisible:
+          {
+            gameObject.GetComponent<MeshRenderer>().enabled = false;
             break;
           }
 
