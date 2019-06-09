@@ -447,7 +447,9 @@ public class NewBehaviourScript : MonoBehaviour
       Quaternion.identity);
 
     _userCreator.AddComponent<GameBehaviorScript>().Enemy = _opponent;
+    _userCreator.AddComponent<GameBehaviorScript>().User = GameContext.Instance.Users[0];
     _opponent.AddComponent<GameBehaviorScript>().Enemy = _userCreator;
+    _opponent.AddComponent<GameBehaviorScript>().User = GameContext.Instance.Users[1];
 
     _userCreator.transform.LookAt(_opponent.transform);
     _opponent.transform.LookAt(_userCreator.transform);
