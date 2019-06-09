@@ -37,7 +37,7 @@ public class CapsulScript : MonoBehaviour
 	// Update is called once per frame
 	private void Update()
 	{
-		if (SignalR == null || SignalR._name != Name)
+		if (SignalR == null || SignalR.Name != Name)
 			return;
 
 		var vector = Vector3.zero;

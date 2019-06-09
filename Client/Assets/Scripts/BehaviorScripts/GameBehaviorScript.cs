@@ -7,27 +7,27 @@ using UnityEngine;
 using Assets.Scripts.Model.MagicFolder;
 using Model.Dto;
 using Assets.Scripts.Model.Spells;
+using Model;
 
 namespace Assets.Scripts.BehaviorScripts
 {
   class GameBehaviorScript : MonoBehaviour
   {
     public GameObject Enemy;
-    public UserDto User;
+    public string UserName;
     public NewBehaviourScript SignalR;
 
-
-    
     void Start()
     {
     }
 
     void Update()
     {
-      for (int i = User.Posteffects.Count - 1; i >= 0; i--)
+      var user = GameContext.Instance.Users.Find(item => item.Name == UserName);
+      for (int i = user.Posteffects.Count - 1; i >= 0; i--)
       {
-        var posteffect = User.Posteffects[i];
-        posteffect.Update(User, Time.deltaTime);
+        var posteffect = user.Posteffects[i];
+        posteffect.Update(user, Time.deltaTime);
       }
     }
 
@@ -38,8 +38,9 @@ namespace Assets.Scripts.BehaviorScripts
 
     public void Attack(MagicType spellType, int damage)
     {
+      var user = GameContext.Instance.Users.Find(item => item.Name == UserName);
       //todo: если есть защита то проводить действия иначе вычесть жизни
-      var effects = User.Posteffects;
+      var effects = user.Posteffects;
 
       if (HasEffect(effects,MagicType.TurnIntoWater))
       {
@@ -64,7 +65,7 @@ namespace Assets.Scripts.BehaviorScripts
         //tode : реализовать после создания такого постэффекта
       }
 
-      User.Hp -= damage;
+      user.Hp -= damage;
       SignalR.UpdateCapsul(name);
     }
 
@@ -82,6 +83,7 @@ namespace Assets.Scripts.BehaviorScripts
         case MagicType.Fireball:
           {
             var behavior = spellObject.AddComponent<SimpleSpellBehaviorScript>();
+            behavior.Damage = 10;
             behavior.Target = Enemy;
             spellObject.transform.position = transform.position;
             spellObject.transform.position = new Vector3(spellObject.transform.position.x, spellObject.transform.position.y + 2, spellObject.transform.position.z);

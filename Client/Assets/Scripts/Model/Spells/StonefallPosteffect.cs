@@ -29,6 +29,7 @@ namespace Assets.Scripts.Model.Spells
       if (_timer <= 0)
       {
         user.Speed = _oldSpeed;
+        user.Posteffects.Remove(this);
       }
     }
   }
