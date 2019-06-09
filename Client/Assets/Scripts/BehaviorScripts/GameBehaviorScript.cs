@@ -128,38 +128,42 @@ namespace Assets.Scripts.BehaviorScripts
 
     private void CreateSelfEffectObjectInstance(SpellDto dto)
     {
-      GameObject spellObject;
+      GameObject selfEffectObject];
       switch (dto.SpellType)
       {
         case MagicType.Lightning:
           {
-            spellObject = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-            spellObject.transform.position = transform.position;
-            spellObject.transform.SetParent(transform);
+            selfEffectObject = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+            selfEffectObject.transform.position = transform.position;
+            selfEffectObject.transform.SetParent(transform);
             break;
           }
         case MagicType.Stonefall:
           {
-            spellObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            spellObject.transform.position = transform.position;
-            spellObject.transform.SetParent(transform);
+            selfEffectObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            selfEffectObject.transform.position = transform.position;
+            selfEffectObject.transform.SetParent(transform);
             break;
           }
         case MagicType.Fireball:
           {
-            spellObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            spellObject.transform.position = transform.position;
-            spellObject.transform.SetParent(transform);
+            selfEffectObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            selfEffectObject.transform.position = transform.position;
+            selfEffectObject.transform.SetParent(transform);
             break;
           }
         case MagicType.IceBolt:
           {
-            spellObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            spellObject.transform.position = transform.position;
-            spellObject.transform.SetParent(transform);
+            selfEffectObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            selfEffectObject.transform.position = transform.position;
+            selfEffectObject.transform.SetParent(transform);
             break;
           }
-
+        case MagicType.TurnIntoWater:
+          {
+            //turn into water
+            break;
+          }
 
       }
     }
