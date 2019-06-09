@@ -474,7 +474,7 @@ public class NewBehaviourScript : MonoBehaviour
     CastMagicSpellA.GetComponent<MagicCastScript>().ActionDelegate += CastFirst;
     CastMagicSpellB.GetComponent<MagicCastScript>().ActionDelegate += CastSecond;
 
-    var currentUser = GameContext.Instance.Users.Find(x => x.Name == _name);
+    var currentUser = GameContext.Instance.Users.Find(x => x.Name == Name);
     CastMagicSpellA.GetComponent<Image>().sprite = _magicSprites[currentUser.Magic[0]];
     CastMagicSpellB.GetComponent<Image>().sprite = _magicSprites[currentUser.Magic[1]];
 
