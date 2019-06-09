@@ -5,6 +5,7 @@ using System.Linq;
 using Assets.Scripts.Model.Dto;
 using Microsoft.AspNet.SignalR.Client;
 using Model;
+using UnityEngine.UI;
 using Model.Dto;
 using UnityEngine;
 using Assets.Scripts;
@@ -40,7 +41,7 @@ public class NewBehaviourScript : MonoBehaviour
   public GameObject CastMagicSpellB;
 
   private List<GameObject> _users = new List<GameObject>();
-  public string _name = string.Empty;
+  public string Name = string.Empty;
 
   private bool _startGame = false;
   private bool _refreshUser = false;
@@ -62,6 +63,7 @@ public class NewBehaviourScript : MonoBehaviour
 
   private bool _magicUpdated;
   private MagicManager _magicManager;
+  private Dictionary<int, Sprite> _magicSprites;
   private void InitializeDictionary()
   {
     Forms[(int)Form.LoadingForm] = LoadingForm;
@@ -92,7 +94,7 @@ public class NewBehaviourScript : MonoBehaviour
     {
       element.Value.GetComponent<MagicScript>().ActionDelegate += ChooseMagic;
     }
-
+    _magicSprites = new Dictionary<int, Sprite>();
     StartButton.GetComponent<StartGameScript>().ActionDelegate += StartGame;
   }
 
@@ -136,7 +138,7 @@ public class NewBehaviourScript : MonoBehaviour
   {
     GameContext.Instance.Users = users;
 
-    RoomId = users.Find(item => item.Name == _name).RoomId;
+    RoomId = users.Find(item => item.Name == Name).RoomId;
 
     _refreshUser = true;
   }
@@ -157,32 +159,32 @@ public class NewBehaviourScript : MonoBehaviour
   private void StartGameFrom(List<UserDto> users)
   {
     GameContext.Instance.Users = users;
-    RoomId = users.Find(item => item.Name == _name).RoomId;
+    RoomId = users.Find(item => item.Name == Name).RoomId;
     _startGame = true;
     _refreshUser = true;
   }
 
   private void CastFirst()
   {
-    var currentUser = GameContext.Instance.Users.Find(x => x.Name == _name);
+    var currentUser = GameContext.Instance.Users.Find(x => x.Name == Name);
     if (!currentUser.Magic.Any())
       return;
     var magicType = _magicManager.GetAllMagic()[currentUser.Magic[0]].Type;
     var spell = new SpellDto();
     spell.SpellType = magicType;
-    spell.OwnerName = _name;
+    spell.OwnerName = Name;
     CastMagic(spell);
   }
 
   private void CastSecond()
   {
-    var currentUser = GameContext.Instance.Users.Find(x => x.Name == _name);
+    var currentUser = GameContext.Instance.Users.Find(x => x.Name == Name);
     if (!currentUser.Magic.Any())
       return;
     var magicType = _magicManager.GetAllMagic()[currentUser.Magic[1]].Type;
     var spell = new SpellDto();
     spell.SpellType = magicType;
-    spell.OwnerName = _name;
+    spell.OwnerName = Name;
     CastMagic(spell);
   }
 
@@ -218,7 +220,7 @@ public class NewBehaviourScript : MonoBehaviour
 
   public void Exit()
   {
-    _hubProxy.Invoke("userExit", _name);
+    _hubProxy.Invoke("userExit", Name);
 
     Debug.Log("userExit;\n");
   }
@@ -232,7 +234,7 @@ public class NewBehaviourScript : MonoBehaviour
   public void CreateRoom(int avatarId, string myName)
   {
     StartButton.SetActive(true);
-    _name = myName;
+    Name = myName;
     _hubProxy.Invoke("createRoom", myName, avatarId);
     OpenForm(Form.RoomForm);
     Debug.Log("CreateRoom;\n");
@@ -241,7 +243,7 @@ public class NewBehaviourScript : MonoBehaviour
   public void JoinToRoom(int roomId, string myName, int avatarId)
   {
     StartButton.SetActive(false);
-    _name = myName;
+    Name = myName;
     _hubProxy.Invoke("joinToRoom", myName, avatarId, roomId);
     OpenForm(Form.RoomForm);
     Debug.Log("ConnectToRoom;\n");
@@ -253,9 +255,9 @@ public class NewBehaviourScript : MonoBehaviour
     _hubProxy.Invoke("update", user);
   }
   
-  private void ChooseMagic(int Id)
+  private void ChooseMagic(MagicSprites magic)
   {
-    var user = GameContext.Instance.Users.Find(item => item.Name == _name);
+    var user = GameContext.Instance.Users.Find(item => item.Name == Name);
     if (user.Magic.Count == 2)
     {
       OpenPopup("Можно выбрать только 2 магии");
@@ -266,7 +268,8 @@ public class NewBehaviourScript : MonoBehaviour
             || GameContext.Instance.Users.Find(item => item.Name == GameContext.Instance.Rooms[user.RoomId].Users[1])
               .Magic.Count == 2))
     {
-      user.Magic.Add(Id);
+      _magicSprites.Add(magic.Id, magic.Sprite);
+      user.Magic.Add(magic.Id);
       _hubProxy.Invoke("update", user);
       Debug.Log("ChooseMagic Creator;\n");
     }
@@ -274,7 +277,8 @@ public class NewBehaviourScript : MonoBehaviour
              && (GameContext.Instance.Users.Find(item => item.Name == GameContext.Instance.Rooms[user.RoomId].Users[0])
                .Magic.Any()))
     {
-      user.Magic.Add(Id);
+      _magicSprites.Add(magic.Id, magic.Sprite);
+      user.Magic.Add(magic.Id);
       _hubProxy.Invoke("update", user);
       Debug.Log("ChooseMagic Not creator;\n");
     }
@@ -308,9 +312,9 @@ public class NewBehaviourScript : MonoBehaviour
       return;
     
     //Exit();
-    Debug.Log($"OnApplicationPause() {Time.time} seconds");
-    _hubConnection.Error -= HubConnection_Error;
-    _hubConnection.Stop();
+    //Debug.Log($"OnApplicationPause() {Time.time} seconds");
+    //_hubConnection.Error -= HubConnection_Error;
+    //_hubConnection.Stop();
   }
 
   void OnAppliacationQuit()
@@ -426,6 +430,7 @@ public class NewBehaviourScript : MonoBehaviour
       }
 
       Rooms[i].GetComponent<RoomScript>().SetRoom(room.Key, this, StartForm.GetComponent<StartFormScript>(), room.Value.Name, userCreator);
+      Rooms[i].SetActive(true);
       i++;
     }
 
@@ -449,12 +454,12 @@ public class NewBehaviourScript : MonoBehaviour
 
     var creatorBehavior = _userCreator.AddComponent<GameBehaviorScript>();
     creatorBehavior.Enemy = _opponent;
-    creatorBehavior.User = GameContext.Instance.Users.Find(item => item.Name == GameContext.Instance.Rooms[RoomId].Users[0]);
+    creatorBehavior.UserName = GameContext.Instance.Rooms[RoomId].Users[0];
     creatorBehavior.SignalR = this;
     
     var opponentBehavior = _opponent.AddComponent<GameBehaviorScript>();
     opponentBehavior.Enemy = _userCreator;
-    opponentBehavior.User = GameContext.Instance.Users.Find(item => item.Name == GameContext.Instance.Rooms[RoomId].Users[1]);
+    opponentBehavior.UserName = GameContext.Instance.Rooms[RoomId].Users[1];
     opponentBehavior.SignalR = this;
 
     _userCreator.transform.LookAt(_opponent.transform);
@@ -468,6 +473,10 @@ public class NewBehaviourScript : MonoBehaviour
 
     CastMagicSpellA.GetComponent<MagicCastScript>().ActionDelegate += CastFirst;
     CastMagicSpellB.GetComponent<MagicCastScript>().ActionDelegate += CastSecond;
+
+    var currentUser = GameContext.Instance.Users.Find(x => x.Name == Name);
+    CastMagicSpellA.GetComponent<Image>().sprite = _magicSprites[currentUser.Magic[0]];
+    CastMagicSpellB.GetComponent<Image>().sprite = _magicSprites[currentUser.Magic[1]];
 
     _startGame = false;
   }

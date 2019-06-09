@@ -14,4 +14,9 @@ public class SetAbilities : MonoBehaviour
 
     gameObject.GetComponent<Image>().sprite = Sprites[sprite];
   }
+
+  public Sprite GetAbility(int sprite)
+  {
+    return gameObject.GetComponent<Image>().sprite = Sprites[sprite];
+  }
 }
