@@ -11,11 +11,13 @@ namespace Assets.Scripts.Model.Spells
   public class FireBallPosteffect : ISpellPosteffect
   {
     public MagicType Type { get { return MagicType.Fireball; } }
+    public bool isActive { get; set; }
 
     private double _timer = 3;
 
     public void Start(UserDto user)
-    {      
+    {
+      isActive = true;
     }
 
     public void Update(UserDto user, double deltaTimeSec)

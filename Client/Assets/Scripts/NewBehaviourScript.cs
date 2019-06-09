@@ -453,6 +453,7 @@ public class NewBehaviourScript : MonoBehaviour
 
     _userCreator.AddComponent<GameBehaviorScript>().Enemy = _opponent;
     _opponent.AddComponent<GameBehaviorScript>().Enemy = _userCreator;
+    _opponent.AddComponent<GameBehaviorScript>().User = GameContext.Instance.Users[1];
 
     _userCreator.transform.LookAt(_opponent.transform);
     _opponent.transform.LookAt(_userCreator.transform);
