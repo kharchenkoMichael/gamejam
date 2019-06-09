@@ -373,6 +373,7 @@ public class NewBehaviourScript : MonoBehaviour
 
     var spellOwner = _userCreator.GetComponent<CapsulScript>().Name == spell.OwnerName ? _userCreator : _opponent;
     spellOwner.GetComponent<GameBehaviorScript>().Spell(spell);
+    _refreshSpells = false;
   }
   
 
