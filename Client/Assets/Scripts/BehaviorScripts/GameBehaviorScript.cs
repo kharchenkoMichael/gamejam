@@ -35,6 +35,8 @@ namespace Assets.Scripts.BehaviorScripts
       CreateSpellInstance(dto);
       var posteffect = PosteffectBuilder.GetPosteffect(dto.SpellType);
       User.Posteffects.Add(posteffect);
+      CreateSelfEffectObjectInstance(dto);
+
     }
 
     public void Attack(MagicType spellType, int damage)
@@ -121,6 +123,44 @@ namespace Assets.Scripts.BehaviorScripts
           }
       }
     }
-    
+
+    private void CreateSelfEffectObjectInstance(SpellDto dto)
+    {
+      GameObject spellObject;
+      switch (dto.SpellType)
+      {
+        case MagicType.Lightning:
+          {
+            spellObject = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+            spellObject.transform.position = transform.position;
+            spellObject.transform.SetParent(transform);
+            break;
+          }
+        case MagicType.Stonefall:
+          {
+            spellObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            spellObject.transform.position = transform.position;
+            spellObject.transform.SetParent(transform);
+            break;
+          }
+        case MagicType.Fireball:
+          {
+            spellObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            spellObject.transform.position = transform.position;
+            spellObject.transform.SetParent(transform);
+            break;
+          }
+        case MagicType.IceBolt:
+          {
+            spellObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            spellObject.transform.position = transform.position;
+            spellObject.transform.SetParent(transform);
+            break;
+          }
+
+
+      }
+    }
+
   }
 }
