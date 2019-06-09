@@ -14,6 +14,11 @@ namespace Assets.Scripts
     public Action<int> ActionDelegate;
     public int MagicId;
 
+    void Start()
+    {
+      GetComponent<SetAbilities>().SetAbility(MagicId-1);
+    }
+
     public void ChoosMagic()
     {
       if (ActionDelegate != null)

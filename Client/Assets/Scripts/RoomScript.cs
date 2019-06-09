@@ -23,8 +23,11 @@ public class RoomScript : MonoBehaviour
 
 	public void ConectToRoom()
 	{
-		if (string.IsNullOrEmpty(_startForm.Name.text))
-			return;
+	  if (string.IsNullOrEmpty(_startForm.Name.text))
+	  {
+	    _signalR.OpenPopup("введи имя");
+      return;
+	  }
 		
 		_signalR.JoinToRoom(_roomId, _startForm.Name.text, _startForm.CurAvatar);
 	}

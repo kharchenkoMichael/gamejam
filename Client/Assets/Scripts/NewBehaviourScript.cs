@@ -25,6 +25,7 @@ public class NewBehaviourScript : MonoBehaviour
 
   public Dictionary<int, GameObject> Forms = new Dictionary<int, GameObject>();
 
+  public GameObject Alert;
   public GameObject LoadingForm;
   public GameObject StartForm;
   public GameObject RoomForm;
@@ -381,5 +382,16 @@ public class NewBehaviourScript : MonoBehaviour
     CastMagicSpellB.GetComponent<MagicCastScript>().ActionDelegate += CastSecond;
 
     _startGame = false;
+  }
+
+  public void ClosePopup()
+  {
+    Alert.SetActive(false);
+  }
+
+  public void OpenPopup(string text)
+  {
+    Alert.GetComponent<AlertScript>().SetText(text);
+    Alert.SetActive(true);
   }
 }
