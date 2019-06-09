@@ -32,8 +32,11 @@ namespace Assets.Scripts.Model.Spells
     {
       _timer -= deltaTimeSec;
       if(_timer <= 0)
+      {
         foreach (var button in _spellButtons)
           button.SetActive(true);
+        user.Posteffects.Remove(this);
+      }
     }
   }
 }

@@ -16,7 +16,8 @@ namespace Assets.Scripts.Model.Spells
     public void Start(UserDto user)
     {
       isActive = true;
-     //todo: change move axis;
+      //todo: change move axis;
+      user.Posteffects.Remove(this);
     }
 
     public void Update(UserDto user, double deltaTimeSec)

@@ -140,6 +140,7 @@
     <Compile Include="Assets\Scripts\Model\Spells\ISpellPosteffect.cs" />
     <Compile Include="Assets\Scripts\Model\Spells\Lightning.cs" />
     <Compile Include="Assets\Scripts\Model\Spells\MagicAmbrellaPosteffect.cs" />
+    <Compile Include="Assets\Scripts\Model\Spells\PosteffectBuilder.cs" />
     <Compile Include="Assets\Scripts\Model\Spells\StonefallPosteffect.cs" />
     <Compile Include="Assets\Scripts\MoveSliderScript.cs" />
     <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />

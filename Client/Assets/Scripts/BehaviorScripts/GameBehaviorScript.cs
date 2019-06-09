@@ -33,6 +33,8 @@ namespace Assets.Scripts.BehaviorScripts
     public void Spell(SpellDto dto)
     {
       CreateSpellInstance(dto);
+      var posteffect = PosteffectBuilder.GetPosteffect(dto.SpellType);
+      User.Posteffects.Add(posteffect);
     }
 
     public void Attack(MagicType spellType, int damage)
@@ -55,7 +57,11 @@ namespace Assets.Scripts.BehaviorScripts
       if (HasEffect(effects, MagicType.MagicUmbrella))
       {
         if (spellType == MagicType.Fireball || spellType == MagicType.IceBolt)
+        {
           damage = 0;
+          var umbrella = User.Posteffects.Where(p => p.Type == MagicType.MagicUmbrella).FirstOrDefault();
+          User.Posteffects.Remove(umbrella);
+        }
       }
 
       if (HasEffect(effects, MagicType.MagicMirror))
