@@ -30,9 +30,6 @@ namespace Assets.Scripts.BehaviorScripts
 
     public void Spell(SpellDto dto)
     {
-      var ball = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-      var behavior = ball.AddComponent<SimpleSpellBehaviorScript>();
-      behavior.Target = Enemy;
     }
 
     public void Attack()
@@ -43,7 +40,16 @@ namespace Assets.Scripts.BehaviorScripts
 
     private void CreateSpellInstance(SpellDto dto)
     {
-      
+      var spellObject = new GameObject();
+      switch(dto.SpellType)
+      {
+        case MagicType.Fireball:
+          {
+            var behavior = spellObject.AddComponent<SimpleSpellBehaviorScript>();
+            behavior.Target = Enemy;
+            break;
+          }
+      }
     }
   }
 }

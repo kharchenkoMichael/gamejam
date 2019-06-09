@@ -446,6 +446,9 @@ public class NewBehaviourScript : MonoBehaviour
       new Vector3(opponent.Position.PositionX, opponent.Position.PositionY, opponent.Position.PositionZ),
       Quaternion.identity);
 
+    _userCreator.AddComponent<GameBehaviorScript>().Enemy = _opponent;
+    _opponent.AddComponent<GameBehaviorScript>().Enemy = _userCreator;
+
     _userCreator.transform.LookAt(_opponent.transform);
     _opponent.transform.LookAt(_userCreator.transform);
 
