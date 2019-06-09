@@ -139,7 +139,7 @@ public class NewBehaviourScript : MonoBehaviour
 
   private void RefreshSpells(SpellDto dto)
   {
-    var spellOwner = GameObject.Find(dto.OwnerName);
+    var spellOwner = _userCreator.GetComponent<CapsulScript>().Name == dto.OwnerName ? _userCreator : _opponent;
     spellOwner.GetComponent<GameBehaviorScript>().Spell(dto);
   }
 

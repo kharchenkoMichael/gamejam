@@ -16,12 +16,16 @@ namespace Assets.Scripts.BehaviorScripts
 
     void Start()
     {
-      
+
     }
 
     void Update()
     {
-      
+      for (int i = User.Posteffects.Count-1 i >= 0; i--)
+      {
+        var posteffect = User.Posteffects[i];
+        posteffect.Update(User, Time.deltaTime);
+      }
     }
 
     public void Spell(SpellDto dto)
@@ -31,5 +35,10 @@ namespace Assets.Scripts.BehaviorScripts
       behavior.Target = Enemy;
     }
 
+    public void Attack()
+    {
+      //todo: если есть защита то проводить действия иначе вычесть жизни
+
+    }
   }
 }
