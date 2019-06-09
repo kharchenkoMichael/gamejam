@@ -25,6 +25,8 @@ public class NewBehaviourScript : MonoBehaviour
 
   public Dictionary<int, GameObject> Forms = new Dictionary<int, GameObject>();
 
+  public GameObject ParticlePrefab;
+  
   public GameObject Alert;
   public GameObject LoadingForm;
   public GameObject StartForm;

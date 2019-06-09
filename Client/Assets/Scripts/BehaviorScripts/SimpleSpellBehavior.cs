@@ -22,7 +22,7 @@ namespace Assets.Scripts.BehaviorScripts
       transform.LookAt(Target.transform);
       transform.position += transform.forward * _speed;
 
-      if(Vector3.Distance(transform.position, Target.transform.position) < 0.2)
+      if(Vector3.Distance(transform.position, Target.transform.position) < 0.6)
       {
         var behaviorScript = Target.GetComponent<GameBehaviorScript>();
         behaviorScript.Attack(Type, Damage);

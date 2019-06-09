@@ -1393,22 +1393,6 @@ Prefab:
       propertyPath: m_Name
       value: RunePillar 1 (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 4038656602646670, guid: d29e24bc93cb56444b399ec69af86d12, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4038656602646670, guid: d29e24bc93cb56444b399ec69af86d12, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4038656602646670, guid: d29e24bc93cb56444b399ec69af86d12, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4038656602646670, guid: d29e24bc93cb56444b399ec69af86d12, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 506.362
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d29e24bc93cb56444b399ec69af86d12, type: 2}
   m_IsPrefabParent: 0
@@ -2004,18 +1988,6 @@ Prefab:
     - target: {fileID: 4038656602646670, guid: d29e24bc93cb56444b399ec69af86d12, type: 2}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4038656602646670, guid: d29e24bc93cb56444b399ec69af86d12, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4038656602646670, guid: d29e24bc93cb56444b399ec69af86d12, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4038656602646670, guid: d29e24bc93cb56444b399ec69af86d12, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d29e24bc93cb56444b399ec69af86d12, type: 2}
@@ -5576,11 +5548,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4594138942762732, guid: d29e24bc93cb56444b399ec69af86d12, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2.74
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4594138942762732, guid: d29e24bc93cb56444b399ec69af86d12, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 4.92
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4038656602646670, guid: d29e24bc93cb56444b399ec69af86d12, type: 2}
       propertyPath: m_LocalScale.x
@@ -6464,6 +6436,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Capsule: {fileID: 1677179193378574, guid: ec8da77fcfcac5f48b0faf67034ea05c, type: 2}
+  ParticlePrefab: {fileID: 1434426938129770, guid: b7f6cb7bc3be6a84c9db489650119e39,
+    type: 2}
   Alert: {fileID: 640328087}
   LoadingForm: {fileID: 2134810012}
   StartForm: {fileID: 2016772868}
