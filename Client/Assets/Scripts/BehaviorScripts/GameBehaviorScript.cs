@@ -35,7 +35,7 @@ namespace Assets.Scripts.BehaviorScripts
     public void Attack()
     {
       //todo: если есть защита то проводить действия иначе вычесть жизни
-
+      //if(User.Posteffects.Any( e => e.Type == MagicType.))
     }
 
     private void CreateSpellInstance(SpellDto dto)

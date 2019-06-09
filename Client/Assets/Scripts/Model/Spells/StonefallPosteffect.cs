@@ -11,12 +11,14 @@ namespace Assets.Scripts.Model.Spells
   public class StonefallPosteffect : ISpellPosteffect
   {
     public MagicType Type { get { return MagicType.Stonefall; } }
+    public bool isActive { get; set; }
 
     private double _timer = 2;
     private int _oldSpeed;
 
     public void Start(UserDto user)
     {
+      isActive = true;
       _oldSpeed = user.Speed;
       user.Speed = 0;
     }

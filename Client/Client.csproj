@@ -12,12 +12,15 @@
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <TargetFrameworkProfile></TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.1.5f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
@@ -132,6 +135,12 @@
     <Compile Include="Assets\Scripts\Model\MagicFolder\Magic.cs" />
     <Compile Include="Assets\Scripts\Model\MagicFolder\MagicManager.cs" />
     <Compile Include="Assets\Scripts\Model\MagicFolder\MagicType.cs" />
+    <Compile Include="Assets\Scripts\Model\Spells\FireBall.cs" />
+    <Compile Include="Assets\Scripts\Model\Spells\IceBoltPosteffect.cs" />
+    <Compile Include="Assets\Scripts\Model\Spells\ISpellPosteffect.cs" />
+    <Compile Include="Assets\Scripts\Model\Spells\Lightning.cs" />
+    <Compile Include="Assets\Scripts\Model\Spells\MAgicAmbrellaPosteffect.cs" />
+    <Compile Include="Assets\Scripts\Model\Spells\StonefallPosteffect.cs" />
     <Compile Include="Assets\Scripts\MoveSliderScript.cs" />
     <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
     <Compile Include="Assets\Scripts\PlayerScript.cs" />

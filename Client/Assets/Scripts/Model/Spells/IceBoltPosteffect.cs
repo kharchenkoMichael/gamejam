@@ -12,7 +12,7 @@ namespace Assets.Scripts.Model.Spells
   public class IceBoltPosteffect : ISpellPosteffect
   {
     public MagicType Type { get { return MagicType.IceBolt; } }
-
+    public bool isActive { get; set; }
 
     //private GameObject _firstSpellButton;
     //private GameObject _secondSpellButton;
@@ -21,6 +21,8 @@ namespace Assets.Scripts.Model.Spells
 
     public void Start(UserDto user)
     {
+      isActive = true;
+
       _spellButtons = GameObject.FindGameObjectsWithTag("SpellButton");
       foreach (var button in _spellButtons)
         button.SetActive(false);
