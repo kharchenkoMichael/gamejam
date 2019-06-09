@@ -992,7 +992,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SignalR: {fileID: 0}
-  Spead: 0.35
+  Spead: 0.25
   Name: 
   Controller: {fileID: 143881715379384610}
 --- !u!137 &137204764858566834
