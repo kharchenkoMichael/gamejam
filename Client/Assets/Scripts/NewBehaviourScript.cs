@@ -178,6 +178,18 @@ public class NewBehaviourScript : MonoBehaviour
 
   #region Callbacks
 
+
+  public void ClosePopup()
+  {
+    Alert.SetActive(false);
+  }
+
+  public void OpenPopup(string text)
+  {
+    Alert.GetComponent<AlertScript>().SetText(text);
+    Alert.SetActive(true);
+  }
+
   public void OpenForm(Form form)
   {
     foreach (var formsValue in Forms.Values)
@@ -222,6 +234,11 @@ public class NewBehaviourScript : MonoBehaviour
   private void ChooseMagic(int Id)
   {
     var user = GameContext.Instance.Users.Find(item => item.Name == _name);
+    if (user.Magic.Count == 2)
+    {
+      OpenPopup("Можно выбрать только 2 магии");
+      return;
+    }
     if (GameContext.Instance.Rooms[user.RoomId].Users[0] == user.Name
         && (!user.Magic.Any()
             || GameContext.Instance.Users.Find(item => item.Name == GameContext.Instance.Rooms[user.RoomId].Users[1])
@@ -239,6 +256,8 @@ public class NewBehaviourScript : MonoBehaviour
       _hubProxy.Invoke("update", user);
       Debug.Log("ChooseMagic Not creator;\n");
     }
+    else
+      OpenPopup("Сейчас выбирает противник");
   }
 
   private void StartGame()
@@ -382,16 +401,5 @@ public class NewBehaviourScript : MonoBehaviour
     CastMagicSpellB.GetComponent<MagicCastScript>().ActionDelegate += CastSecond;
 
     _startGame = false;
-  }
-
-  public void ClosePopup()
-  {
-    Alert.SetActive(false);
-  }
-
-  public void OpenPopup(string text)
-  {
-    Alert.GetComponent<AlertScript>().SetText(text);
-    Alert.SetActive(true);
   }
 }
