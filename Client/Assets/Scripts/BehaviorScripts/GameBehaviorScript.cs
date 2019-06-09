@@ -7,13 +7,14 @@ using UnityEngine;
 using Assets.Scripts.Model.MagicFolder;
 using Model.Dto;
 using Assets.Scripts.Model.Spells;
+using Model;
 
 namespace Assets.Scripts.BehaviorScripts
 {
   class GameBehaviorScript : MonoBehaviour
   {
     public GameObject Enemy;
-    public UserDto User;
+    public string UserName;
     public NewBehaviourScript SignalR;
 
 
@@ -24,33 +25,36 @@ namespace Assets.Scripts.BehaviorScripts
 
     void Update()
     {
-      for (int i = User.Posteffects.Count - 1; i >= 0; i--)
+      var user = GameContext.Instance.Users.Find(item => item.Name == UserName);
+      for (int i = user.Posteffects.Count - 1; i >= 0; i--)
       {
-        var posteffect = User.Posteffects[i];
-        posteffect.Update(User, Time.deltaTime);
+        var posteffect = user.Posteffects[i];
+        posteffect.Update(user, Time.deltaTime);
       }
     }
      
     public void Spell(SpellDto dto)
     {
-      if(HasEffect(User.Posteffects, MagicType.Invisible))
+      var user = GameContext.Instance.Users.Find(item => item.Name == UserName);
+      if(HasEffect(user.Posteffects, MagicType.Invisible))
       {
         gameObject.GetComponent<MeshRenderer>().enabled = true;
-        var effect = User.Posteffects.Where(p => p.Type == MagicType.Invisible).FirstOrDefault();
-        User.Posteffects.Remove(effect);
+        var effect = user.Posteffects.Where(p => p.Type == MagicType.Invisible).FirstOrDefault();
+        user.Posteffects.Remove(effect);
       }
 
       CreateSpellInstance(dto);
       var posteffect = PosteffectBuilder.GetPosteffect(dto.SpellType);
-      User.Posteffects.Add(posteffect);
+      user.Posteffects.Add(posteffect);
       CreateSelfEffectObjectInstance(dto);
 
     }
 
     public void Attack(MagicType spellType, int damage)
     {
+      var user = GameContext.Instance.Users.Find(item => item.Name == UserName);
       //todo: если есть защита то проводить действия иначе вычесть жизни
-      var effects = User.Posteffects;
+      var effects = user.Posteffects;
 
       if (HasEffect(effects, MagicType.TurnIntoWater))
       {
@@ -69,8 +73,8 @@ namespace Assets.Scripts.BehaviorScripts
         if (spellType == MagicType.Fireball || spellType == MagicType.IceBolt)
         {
           damage = 0;
-          var umbrella = User.Posteffects.Where(p => p.Type == MagicType.MagicUmbrella).FirstOrDefault();
-          User.Posteffects.Remove(umbrella);
+          var umbrella = user.Posteffects.Where(p => p.Type == MagicType.MagicUmbrella).FirstOrDefault();
+          user.Posteffects.Remove(umbrella);
         }
       }
 
@@ -79,7 +83,7 @@ namespace Assets.Scripts.BehaviorScripts
         //tode : реализовать после создания такого постэффекта
       }
 
-      User.Hp -= damage;
+      user.Hp -= damage;
       SignalR.UpdateCapsul(name);
     }
 
