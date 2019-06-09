@@ -397,8 +397,8 @@ public class NewBehaviourScript : MonoBehaviour
     _userCreator.name = creator.Name;
     _opponent.name = opponent.Name;
 
-    CastMagicSpellA.GetComponent<MagicCastScript>().ActionDelegate += CastFirst;
-    CastMagicSpellB.GetComponent<MagicCastScript>().ActionDelegate += CastSecond;
+    //CastMagicSpellA.GetComponent<MagicCastScript>().ActionDelegate += CastFirst;
+    //CastMagicSpellB.GetComponent<MagicCastScript>().ActionDelegate += CastSecond;
 
     _startGame = false;
   }

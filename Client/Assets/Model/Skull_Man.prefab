@@ -472,5 +472,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SignalR: {fileID: 0}
-  Spead: 1
+  Spead: 0.05
   Name: 
