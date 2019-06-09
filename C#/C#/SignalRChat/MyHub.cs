@@ -115,5 +115,10 @@ namespace SignalRChat
       }
       GameBroadcast.Instance.StartGame();
     }
+
+    public void EndGame()
+    {
+      GameBroadcast.Instance.EndGame();
+    }
   }
 }

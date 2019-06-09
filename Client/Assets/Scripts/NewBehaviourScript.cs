@@ -17,7 +17,9 @@ public enum Form
   LoadingForm,
   StartForm,
   RoomForm,
-  Game
+  Game,
+  Win,
+  Lose,
 }
 
 public class NewBehaviourScript : MonoBehaviour
@@ -33,6 +35,9 @@ public class NewBehaviourScript : MonoBehaviour
   public GameObject StartForm;
   public GameObject RoomForm;
   public GameObject GameForm;
+  public GameObject WinForm;
+  public GameObject LoseForm;
+
   public GameObject MagicContainer;
   public GameObject[] Rooms;
 
@@ -49,6 +54,7 @@ public class NewBehaviourScript : MonoBehaviour
   private bool _createRoom = false;
   private bool _refreshSpells = false;
   private bool _oponentQuit = false;
+  private bool _refreshEndGame = false;
 
   private GameObject _userCreator;
   private GameObject _opponent;
@@ -70,6 +76,8 @@ public class NewBehaviourScript : MonoBehaviour
     Forms[(int)Form.StartForm] = StartForm;
     Forms[(int)Form.RoomForm] = RoomForm;
     Forms[(int)Form.Game] = GameForm;
+    Forms[(int)Form.Win] = WinForm;
+    Forms[(int)Form.Lose] = LoseForm;
   }
   // Use this for initialization
   IEnumerator Start()
@@ -82,6 +90,7 @@ public class NewBehaviourScript : MonoBehaviour
     Debug.Log("Start() 1 second.");
     StartSignalR();
     OpenForm(Form.StartForm);
+    GameForm.GetComponent<GameForm>().ActionFinishGameDelegate += FinishGame;
     InitializeMagic();
   }
   private void InitializeMagic()
@@ -112,6 +121,7 @@ public class NewBehaviourScript : MonoBehaviour
       _hubProxy.On<RoomUpdateDto>("refreshRoomIds", RefreshRoom);
       _hubProxy.On<List<UserDto>>("startGameFrom", StartGameFrom);
       _hubProxy.On<SpellDto>("refreshSpells", RefreshSpells);
+      _hubProxy.On("endGameForm", EndGameForm);
 
       _hubProxy.On("quit", OponentQuit);
 
@@ -154,6 +164,11 @@ public class NewBehaviourScript : MonoBehaviour
   {
     GameContext.Instance.Spell = dto;
     _refreshSpells = true;
+  }
+
+  private void EndGameForm()
+  {
+    _refreshEndGame = true;
   }
 
   private void StartGameFrom(List<UserDto> users)
@@ -299,6 +314,12 @@ public class NewBehaviourScript : MonoBehaviour
     Debug.Log("Start Game;\n");
   }
 
+  private void FinishGame()
+  {
+    _hubProxy.Invoke("endGame");
+    Debug.Log("End Game;\n");
+  }
+
   private void CastMagic(SpellDto spell)
   {
     _hubProxy.Invoke("castMagic", spell);
@@ -367,6 +388,25 @@ public class NewBehaviourScript : MonoBehaviour
       OpenForm(Form.StartForm);
       OpenPopup("ваш противник вышел из игры");
       _oponentQuit = false;
+    }
+
+    if (_refreshEndGame)
+    {
+      ShowEndGame();
+      _refreshEndGame = false;
+    }
+  }
+
+  private void ShowEndGame()
+  {
+    var hp = GameForm.GetComponent<GameForm>().Hp.value;
+    if (hp <= 0)
+    {
+      Forms[(int)Form.Lose].SetActive(true);
+    }
+    else
+    {
+      Forms[(int)Form.Win].SetActive(true);
     }
   }
 

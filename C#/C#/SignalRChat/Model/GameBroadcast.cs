@@ -17,6 +17,7 @@ namespace SignalRChat.Model
     private bool _roomIdsUpdated;
     private bool _spellsCastUpdate;
     private bool _startGame;
+    private bool _endGame;
 
     public GameBroadcast()
     {
@@ -61,6 +62,12 @@ namespace SignalRChat.Model
         _hubContext.Clients.All.startGameFrom(GameContext.Instance.Users);
         _startGame = false;
       }
+
+      if (_endGame)
+      {
+        _hubContext.Clients.All.endGameForm();
+        _endGame = false;
+      }
     }
 
     public void UpdateUser()
@@ -81,6 +88,11 @@ namespace SignalRChat.Model
     public void StartGame()
     {
       _startGame = true;
+    }
+
+    public void EndGame()
+    {
+      _endGame = true;
     }
 
     public static GameBroadcast Instance => _instance.Value;
