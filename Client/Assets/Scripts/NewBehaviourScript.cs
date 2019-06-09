@@ -44,6 +44,7 @@ public class NewBehaviourScript : MonoBehaviour
   private bool _refreshUser = false;
   private bool _refreshRoom = false;
   private bool _createRoom = false;
+  private bool _oponentQuit = false;
 
 
   private GameObject _userCreator;
@@ -108,6 +109,8 @@ public class NewBehaviourScript : MonoBehaviour
       _hubProxy.On<List<UserDto>>("startGameFrom", StartGameFrom);
       _hubProxy.On<SpellDto>("refreshSpells", RefreshSpells);
 
+      _hubProxy.On("quit", OponentQuit);
+
       _hubConnection.Start().Wait();
       _hubConnection.StateChanged += change =>
       {
@@ -120,6 +123,11 @@ public class NewBehaviourScript : MonoBehaviour
     {
       Debug.Log("Signalr  already connected...");
     }
+  }
+
+  private void OponentQuit()
+  {
+    _oponentQuit = true;
   }
 
   private void RefreshUsers(List<UserDto> users)
@@ -206,6 +214,19 @@ public class NewBehaviourScript : MonoBehaviour
     Debug.Log("GetRoomIds;\n");
   }
 
+  public void Exit()
+  {
+    _hubProxy.Invoke("userExit", _name);
+
+    Debug.Log("userExit;\n");
+  }
+
+  public void Quit()
+  {
+    Application.Quit();
+    Debug.Log("Quit;\n");
+  }
+
   public void CreateRoom(int avatarId, string myName)
   {
     StartButton.SetActive(true);
@@ -280,9 +301,20 @@ public class NewBehaviourScript : MonoBehaviour
   }
 
   #endregion
+  void OnApplicationPause(bool pauseStatus)
+  {
+    if (!pauseStatus)
+      return;
+    
+    //Exit();
+    Debug.Log($"OnApplicationPause() {Time.time} seconds");
+    _hubConnection.Error -= HubConnection_Error;
+    _hubConnection.Stop();
+  }
 
   void OnAppliacationQuit()
   {
+    Exit();
     Debug.Log($"OnAppliacationQuit() {Time.time} seconds");
     _hubConnection.Error -= HubConnection_Error;
     _hubConnection.Stop();
@@ -316,6 +348,17 @@ public class NewBehaviourScript : MonoBehaviour
       StartButton.SetActive(true);
       OpenForm(Form.RoomForm);
       _createRoom = false;
+    }
+
+    if (_oponentQuit)
+    {
+      Destroy(_userCreator);
+      Destroy(_opponent);
+      _userCreator = null;
+      _opponent = null;
+      OpenForm(Form.StartForm);
+      OpenPopup("ваш противник вышел из игры");
+      _oponentQuit = false;
     }
   }
 
