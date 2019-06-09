@@ -28,6 +28,7 @@ namespace Model.Dto
       Position = position;
       RoomId = roomNumber;
       Magic = new List<int>();
+      Posteffects = new List<ISpellPosteffect>();
       //set default hp and mana and speed
     }
 

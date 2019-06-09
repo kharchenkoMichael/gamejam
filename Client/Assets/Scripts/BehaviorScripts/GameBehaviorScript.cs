@@ -32,6 +32,7 @@ namespace Assets.Scripts.BehaviorScripts
 
     public void Spell(SpellDto dto)
     {
+      CreateSpellInstance(dto);
     }
 
     public void Attack(MagicType spellType, int damage)
