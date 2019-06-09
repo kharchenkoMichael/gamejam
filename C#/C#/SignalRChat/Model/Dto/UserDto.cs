@@ -1,18 +1,20 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.Model.Spells;
 using SignalRChat.Model.MagicFolders;
 
 namespace SignalRChat.Model.Dto
 {  
   public class UserDto
   {
-    public string Id { get; }
-    public string Name { get; }
-    public int AvatarId { get; set; }
-    public int Hp { get; set; }
-    public int Mana { get; set; }
-    public int Speed { get; set; }
-    public Position Position { get; set; }
+    public string Id;
+    public string Name;
+    public int AvatarId;
+    public int Hp;
+    public int Mana;
+    public int Speed;
+    public Position Position;
     public List<int> Magic;
+    public List<ISpellPosteffect> Posteffects;
 
     public int RoomId;
     //public bool isDead { get; set; }
@@ -24,6 +26,7 @@ namespace SignalRChat.Model.Dto
       Position = position;
       RoomId = roomNumber;
       Magic = new List<int>();
+      Posteffects = new List<ISpellPosteffect>();
       //set default hp and mana and speed
     }
 

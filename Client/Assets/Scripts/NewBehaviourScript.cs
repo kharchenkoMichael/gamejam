@@ -446,14 +446,13 @@ public class NewBehaviourScript : MonoBehaviour
       new Vector3(opponent.Position.PositionX, opponent.Position.PositionY, opponent.Position.PositionZ),
       Quaternion.identity);
 
-    _userCreator.AddComponent<GameBehaviorScript>().Enemy = _opponent;
-    _userCreator.AddComponent<GameBehaviorScript>().User = GameContext.Instance.Users[0];
-    _opponent.AddComponent<GameBehaviorScript>().Enemy = _userCreator;
-    _opponent.AddComponent<GameBehaviorScript>().User = GameContext.Instance.Users[1];
-
-    _userCreator.AddComponent<GameBehaviorScript>().Enemy = _opponent;
-    _opponent.AddComponent<GameBehaviorScript>().Enemy = _userCreator;
-    _opponent.AddComponent<GameBehaviorScript>().User = GameContext.Instance.Users[1];
+    var creatorBehavior = _userCreator.AddComponent<GameBehaviorScript>();
+    creatorBehavior.Enemy = _opponent;
+    creatorBehavior.User = GameContext.Instance.Users.Find(item => item.Name == GameContext.Instance.Rooms[RoomId].Users[0]);
+    
+    var opponentBehavior = _opponent.AddComponent<GameBehaviorScript>();
+    opponentBehavior.Enemy = _userCreator;
+    opponentBehavior.User = GameContext.Instance.Users.Find(item => item.Name == GameContext.Instance.Rooms[RoomId].Users[1]);
 
     _userCreator.transform.LookAt(_opponent.transform);
     _opponent.transform.LookAt(_userCreator.transform);
