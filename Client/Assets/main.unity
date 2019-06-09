@@ -88,6 +88,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -109,6 +110,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    debug:
+      m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 64463e3743c55b446a1bccee5a969730, type: 2}
 --- !u!1 &37832010
 GameObject:
@@ -124,6 +127,7 @@ GameObject:
   - component: {fileID: 37832014}
   - component: {fileID: 37832013}
   - component: {fileID: 37832012}
+  - component: {fileID: 37832017}
   m_Layer: 5
   m_Name: A
   m_TagString: Untagged
@@ -215,7 +219,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 37832015}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 37832017}
+        m_MethodName: Attack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &37832015
@@ -253,6 +268,17 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 37832010}
+--- !u!114 &37832017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 37832010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 891607a41c13236419dc85a64fd2507a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &87368666
 Prefab:
   m_ObjectHideFlags: 0
@@ -2981,6 +3007,7 @@ GameObject:
   - component: {fileID: 890642286}
   - component: {fileID: 890642285}
   - component: {fileID: 890642284}
+  - component: {fileID: 890642289}
   m_Layer: 5
   m_Name: B
   m_TagString: Untagged
@@ -3072,7 +3099,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 890642287}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 890642289}
+        m_MethodName: Attack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &890642287
@@ -3110,6 +3148,17 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 890642282}
+--- !u!114 &890642289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 890642282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 891607a41c13236419dc85a64fd2507a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &917756716
 Prefab:
   m_ObjectHideFlags: 0
@@ -4733,11 +4782,11 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
-  m_StereoMirrorMode: 0
 --- !u!4 &1460509991
 Transform:
   m_ObjectHideFlags: 0
@@ -5897,11 +5946,11 @@ MonoBehaviour:
   - {fileID: 2016772867}
   - {fileID: 2016772866}
   StartButton: {fileID: 238643169}
-  CastMagicSpellA: {fileID: 0}
-  CastMagicSpellB: {fileID: 0}
+  CastMagicSpellA: {fileID: 37832010}
+  CastMagicSpellB: {fileID: 890642282}
   _name: 
   RoomId: 0
-  signalUrl: http://localhost:52527
+  signalUrl: http://192.168.88.223:52527
 --- !u!1001 &1874656397
 Prefab:
   m_ObjectHideFlags: 0
