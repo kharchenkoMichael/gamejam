@@ -25,6 +25,7 @@ public class NewBehaviourScript : MonoBehaviour
 
   public Dictionary<int, GameObject> Forms = new Dictionary<int, GameObject>();
 
+  public GameObject Alert;
   public GameObject LoadingForm;
   public GameObject StartForm;
   public GameObject RoomForm;
@@ -43,6 +44,7 @@ public class NewBehaviourScript : MonoBehaviour
   private bool _refreshUser = false;
   private bool _refreshRoom = false;
   private bool _createRoom = false;
+  private bool _oponentQuit = false;
 
 
   private GameObject _userCreator;
@@ -107,6 +109,8 @@ public class NewBehaviourScript : MonoBehaviour
       _hubProxy.On<List<UserDto>>("startGameFrom", StartGameFrom);
       _hubProxy.On<SpellDto>("refreshSpells", RefreshSpells);
 
+      _hubProxy.On("quit", OponentQuit);
+
       _hubConnection.Start().Wait();
       _hubConnection.StateChanged += change =>
       {
@@ -119,6 +123,11 @@ public class NewBehaviourScript : MonoBehaviour
     {
       Debug.Log("Signalr  already connected...");
     }
+  }
+
+  private void OponentQuit()
+  {
+    _oponentQuit = true;
   }
 
   private void RefreshUsers(List<UserDto> users)
@@ -177,6 +186,18 @@ public class NewBehaviourScript : MonoBehaviour
 
   #region Callbacks
 
+
+  public void ClosePopup()
+  {
+    Alert.SetActive(false);
+  }
+
+  public void OpenPopup(string text)
+  {
+    Alert.GetComponent<AlertScript>().SetText(text);
+    Alert.SetActive(true);
+  }
+
   public void OpenForm(Form form)
   {
     foreach (var formsValue in Forms.Values)
@@ -191,6 +212,19 @@ public class NewBehaviourScript : MonoBehaviour
     _hubProxy.Invoke("getRoomIds");
 
     Debug.Log("GetRoomIds;\n");
+  }
+
+  public void Exit()
+  {
+    _hubProxy.Invoke("userExit", _name);
+
+    Debug.Log("userExit;\n");
+  }
+
+  public void Quit()
+  {
+    Application.Quit();
+    Debug.Log("Quit;\n");
   }
 
   public void CreateRoom(int avatarId, string myName)
@@ -221,6 +255,11 @@ public class NewBehaviourScript : MonoBehaviour
   private void ChooseMagic(int Id)
   {
     var user = GameContext.Instance.Users.Find(item => item.Name == _name);
+    if (user.Magic.Count == 2)
+    {
+      OpenPopup("Можно выбрать только 2 магии");
+      return;
+    }
     if (GameContext.Instance.Rooms[user.RoomId].Users[0] == user.Name
         && (!user.Magic.Any()
             || GameContext.Instance.Users.Find(item => item.Name == GameContext.Instance.Rooms[user.RoomId].Users[1])
@@ -238,6 +277,8 @@ public class NewBehaviourScript : MonoBehaviour
       _hubProxy.Invoke("update", user);
       Debug.Log("ChooseMagic Not creator;\n");
     }
+    else
+      OpenPopup("Сейчас выбирает противник");
   }
 
   private void StartGame()
@@ -260,9 +301,20 @@ public class NewBehaviourScript : MonoBehaviour
   }
 
   #endregion
+  void OnApplicationPause(bool pauseStatus)
+  {
+    if (!pauseStatus)
+      return;
+    
+    //Exit();
+    Debug.Log($"OnApplicationPause() {Time.time} seconds");
+    _hubConnection.Error -= HubConnection_Error;
+    _hubConnection.Stop();
+  }
 
   void OnAppliacationQuit()
   {
+    Exit();
     Debug.Log($"OnAppliacationQuit() {Time.time} seconds");
     _hubConnection.Error -= HubConnection_Error;
     _hubConnection.Stop();
@@ -296,6 +348,17 @@ public class NewBehaviourScript : MonoBehaviour
       StartButton.SetActive(true);
       OpenForm(Form.RoomForm);
       _createRoom = false;
+    }
+
+    if (_oponentQuit)
+    {
+      Destroy(_userCreator);
+      Destroy(_opponent);
+      _userCreator = null;
+      _opponent = null;
+      OpenForm(Form.StartForm);
+      OpenPopup("ваш противник вышел из игры");
+      _oponentQuit = false;
     }
   }
 
@@ -374,8 +437,11 @@ public class NewBehaviourScript : MonoBehaviour
     _userCreator.GetComponent<CapsulScript>().SetName(creator.Name, this);
     _opponent.GetComponent<CapsulScript>().SetName(opponent.Name, this);
 
-    CastMagicSpellA.GetComponent<MagicCastScript>().ActionDelegate += CastFirst;
-    CastMagicSpellB.GetComponent<MagicCastScript>().ActionDelegate += CastSecond;
+    _userCreator.name = creator.Name;
+    _opponent.name = opponent.Name;
+
+    //CastMagicSpellA.GetComponent<MagicCastScript>().ActionDelegate += CastFirst;
+    //CastMagicSpellB.GetComponent<MagicCastScript>().ActionDelegate += CastSecond;
 
     _startGame = false;
   }

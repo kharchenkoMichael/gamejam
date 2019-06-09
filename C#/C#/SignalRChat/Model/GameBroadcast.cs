@@ -47,7 +47,8 @@ namespace SignalRChat.Model
         {
           var spell = allSpells[i];
           var owner = GameContext.Instance.Users.Where(u => u.Name == spell.OwnerName).FirstOrDefault();
-          if (owner is null) continue;
+
+          if (owner == null) continue;
           _hubContext.Clients.AllExcept(owner.Id).refreshSpells(spell);
         }
         GameContext.Instance.ClearSpells();

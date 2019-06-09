@@ -47,8 +47,15 @@ public class ChoosedAbility : MonoBehaviour
   private void SetAbbilities()
   {
     MyAbility[0].SetActive(CreatorMagic[0]!=0);
+    MyAbility[0].GetComponent<SetAbilities>().SetAbility(CreatorMagic[0] - 1);
+
     MyAbility[1].SetActive(CreatorMagic[1]!=0);
+    MyAbility[1].GetComponent<SetAbilities>().SetAbility(CreatorMagic[1] - 1);
+
     OpponentAbility[0].SetActive(OpponentMagic[0]!=0);
+    OpponentAbility[0].GetComponent<SetAbilities>().SetAbility(OpponentMagic[0] - 1);
+
     OpponentAbility[1].SetActive(OpponentMagic[1]!=0);
+    OpponentAbility[1].GetComponent<SetAbilities>().SetAbility(OpponentMagic[1] - 1);
   }
 }

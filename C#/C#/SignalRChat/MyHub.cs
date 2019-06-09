@@ -10,7 +10,7 @@ namespace SignalRChat
   public class MyHub : Hub
   {
     private Dictionary<int, Position> _startPositions =
-        new Dictionary<int, Position> { { 1, new Position(-70, 32, 0) }, { 2, new Position(70, 32, 0) } };
+        new Dictionary<int, Position> { { 1, new Position(7, 0, 0) }, { 2, new Position(-7, 0, 0) } };
 
     public void CreateRoom(string name, int avatarId)
     {
@@ -80,11 +80,16 @@ namespace SignalRChat
         return;
 
       var room = GameContext.Instance.Rooms[user.RoomId];
-      room.Users.Remove(user.Name);
-      if (room.Users.Count <= 0)
-        room.isActive = false;
+      foreach (var roomUser in room.Users)
+      {
+        var delUser = GameContext.Instance.Users.Find(item => item.Name == roomUser);
+        GameContext.Instance.Users.Remove(delUser);
+      }
 
-      GameContext.Instance.Users.Remove(user);
+      room.Users.Clear();
+      room.isActive = false;
+
+      Clients.All.quit();
     }
 
     public void Test()
