@@ -1,4 +1,5 @@
 ﻿
+using Model;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,6 +29,12 @@ public class RoomScript : MonoBehaviour
 	    _signalR.OpenPopup("введи имя");
       return;
 	  }
+
+	  if (GameContext.Instance.Rooms[_roomId].Users.Count >= 2)
+	  {
+	    _signalR.OpenPopup("В этой комнате уже два игрока играют");
+	    return;
+    }
 		
 		_signalR.JoinToRoom(_roomId, _startForm.Name.text, _startForm.CurAvatar);
 	}
