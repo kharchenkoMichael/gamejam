@@ -5,6 +5,7 @@ using System.Linq;
 using Assets.Scripts.Model.Dto;
 using Microsoft.AspNet.SignalR.Client;
 using Model;
+using UnityEngine.UI;
 using Model.Dto;
 using UnityEngine;
 using Assets.Scripts;
@@ -62,6 +63,7 @@ public class NewBehaviourScript : MonoBehaviour
 
   private bool _magicUpdated;
   private MagicManager _magicManager;
+  private Dictionary<int, Sprite> _magicSprites;
   private void InitializeDictionary()
   {
     Forms[(int)Form.LoadingForm] = LoadingForm;
@@ -92,7 +94,7 @@ public class NewBehaviourScript : MonoBehaviour
     {
       element.Value.GetComponent<MagicScript>().ActionDelegate += ChooseMagic;
     }
-
+    _magicSprites = new Dictionary<int, Sprite>();
     StartButton.GetComponent<StartGameScript>().ActionDelegate += StartGame;
   }
 
@@ -253,7 +255,7 @@ public class NewBehaviourScript : MonoBehaviour
     _hubProxy.Invoke("update", user);
   }
   
-  private void ChooseMagic(int Id)
+  private void ChooseMagic(MagicSprites magic)
   {
     var user = GameContext.Instance.Users.Find(item => item.Name == _name);
     if (user.Magic.Count == 2)
@@ -266,7 +268,8 @@ public class NewBehaviourScript : MonoBehaviour
             || GameContext.Instance.Users.Find(item => item.Name == GameContext.Instance.Rooms[user.RoomId].Users[1])
               .Magic.Count == 2))
     {
-      user.Magic.Add(Id);
+      _magicSprites.Add(magic.Id, magic.Sprite);
+      user.Magic.Add(magic.Id);
       _hubProxy.Invoke("update", user);
       Debug.Log("ChooseMagic Creator;\n");
     }
@@ -274,7 +277,8 @@ public class NewBehaviourScript : MonoBehaviour
              && (GameContext.Instance.Users.Find(item => item.Name == GameContext.Instance.Rooms[user.RoomId].Users[0])
                .Magic.Any()))
     {
-      user.Magic.Add(Id);
+      _magicSprites.Add(magic.Id, magic.Sprite);
+      user.Magic.Add(magic.Id);
       _hubProxy.Invoke("update", user);
       Debug.Log("ChooseMagic Not creator;\n");
     }
@@ -426,6 +430,7 @@ public class NewBehaviourScript : MonoBehaviour
       }
 
       Rooms[i].GetComponent<RoomScript>().SetRoom(room.Key, this, StartForm.GetComponent<StartFormScript>(), room.Value.Name, userCreator);
+      Rooms[i].SetActive(true);
       i++;
     }
 
@@ -468,6 +473,10 @@ public class NewBehaviourScript : MonoBehaviour
 
     CastMagicSpellA.GetComponent<MagicCastScript>().ActionDelegate += CastFirst;
     CastMagicSpellB.GetComponent<MagicCastScript>().ActionDelegate += CastSecond;
+
+    var currentUser = GameContext.Instance.Users.Find(x => x.Name == _name);
+    CastMagicSpellA.GetComponent<Image>().sprite = _magicSprites[currentUser.Magic[0]];
+    CastMagicSpellB.GetComponent<Image>().sprite = _magicSprites[currentUser.Magic[1]];
 
     _startGame = false;
   }
