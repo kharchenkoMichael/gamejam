@@ -29,7 +29,7 @@ namespace Assets.Scripts.BehaviorScripts
         posteffect.Update(User, Time.deltaTime);
       }
     }
-
+     
     public void Spell(SpellDto dto)
     {
       CreateSpellInstance(dto);
