@@ -26,7 +26,7 @@ public class NewBehaviourScript : MonoBehaviour
 
   public Dictionary<int, GameObject> Forms = new Dictionary<int, GameObject>();
 
-  public GameObject ParticlePrefab;
+  public GameObject[] ParticlePrefab;
   
   public GameObject Alert;
   public GameObject LoadingForm;
@@ -249,9 +249,8 @@ public class NewBehaviourScript : MonoBehaviour
     Debug.Log("ConnectToRoom;\n");
   }
 
-  public void UpdateCapsul(string capsulaName)
+  public void UpdateCapsul(UserDto user)
   {
-    var user = GameContext.Instance.Users.Find(item => item.Name == capsulaName);
     _hubProxy.Invoke("update", user);
   }
   
@@ -406,7 +405,10 @@ public class NewBehaviourScript : MonoBehaviour
     var creator = GameContext.Instance.Users.Find(item => item.Name == creatorCapsul.Name);
     var oponent = GameContext.Instance.Users.Find(item => item.Name == oponentCapsul.Name);
 
-    creatorCapsul.SetByUser(creator);
+    if (creator.Name != Name)
+      creatorCapsul.SetByUser(creator);
+    
+    if (oponent.Name != Name)
     oponentCapsul.SetByUser(oponent);
 
     _userCreator.transform.LookAt(_opponent.transform);
