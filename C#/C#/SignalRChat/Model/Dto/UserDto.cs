@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.ExceptionServices;
 using Assets.Scripts.Model.Spells;
 using SignalRChat.Model.MagicFolders;
 
@@ -27,6 +28,8 @@ namespace SignalRChat.Model.Dto
       RoomId = roomNumber;
       Magic = new List<int>();
       Posteffects = new List<ISpellPosteffect>();
+      Mana = 100;
+      Hp = 100;
       //set default hp and mana and speed
     }
 
