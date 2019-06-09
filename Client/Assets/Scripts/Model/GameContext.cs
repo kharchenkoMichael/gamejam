@@ -9,6 +9,7 @@ namespace Model
     public List<UserDto> Users { get; set; }
     private static GameContext _instance;
     public Dictionary<int, Room> Rooms = new Dictionary<int, Room> { { 1, new Room(1,"MagicForest")},{ 2, new Room(2,"NightBall")} };
+    public SpellDto Spell { get; set; }
 
     public static GameContext Instance
     {

@@ -43,6 +43,7 @@ public class NewBehaviourScript : MonoBehaviour
   private bool _refreshUser = false;
   private bool _refreshRoom = false;
   private bool _createRoom = false;
+  private bool _refreshSpells = false;
 
 
   private GameObject _userCreator;
@@ -139,8 +140,8 @@ public class NewBehaviourScript : MonoBehaviour
 
   private void RefreshSpells(SpellDto dto)
   {
-    var spellOwner = GameObject.Find(dto.OwnerName);
-    spellOwner.GetComponent<GameBehaviorScript>().Spell(dto);
+    GameContext.Instance.Spell = dto;
+    _refreshSpells = true;
   }
 
   private void StartGameFrom(List<UserDto> users)
@@ -297,7 +298,22 @@ public class NewBehaviourScript : MonoBehaviour
       OpenForm(Form.RoomForm);
       _createRoom = false;
     }
+    if (_refreshSpells)
+    {
+      RefreshSpellUpdate();
+    }
   }
+
+  private void RefreshSpellUpdate()
+  {
+    var spell = GameContext.Instance.Spell;
+    if (spell == null)
+      return;
+
+    var spellOwner = _userCreator.GetComponent<CapsulScript>().Name == spell.OwnerName ? _userCreator : _opponent;
+    spellOwner.GetComponent<GameBehaviorScript>().Spell(spell);
+  }
+  
 
   private void RefreshUserUpdate()
   {
