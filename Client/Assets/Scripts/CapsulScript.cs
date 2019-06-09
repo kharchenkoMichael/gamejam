@@ -9,6 +9,7 @@ public class CapsulScript : MonoBehaviour
 	public float Spead;
 
 	public string Name = string.Empty;
+  public CharacterController Controller;
 
 	public void SetName(string name, NewBehaviourScript signalR)
 	{
@@ -22,16 +23,17 @@ public class CapsulScript : MonoBehaviour
 		if (SignalR == null || SignalR._name != Name)
 			return;
 
-		var vector = transform.position;
+		var vector = Vector3.zero;
 	  var zMove = Input.GetAxis("Vertical");
     var yMove = Input.GetAxis("Horizontal");
     if (Math.Abs(zMove) < 0.01 && Math.Abs(yMove) < 0.01)
       return;
 
-    vector.z += Spead * zMove;
-		vector.x += Spead * yMove;
-		transform.position = vector;
+    vector.z -= Spead * zMove;
+		vector.x -= Spead * yMove;
 
+	  Controller.Move(vector);
+      
     SignalR.UpdateCapsul(transform);
 	}
 
