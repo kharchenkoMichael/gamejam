@@ -21,7 +21,7 @@ namespace Assets.Scripts.BehaviorScripts
 
     void Update()
     {
-      for (int i = User.Posteffects.Count-1 i >= 0; i--)
+      for (int i = User.Posteffects.Count-1; i >= 0; i--)
       {
         var posteffect = User.Posteffects[i];
         posteffect.Update(User, Time.deltaTime);
@@ -39,6 +39,11 @@ namespace Assets.Scripts.BehaviorScripts
     {
       //todo: если есть защита то проводить действия иначе вычесть жизни
 
+    }
+
+    private void CreateSpellInstance(SpellDto dto)
+    {
+      
     }
   }
 }
