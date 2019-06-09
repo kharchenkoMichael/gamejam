@@ -16,9 +16,10 @@ namespace Assets.Scripts.BehaviorScripts
     public UserDto User;
     public NewBehaviourScript SignalR;
 
+
+    
     void Start()
     {
-
     }
 
     void Update()
@@ -75,7 +76,7 @@ namespace Assets.Scripts.BehaviorScripts
 
     private void CreateSpellInstance(SpellDto dto)
     {
-      var spellObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+      var spellObject = Instantiate(SignalR.ParticlePrefab);
       switch (dto.SpellType)
       {
         case MagicType.Fireball:
@@ -83,6 +84,7 @@ namespace Assets.Scripts.BehaviorScripts
             var behavior = spellObject.AddComponent<SimpleSpellBehaviorScript>();
             behavior.Target = Enemy;
             spellObject.transform.position = transform.position;
+            spellObject.transform.position = new Vector3(spellObject.transform.position.x, spellObject.transform.position.y + 2, spellObject.transform.position.z);
             break;
           }
       }

@@ -10,7 +10,7 @@ namespace SignalRChat
   public class MyHub : Hub
   {
     private Dictionary<int, Position> _startPositions =
-        new Dictionary<int, Position> { { 1, new Position(7, 1, 0) }, { 2, new Position(-7, 1, 0) } };
+        new Dictionary<int, Position> { { 1, new Position(7, 0.3f, 0) }, { 2, new Position(-7, 0.3f, 0) } };
 
     public void CreateRoom(string name, int avatarId)
     {

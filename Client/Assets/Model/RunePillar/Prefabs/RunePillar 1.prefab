@@ -19,7 +19,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4038656602646670}
-  m_Layer: 0
+  - component: {fileID: 65470448055903460}
+  m_Layer: 9
   m_Name: RunePillar 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +37,7 @@ GameObject:
   - component: {fileID: 4940988969838120}
   - component: {fileID: 198673360276960142}
   - component: {fileID: 199623630240453854}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BlueSpell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +54,7 @@ GameObject:
   - component: {fileID: 4589197384660780}
   - component: {fileID: 198566761935025400}
   - component: {fileID: 199838225067780814}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bloom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +71,7 @@ GameObject:
   - component: {fileID: 4594138942762732}
   - component: {fileID: 33261705789102628}
   - component: {fileID: 23609146607771718}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Group8801
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,14 +84,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1742858173413876}
-  m_LocalRotation: {x: -0, y: 0.8621725, z: -0, w: -0.5066149}
-  m_LocalPosition: {x: 2.373358, y: -0.37585938, z: -5.5200477}
-  m_LocalScale: {x: 0.50000024, y: 0.5, z: 0.50000024}
+  m_LocalRotation: {x: -0, y: -0.3409632, z: -0, w: 0.9400767}
+  m_LocalPosition: {x: -108.756096, y: 58.300003, z: -139.73404}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 4594138942762732}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 240.87698, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 506.362, z: 0}
 --- !u!4 &4589197384660780
 Transform:
   m_ObjectHideFlags: 1
@@ -173,6 +174,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1943464383403852}
   m_Mesh: {fileID: 4300000, guid: de302259cc8c39f40b3a83e738e05213, type: 3}
+--- !u!65 &65470448055903460
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1742858173413876}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.568067, y: 4.1017456, z: 1.5789157}
+  m_Center: {x: -0.08841209, y: 1.5508728, z: -0.11650928}
 --- !u!198 &198566761935025400
 ParticleSystem:
   m_ObjectHideFlags: 1
