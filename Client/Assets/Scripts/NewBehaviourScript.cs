@@ -44,6 +44,7 @@ public class NewBehaviourScript : MonoBehaviour
   public GameObject StartButton;
   public GameObject CastMagicSpellA;
   public GameObject CastMagicSpellB;
+  public GameObject RebornScript;
 
   private List<GameObject> _users = new List<GameObject>();
   public string Name = string.Empty;
@@ -55,6 +56,8 @@ public class NewBehaviourScript : MonoBehaviour
   private bool _refreshSpells = false;
   private bool _oponentQuit = false;
   private bool _refreshEndGame = false;
+
+  private int _closeRoomId;
 
   private GameObject _userCreator;
   private GameObject _opponent;
@@ -91,6 +94,7 @@ public class NewBehaviourScript : MonoBehaviour
     StartSignalR();
     OpenForm(Form.StartForm);
     GameForm.GetComponent<GameForm>().ActionFinishGameDelegate += FinishGame;
+    RebornScript.GetComponent<RebornScript>().ActionDelegate += Reborn;
     InitializeMagic();
   }
   private void InitializeMagic()
@@ -121,7 +125,7 @@ public class NewBehaviourScript : MonoBehaviour
       _hubProxy.On<RoomUpdateDto>("refreshRoomIds", RefreshRoom);
       _hubProxy.On<List<UserDto>>("startGameFrom", StartGameFrom);
       _hubProxy.On<SpellDto>("refreshSpells", RefreshSpells);
-      _hubProxy.On("endGameForm", EndGameForm);
+      _hubProxy.On<int>("endGameForm", EndGameForm);
 
       _hubProxy.On("quit", OponentQuit);
 
@@ -137,6 +141,11 @@ public class NewBehaviourScript : MonoBehaviour
     {
       Debug.Log("Signalr  already connected...");
     }
+  }
+
+  private void Reborn()
+  {
+    OpenForm(Form.StartForm);
   }
 
   private void OponentQuit()
@@ -166,8 +175,9 @@ public class NewBehaviourScript : MonoBehaviour
     _refreshSpells = true;
   }
 
-  private void EndGameForm()
+  private void EndGameForm(int roomId)
   {
+    _closeRoomId = roomId;
     _refreshEndGame = true;
   }
 
@@ -267,6 +277,7 @@ public class NewBehaviourScript : MonoBehaviour
   public void UpdateCapsul(string capsulaName)
   {
     var user = GameContext.Instance.Users.Find(item => item.Name == capsulaName);
+
     _hubProxy.Invoke("update", user);
   }
   
@@ -316,7 +327,8 @@ public class NewBehaviourScript : MonoBehaviour
 
   private void FinishGame()
   {
-    _hubProxy.Invoke("endGame");
+    var roomId = GameContext.Instance.Users.Find(x => x.Name == Name).RoomId;
+    _hubProxy.Invoke("endGame", roomId);
     Debug.Log("End Game;\n");
   }
 
@@ -392,6 +404,11 @@ public class NewBehaviourScript : MonoBehaviour
 
     if (_refreshEndGame)
     {
+      if (_closeRoomId != null)
+      {
+        GameContext.Instance.Users.RemoveAll(x => x.RoomId == _closeRoomId);
+        GameContext.Instance.Rooms.Remove(_closeRoomId);
+      }
       ShowEndGame();
       _refreshEndGame = false;
     }

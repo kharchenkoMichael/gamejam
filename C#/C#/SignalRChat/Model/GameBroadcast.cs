@@ -19,6 +19,8 @@ namespace SignalRChat.Model
     private bool _startGame;
     private bool _endGame;
 
+    private int _closeRoomId;
+
     public GameBroadcast()
     {
       _hubContext = GlobalHost.ConnectionManager.GetHubContext<MyHub>();
@@ -65,7 +67,7 @@ namespace SignalRChat.Model
 
       if (_endGame)
       {
-        _hubContext.Clients.All.endGameForm();
+        _hubContext.Clients.All.endGameForm(_closeRoomId);
         _endGame = false;
       }
     }
@@ -90,8 +92,9 @@ namespace SignalRChat.Model
       _startGame = true;
     }
 
-    public void EndGame()
+    public void EndGame(int closeRoomId)
     {
+      _closeRoomId = closeRoomId;
       _endGame = true;
     }
 
