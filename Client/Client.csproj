@@ -137,6 +137,7 @@
     <Compile Include="Assets\Scripts\Model\MagicFolder\MagicType.cs" />
     <Compile Include="Assets\Scripts\Model\Spells\FireBall.cs" />
     <Compile Include="Assets\Scripts\Model\Spells\IceBoltPosteffect.cs" />
+    <Compile Include="Assets\Scripts\Model\Spells\InvisiblePostEffect.cs" />
     <Compile Include="Assets\Scripts\Model\Spells\ISpellPosteffect.cs" />
     <Compile Include="Assets\Scripts\Model\Spells\Lightning.cs" />
     <Compile Include="Assets\Scripts\Model\Spells\MagicAmbrellaPosteffect.cs" />

@@ -29,6 +29,10 @@ namespace Assets.Scripts.Model.Spells
           {
             return new IceBoltPosteffect();
           }
+        case MagicType.TurnIntoWater:
+          {
+            return new TurnIntoWaterPostEffect();
+          }
         default: return null;
       }
     }
