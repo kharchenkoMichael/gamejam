@@ -40,13 +40,13 @@ namespace Assets.Scripts.BehaviorScripts
       //todo: если есть защита то проводить действия иначе вычесть жизни
       var effects = User.Posteffects;
 
-      if (HasEffect(effects,MagicType.TurnIntoWater))
+      if (HasEffect(effects, MagicType.TurnIntoWater))
       {
         if (spellType == MagicType.Lightning || spellType == MagicType.IceBolt)
           damage *= 2;
       }
 
-      if(HasEffect(effects, MagicType.Invisible))
+      if (HasEffect(effects, MagicType.Invisible))
       {
         if (spellType == MagicType.Lightning || spellType == MagicType.Stonefall)
           damage = 0;
@@ -75,11 +75,39 @@ namespace Assets.Scripts.BehaviorScripts
 
     private void CreateSpellInstance(SpellDto dto)
     {
-      var spellObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+      GameObject spellObject;
       switch (dto.SpellType)
       {
+        case MagicType.Lightning:
+          {
+            spellObject = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+            var behavior = spellObject.AddComponent<SimpleSpellBehaviorScript>();
+            behavior.Target = Enemy;
+            spellObject.transform.position = transform.position;
+            break;
+          }
+        case MagicType.Stonefall:
+          {
+            spellObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            var behavior = spellObject.AddComponent<SimpleSpellBehaviorScript>();
+            behavior.Target = Enemy;
+            //spellObject.transform.position = transform.position;
+            spellObject.transform.position = new Vector3(transform.position.x,
+                                                          transform.position.y + 10,
+                                                          transform.position.z);
+            break;
+          }
         case MagicType.Fireball:
           {
+            spellObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            var behavior = spellObject.AddComponent<SimpleSpellBehaviorScript>();
+            behavior.Target = Enemy;
+            spellObject.transform.position = transform.position;
+            break;
+          }
+        case MagicType.IceBolt:
+          {
+            spellObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             var behavior = spellObject.AddComponent<SimpleSpellBehaviorScript>();
             behavior.Target = Enemy;
             spellObject.transform.position = transform.position;
@@ -87,5 +115,6 @@ namespace Assets.Scripts.BehaviorScripts
           }
       }
     }
+    
   }
 }
