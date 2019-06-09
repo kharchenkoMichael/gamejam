@@ -40,12 +40,14 @@ namespace SignalRChat.Model
         _roomIdsUpdated = false;
       }
 
-      if(_spellsCastUpdate)
+      if (_spellsCastUpdate)
       {
         var allSpells = GameContext.Instance.GetAllSpells();
-        foreach(var spell in allSpells)
+        for (int i = allSpells.Count - 1; i >= 0; i--)
         {
+          var spell = allSpells[i];
           var owner = GameContext.Instance.Users.Where(u => u.Name == spell.OwnerName).FirstOrDefault();
+
           if (owner == null) continue;
           //_hubContext.Clients.AllExcept(owner.Id).refreshSpells(spell);
           _hubContext.Clients.All.refreshSpells(spell);
@@ -65,7 +67,7 @@ namespace SignalRChat.Model
     {
       _userUpdeted = true;
     }
-    
+
     public void UpdateRooms()
     {
       _roomIdsUpdated = true;

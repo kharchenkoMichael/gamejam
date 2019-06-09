@@ -36,5 +36,10 @@ namespace Model.Dto
       this.Position = user.Position;
     }
 
+    public void Attack(int Damage)
+    {
+
+    }
+
   }
 }
