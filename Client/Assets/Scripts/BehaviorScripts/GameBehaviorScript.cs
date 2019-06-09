@@ -135,7 +135,7 @@ namespace Assets.Scripts.BehaviorScripts
 
     private void CreateSelfEffectObjectInstance(SpellDto dto)
     {
-      GameObject selfEffectObject];
+      GameObject selfEffectObject;
       switch (dto.SpellType)
       {
         case MagicType.Lightning:
