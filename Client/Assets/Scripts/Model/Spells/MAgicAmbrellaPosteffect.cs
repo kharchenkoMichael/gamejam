@@ -10,7 +10,10 @@ namespace Assets.Scripts.Model.Spells
 {
   public class MagicAmbrellaPosteffect : ISpellPosteffect
   {
-    public MagicType Type { get { return MagicType.MagicUmbrella} }
+    public MagicType Type
+    {
+      get { return MagicType.MagicUmbrella; }
+    }
 
     private double _timer;
 
