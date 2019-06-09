@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using Model.Dto;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class CapsulScript : MonoBehaviour
 {
 	public NewBehaviourScript SignalR;
@@ -11,14 +13,29 @@ public class CapsulScript : MonoBehaviour
 	public string Name = string.Empty;
   public CharacterController Controller;
 
+	private Animator _animator;
+	private int _spellHash;
+
 	public void SetName(string name, NewBehaviourScript signalR)
 	{
 	  SignalR = signalR;
 		Name = name;
 	}
 
+	public void PlaySpell()
+	{
+		_animator.SetTrigger(_spellHash);
+	}
+
+	private void OnEnable()
+	{
+		_animator = gameObject.GetComponent<Animator>();
+		_spellHash = Animator.StringToHash("Spell");
+	}
+	
+
 	// Update is called once per frame
-	void Update()
+	private void Update()
 	{
 		if (SignalR == null || SignalR._name != Name)
 			return;
