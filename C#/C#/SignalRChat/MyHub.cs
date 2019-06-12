@@ -115,5 +115,12 @@ namespace SignalRChat
       }
       GameBroadcast.Instance.StartGame();
     }
+
+    public void EndGame(int roomId)
+    {
+      GameContext.Instance.Rooms.Remove(roomId);
+      GameContext.Instance.Users.RemoveAll(x => x.RoomId == roomId);
+      GameBroadcast.Instance.EndGame(roomId);
+    }
   }
 }

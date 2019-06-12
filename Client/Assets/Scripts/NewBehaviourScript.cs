@@ -17,7 +17,9 @@ public enum Form
   LoadingForm,
   StartForm,
   RoomForm,
-  Game
+  Game,
+  Win,
+  Lose,
 }
 
 public class NewBehaviourScript : MonoBehaviour
@@ -33,12 +35,17 @@ public class NewBehaviourScript : MonoBehaviour
   public GameObject StartForm;
   public GameObject RoomForm;
   public GameObject GameForm;
+  public GameObject WinForm;
+  public GameObject LoseForm;
+
   public GameObject MagicContainer;
   public GameObject[] Rooms;
 
   public GameObject StartButton;
   public GameObject CastMagicSpellA;
   public GameObject CastMagicSpellB;
+  public GameObject WinRebornScript;
+  public GameObject LooseRebornScript;
 
   private List<GameObject> _users = new List<GameObject>();
   public string Name = string.Empty;
@@ -49,6 +56,9 @@ public class NewBehaviourScript : MonoBehaviour
   private bool _createRoom = false;
   private bool _refreshSpells = false;
   private bool _oponentQuit = false;
+  private bool _refreshEndGame = false;
+
+  private int _closeRoomId;
 
   private GameObject _userCreator;
   private GameObject _opponent;
@@ -70,6 +80,8 @@ public class NewBehaviourScript : MonoBehaviour
     Forms[(int)Form.StartForm] = StartForm;
     Forms[(int)Form.RoomForm] = RoomForm;
     Forms[(int)Form.Game] = GameForm;
+    Forms[(int)Form.Win] = WinForm;
+    Forms[(int)Form.Lose] = LoseForm;
   }
   // Use this for initialization
   IEnumerator Start()
@@ -82,6 +94,9 @@ public class NewBehaviourScript : MonoBehaviour
     Debug.Log("Start() 1 second.");
     StartSignalR();
     OpenForm(Form.StartForm);
+    GameForm.GetComponent<GameForm>().ActionFinishGameDelegate += FinishGame;
+    WinRebornScript.GetComponent<RebornScript>().ActionDelegate += Reborn;
+    LooseRebornScript.GetComponent<RebornScript>().ActionDelegate += Reborn;
     InitializeMagic();
   }
   private void InitializeMagic()
@@ -112,6 +127,7 @@ public class NewBehaviourScript : MonoBehaviour
       _hubProxy.On<RoomUpdateDto>("refreshRoomIds", RefreshRoom);
       _hubProxy.On<List<UserDto>>("startGameFrom", StartGameFrom);
       _hubProxy.On<SpellDto>("refreshSpells", RefreshSpells);
+      _hubProxy.On<int>("endGameForm", EndGameForm);
 
       _hubProxy.On("quit", OponentQuit);
 
@@ -127,6 +143,11 @@ public class NewBehaviourScript : MonoBehaviour
     {
       Debug.Log("Signalr  already connected...");
     }
+  }
+
+  private void Reborn()
+  {
+    OpenForm(Form.StartForm);
   }
 
   private void OponentQuit()
@@ -154,6 +175,12 @@ public class NewBehaviourScript : MonoBehaviour
   {
     GameContext.Instance.Spell = dto;
     _refreshSpells = true;
+  }
+
+  private void EndGameForm(int roomId)
+  {
+    _closeRoomId = roomId;
+    _refreshEndGame = true;
   }
 
   private void StartGameFrom(List<UserDto> users)
@@ -298,6 +325,13 @@ public class NewBehaviourScript : MonoBehaviour
     Debug.Log("Start Game;\n");
   }
 
+  private void FinishGame()
+  {
+    var roomId = GameContext.Instance.Users.Find(x => x.Name == Name).RoomId;
+    _hubProxy.Invoke("endGame", roomId);
+    Debug.Log("End Game;\n");
+  }
+
   private void CastMagic(SpellDto spell)
   {
     _hubProxy.Invoke("castMagic", spell);
@@ -366,6 +400,30 @@ public class NewBehaviourScript : MonoBehaviour
       OpenForm(Form.StartForm);
       OpenPopup("ваш противник вышел из игры");
       _oponentQuit = false;
+    }
+
+    if (_refreshEndGame)
+    {
+      if (_closeRoomId != null)
+      {
+        GameContext.Instance.Users.RemoveAll(x => x.RoomId == _closeRoomId);
+        GameContext.Instance.Rooms.Remove(_closeRoomId);
+      }
+      ShowEndGame();
+      _refreshEndGame = false;
+    }
+  }
+
+  private void ShowEndGame()
+  {
+    var hp = GameForm.GetComponent<GameForm>().Hp.value;
+    if (hp <= 0)
+    {
+      Forms[(int)Form.Lose].SetActive(true);
+    }
+    else
+    {
+      Forms[(int)Form.Win].SetActive(true);
     }
   }
 
