@@ -25,12 +25,17 @@ namespace Assets.Scripts.BehaviorScripts
 
     void Update()
     {
-      var user = GameContext.Instance.Users.Find(item => item.Name == UserName);
+      var user = GameContext.Instance.Users.FirstOrDefault(item => item.Name == UserName);
+      if (user == null)
+        return;
+      
       for (int i = user.Posteffects.Count - 1; i >= 0; i--)
       {
         var posteffect = user.Posteffects[i];
         posteffect.Update(user, Time.deltaTime);
       }
+      
+      SignalR.UpdateCapsul(user);
     }
      
     public void Spell(SpellDto dto)
@@ -46,13 +51,16 @@ namespace Assets.Scripts.BehaviorScripts
       CreateSpellInstance(dto);
       var posteffect = PosteffectBuilder.GetPosteffect(dto.SpellType);
       user.Posteffects.Add(posteffect);
-      CreateSelfEffectObjectInstance(dto);
+      //CreateSelfEffectObjectInstance(dto);
 
     }
 
     public void Attack(MagicType spellType, int damage)
     {
-      var user = GameContext.Instance.Users.Find(item => item.Name == UserName);
+      var user = GameContext.Instance.Users.FirstOrDefault(item => item.Name == UserName);
+      if (user == null)
+        return;
+      
       //todo: если есть защита то проводить действия иначе вычесть жизни
       var effects = user.Posteffects;
 
@@ -84,7 +92,7 @@ namespace Assets.Scripts.BehaviorScripts
       }
 
       user.Hp -= damage;
-      SignalR.UpdateCapsul(name);
+      SignalR.UpdateCapsul(user);
     }
 
     private bool HasEffect(List<ISpellPosteffect> effects, MagicType type)
@@ -100,17 +108,19 @@ namespace Assets.Scripts.BehaviorScripts
       {
         case MagicType.Lightning:
           {
-            spellObject = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+            spellObject = Instantiate(SignalR.ParticlePrefab[(int) MagicType.Lightning]);
             var behavior = spellObject.AddComponent<SimpleSpellBehaviorScript>();
             behavior.Target = Enemy;
+            behavior.Damage = 15;
             spellObject.transform.position = transform.position;
             break;
           }
         case MagicType.Stonefall:
           {
-            spellObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            spellObject = Instantiate(SignalR.ParticlePrefab[(int) MagicType.Stonefall]);
             var behavior = spellObject.AddComponent<SimpleSpellBehaviorScript>();
             behavior.Target = Enemy;
+            behavior.Damage = 20;
             //spellObject.transform.position = transform.position;
             spellObject.transform.position = new Vector3(transform.position.x,
                                                           transform.position.y + 10,
@@ -119,17 +129,19 @@ namespace Assets.Scripts.BehaviorScripts
           }
         case MagicType.Fireball:
           {
-            spellObject = Instantiate(SignalR.ParticlePrefab);
+            spellObject = Instantiate(SignalR.ParticlePrefab[(int) MagicType.Fireball]);
             var behavior = spellObject.AddComponent<SimpleSpellBehaviorScript>();
             behavior.Target = Enemy;
-            spellObject.transform.position = transform.position;
+            behavior.Damage = 10;
+            spellObject.transform.position = new Vector3(transform.position.x, 1.5f, transform.position.z);
             break;
           }
         case MagicType.IceBolt:
           {
-            spellObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            spellObject = Instantiate(SignalR.ParticlePrefab[(int) MagicType.IceBolt]);
             var behavior = spellObject.AddComponent<SimpleSpellBehaviorScript>();
             behavior.Target = Enemy;
+            behavior.Damage = 10;
             spellObject.transform.position = transform.position;
             spellObject.transform.position = new Vector3(spellObject.transform.position.x, spellObject.transform.position.y + 2, spellObject.transform.position.z);
             break;

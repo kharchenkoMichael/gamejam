@@ -53,7 +53,7 @@ public class CapsulScript : MonoBehaviour
 
 		var user = GameContext.Instance.Users.Find(item => item.Name == Name);
 		user.Position.Update(transform.position);
-    SignalR.UpdateCapsul(Name);
+    SignalR.UpdateCapsul(user);
 	}
 
   public void SetByUser(UserDto user)

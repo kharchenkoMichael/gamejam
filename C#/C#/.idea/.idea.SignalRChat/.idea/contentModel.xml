@@ -10,6 +10,7 @@
         <e p="Model" t="Include">
           <e p="Dto" t="Include">
             <e p="RoomUpdateDto.cs" t="Include" />
+            <e p="SpellDto.cs" t="Include" />
             <e p="UserDto.cs" t="Include" />
           </e>
           <e p="GameBroadcast.cs" t="Include" />
@@ -20,6 +21,14 @@
           </e>
           <e p="Position.cs" t="Include" />
           <e p="Room.cs" t="Include" />
+          <e p="Spells" t="Include">
+            <e p="FireBall.cs" t="Include" />
+            <e p="IceBoltPosteffect.cs" t="Include" />
+            <e p="ISpellPosteffect.cs" t="Include" />
+            <e p="Lightning.cs" t="Include" />
+            <e p="MAgicAmbrellaPosteffect.cs" t="Include" />
+            <e p="StonefallPosteffect.cs" t="Include" />
+          </e>
         </e>
         <e p="MyHub.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive" />

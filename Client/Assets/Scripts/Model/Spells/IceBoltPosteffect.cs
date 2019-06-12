@@ -23,9 +23,9 @@ namespace Assets.Scripts.Model.Spells
     {
       isActive = true;
 
-      _spellButtons = GameObject.FindGameObjectsWithTag("SpellButton");
-      foreach (var button in _spellButtons)
-        button.SetActive(false);
+      //_spellButtons = GameObject.FindGameObjectsWithTag("Fire");
+      //foreach (var button in _spellButtons)
+      //  button.SetActive(false);
     }
 
     public void Update(UserDto user, double deltaTimeSec)
@@ -33,8 +33,8 @@ namespace Assets.Scripts.Model.Spells
       _timer -= deltaTimeSec;
       if(_timer <= 0)
       {
-        foreach (var button in _spellButtons)
-          button.SetActive(true);
+        /*foreach (var button in _spellButtons)
+          button.SetActive(true);*/
         user.Posteffects.Remove(this);
       }
     }

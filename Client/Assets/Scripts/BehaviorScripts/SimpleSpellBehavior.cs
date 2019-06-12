@@ -19,10 +19,10 @@ namespace Assets.Scripts.BehaviorScripts
 
     void Update()
     {
-      transform.LookAt(Target.transform);
+      transform.LookAt(new Vector3(Target.transform.position.x, Target.transform.position.y + 1.5f,Target.transform.position.z));
       transform.position += transform.forward * _speed;
 
-      if(Vector3.Distance(transform.position, Target.transform.position) < 0.6)
+      if(Vector3.Distance(transform.position, Target.transform.position) < 2)
       {
         var behaviorScript = Target.GetComponent<GameBehaviorScript>();
         behaviorScript.Attack(Type, Damage);

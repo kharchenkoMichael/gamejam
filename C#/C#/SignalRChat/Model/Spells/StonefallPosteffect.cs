@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SignalRChat.Model.Dto;
+﻿using SignalRChat.Model.Dto;
 using SignalRChat.Model.MagicFolders;
 
-namespace Assets.Scripts.Model.Spells
+namespace SignalRChat.Model.Spells
 {
   public class StonefallPosteffect : ISpellPosteffect
   {

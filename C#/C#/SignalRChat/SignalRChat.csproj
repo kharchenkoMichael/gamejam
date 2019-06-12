@@ -120,6 +120,12 @@
     <Compile Include="Model\Position.cs" />
     <Compile Include="Model\Dto\UserDto.cs" />
     <Compile Include="Model\Room.cs" />
+    <Compile Include="Model\Spells\FireBall.cs" />
+    <Compile Include="Model\Spells\IceBoltPosteffect.cs" />
+    <Compile Include="Model\Spells\ISpellPosteffect.cs" />
+    <Compile Include="Model\Spells\Lightning.cs" />
+    <Compile Include="Model\Spells\MAgicAmbrellaPosteffect.cs" />
+    <Compile Include="Model\Spells\StonefallPosteffect.cs" />
     <Compile Include="MyHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

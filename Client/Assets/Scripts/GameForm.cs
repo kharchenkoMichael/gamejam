@@ -1,5 +1,6 @@
 ﻿using Model;
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +18,10 @@ public class GameForm : MonoBehaviour
     if (string.IsNullOrEmpty(SignalR.Name))
       return;
 
-    var user = GameContext.Instance.Users.Find(item => item.Name == SignalR.Name);
+    var user = GameContext.Instance.Users.FirstOrDefault(item => item.Name == SignalR.Name);
+    if (user == null)
+      return;
+    
     Mana.value = user.Mana;
     Hp.value = user.Hp;
 

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SignalRChat.Model.Dto;
+﻿using SignalRChat.Model.Dto;
 using SignalRChat.Model.MagicFolders;
+using SignalRChat.Model.Spells;
 
-namespace Assets.Scripts.Model.Spells
+namespace Scripts.Model.Spells
 {
   public class IceBoltPosteffect : ISpellPosteffect
   {

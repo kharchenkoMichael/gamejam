@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.ExceptionServices;
-using Assets.Scripts.Model.Spells;
-using SignalRChat.Model.MagicFolders;
+using SignalRChat.Model.Spells;
 
 namespace SignalRChat.Model.Dto
 {  

@@ -3,14 +3,113 @@
   <component name="ContentModelStore">
     <e p="C:\Users\m.kharchenko\.Rider2018.1\system\resharper-host\local\Transient\ReSharperHost\v12\SolutionCaches\_Client.1176432811.00" t="ExcludeRecursive" />
     <e p="C:\Users\m.kharchenko\Documents\GitHub\gamejam\Client" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets\Effects" t="Include">
+        <e p="PinwheelFantasyEffect" t="Include">
+          <e p="README.txt" t="Include" />
+          <e p="Script" t="Include">
+            <e p="DemoManager.cs" t="Include" />
+            <e p="Editor" t="Include">
+              <e p="CompileLogger.cs" t="Include" />
+            </e>
+            <e p="FairyDustRandomPosition.cs" t="Include" />
+            <e p="FairyMeteorAddForceDemo.cs" t="Include" />
+            <e p="FireBall.cs" t="Include" />
+            <e p="Spin.cs" t="Include" />
+            <e p="Test.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="Assets\Materials" t="Include">
+        <e p="Starfield Skybox" t="Include">
+          <e p="Demo" t="Include">
+            <e p="Script" t="Include">
+              <e p="LookCamera.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="Assets\Model" t="Include">
+        <e p="Castlear Creation" t="Include">
+          <e p="Natura" t="Include">
+            <e p="README.txt" t="Include" />
+          </e>
+        </e>
+        <e p="Prefabs" t="Include">
+          <e p="Flying_Tree" t="Include">
+            <e p="Materials" t="Include">
+              <e p="Leafs.shader" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="Assets\Plugins" t="Include">
+        <e p="LeoLuz" t="Include">
+          <e p="Virtual Plug and Play Joystick" t="Include">
+            <e p="Dependencies" t="Include">
+              <e p="ExtensionMethods" t="Include">
+                <e p="CanvasExtension.cs" t="Include" />
+                <e p="SerializedPropertyExtentions.cs" t="Include" />
+                <e p="UIExtentionMethods.cs" t="Include" />
+              </e>
+              <e p="PropertyAttributes" t="Include">
+                <e p="HideIf.cs" t="Include" />
+                <e p="InputAxisListDropdownAttribute.cs" t="Include" />
+                <e p="LargeHeader.cs" t="Include" />
+                <e p="ReadOnly.cs" t="Include" />
+              </e>
+              <e p="Utilities" t="Include">
+                <e p="InputUtility.cs" t="Include" />
+              </e>
+            </e>
+            <e p="Samples" t="Include">
+              <e p="Scripts" t="Include">
+                <e p="Projectile.cs" t="Include" />
+                <e p="SimpleController.cs" t="Include" />
+              </e>
+            </e>
+            <e p="Scripts" t="Include">
+              <e p="AnalogicKnob.cs" t="Include" />
+              <e p="ButtonBase.cs" t="Include" />
+              <e p="CanvasExtensionMethod.cs" t="Include" />
+              <e p="DisableOnOrientation.cs" t="Include" />
+              <e p="Editor" t="Include">
+                <e p="AnalogicKnobEditor.cs" t="Include" />
+                <e p="MakeVirtualJoystick.cs" t="Include" />
+                <e p="TriggerBoxHandler.cs" t="Include" />
+                <e p="TriggerBoxHandlerSample.cs" t="Include" />
+                <e p="TriggerBoxHandlerSampleEditor.cs" t="Include" />
+              </e>
+              <e p="Input.cs" t="Include" />
+              <e p="Swipe.cs" t="Include" />
+              <e p="UIButtonToAxis.cs" t="Include" />
+              <e p="UIButtonToButton.cs" t="Include" />
+              <e p="vardump.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="Assets\read me.txt" t="Include" />
       <e p="Assets\Scripts" t="Include">
+        <e p="AlertScript.cs" t="Include" />
+        <e p="BehaviorScripts" t="Include">
+          <e p="GameBehaviorScript.cs" t="Include" />
+          <e p="Projectile.cs" t="Include" />
+          <e p="SimpleSpellBehavior.cs" t="Include" />
+        </e>
         <e p="CapsulScript.cs" t="Include" />
+        <e p="ChoosedAbility.cs" t="Include" />
+        <e p="GameForm.cs" t="Include" />
+        <e p="MagicCastScript.cs" t="Include" />
         <e p="MagicContainerScript.cs" t="Include" />
         <e p="MagicScript.cs" t="Include" />
         <e p="Model" t="Include">
           <e p="Dto" t="Include">
             <e p="RoomUpdateDto.cs" t="Include" />
+            <e p="SpellDto.cs" t="Include" />
             <e p="UserDto.cs" t="Include" />
           </e>
           <e p="Entities" t="Include">
@@ -21,14 +120,30 @@
           <e p="MagicFolder" t="Include">
             <e p="Magic.cs" t="Include" />
             <e p="MagicManager.cs" t="Include" />
+            <e p="MagicSprites.cs" t="Include" />
             <e p="MagicType.cs" t="Include" />
+          </e>
+          <e p="Spells" t="Include">
+            <e p="FireBall.cs" t="Include" />
+            <e p="IceBoltPosteffect.cs" t="Include" />
+            <e p="InvisiblePOstEffect.cs" t="Include" />
+            <e p="ISpellPosteffect.cs" t="Include" />
+            <e p="Lightning.cs" t="Include" />
+            <e p="MAgicAmbrellaPosteffect.cs" t="Include" />
+            <e p="PosteffectBuilder.cs" t="Include" />
+            <e p="StonefallPosteffect.cs" t="Include" />
+            <e p="TurnIntoWaterPostEffect.cs" t="Include" />
           </e>
         </e>
         <e p="MoveSliderScript.cs" t="Include" />
         <e p="NewBehaviourScript.cs" t="Include" />
+        <e p="PlayerScript.cs" t="Include" />
+        <e p="RebornScript.cs" t="Include" />
         <e p="RoomFormScript.cs" t="Include" />
         <e p="RoomScript.cs" t="Include" />
+        <e p="SetAbilities.cs" t="Include" />
         <e p="StartFormScript.cs" t="Include" />
+        <e p="StartGameScript.cs" t="Include" />
       </e>
       <e p="Client.sln" t="IncludeFlat" />
       <e p="Library" t="ExcludeRecursive" />
